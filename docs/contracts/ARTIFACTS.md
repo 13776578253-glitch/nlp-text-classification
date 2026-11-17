@@ -14,7 +14,7 @@
 | `checkpoint/` | 获选模型，标签、预处理和词表指纹，以及中断恢复所需的模型、优化器、调度、epoch 和 RNG 检查点 |
 | `thresholds.json`、`metrics_validation.json`、`predictions_validation.jsonl` | 分数类型、标签顺序、候选阈值及选择记录。逐行保存样本 ID、真实标签、全精度分数及离散预测。 |
 | `quality.json`、`result.json` | 质量检查报告及输入/重算证据，PASS、FAIL、PRUNED 或 INCOMPLETE、退出码、耗时、停止原因和恢复来源 |
-| `metrics_test.json`、`predictions_test.jsonl` | 进入正式冻结清单的 Run 才有此输出，与冻结版本和评估器绑定 |
+| `test/metrics_test.json`、`test/predictions_test.jsonl` | 进入正式冻结清单的 Run 才有此输出，由 `test/evaluation_manifest.json` 绑定冻结版本和评估器 |
 
 ## 批次与 Optuna
 

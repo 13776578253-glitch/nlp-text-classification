@@ -34,6 +34,11 @@ def main() -> None:
     pred = command.add_parser("predict", help="Infer using an E1 trained run")
     pred.add_argument("--run-dir", required=True)
     pred.add_argument("--text", required=True)
+    batch = command.add_parser("batch-a", help="Run Batch A with logged progress")
+    batch.add_argument("mode", choices=("smoke", "run", "audit", "final-test", "report", "status"))
+    batch.add_argument("--suite", type=Path, default=Path("configs/experiment_suites/batch_a.yaml"))
+    batch.add_argument("--output", type=Path, default=Path("artifacts/batch-a"))
+    batch.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
     args = parser.parse_args()
     if args.command == "download":
         from nlp_text_classification.data.download import download_official
@@ -61,6 +66,10 @@ def main() -> None:
                         max_features=args.max_features,
                         min_df=args.min_df)
         result = {"run_dir": str(run_dir)}
+    elif args.command == "batch-a":
+        from nlp_text_classification.experiments.batch_cli import batch_command
+
+        result = batch_command(args.mode, args.suite, args.output, args.device)
     else:
         from nlp_text_classification.experiments.e1_svm import predict
         result = predict(args.run_dir, [args.text])[0]

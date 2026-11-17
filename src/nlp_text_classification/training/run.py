@@ -16,6 +16,17 @@ def git_commit() -> str | None:
         return None
 
 
+def git_dirty() -> bool | None:
+    try:
+        status = subprocess.check_output(
+            ["git", "--no-optional-locks", "status", "--porcelain"],
+            stderr=subprocess.DEVNULL, text=True,
+        )
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        return None
+    return bool(status.strip())
+
+
 def write_json(path: str | Path, payload: dict) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
