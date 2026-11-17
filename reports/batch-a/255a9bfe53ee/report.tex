@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage[margin=24mm]{geometry}
+\begin{document}
+\title{EmotionLab: Batch A V2}
+\maketitle
+\section{Protocol}
+The two datasets were audited and treated as separate tasks. Validation Macro-F1 governed model, checkpoint, and threshold selection. The test sets were evaluated after run identity and model artifacts were frozen.
+\subsection{Traceability}
+Freeze: \texttt{255a9bfe53eea86f}.
+
+\section{goemotions}
+
+\begin{tabular}{lrr}
+Model & Validation Macro-F1 & Test Macro-F1 \\
+\hline
+E1 & 0.4778 & 0.4616 \\
+E2 & 0.3938 & 0.3847 \\
+E3-RNN & 0.1976 & 0.2071 \\
+E3-LSTM & 0.3180 & 0.3116 \\
+E3-BiLSTM & 0.3882 & 0.3815 \\
+E5-TUNE & 0.3949 & 0.3841 \\
+E5-FROZEN & 0.2698 & 0.2569 \\
+\end{tabular}
+
+\section{movie\_reviews\_zh}
+
+\begin{tabular}{lrr}
+Model & Validation Macro-F1 & Test Macro-F1 \\
+\hline
+E1 & 0.8581 & 0.8371 \\
+E2 & 0.8294 & 0.8075 \\
+E3-RNN & 0.8281 & 0.8202 \\
+E3-LSTM & 0.8348 & 0.8453 \\
+E3-BiLSTM & 0.8346 & 0.8313 \\
+E5-TUNE & 0.8349 & 0.8428 \\
+E5-FROZEN & 0.7879 & 0.7739 \\
+\end{tabular}
+
+\section{Embedding ablation}
+The random condition reuses E2. Both pretrained conditions use identical non-embedding initialization and E2 hyperparameters. The frozen condition was verified by comparing the embedding bytes before and after training.
+\section{Independent replications}
+\begin{tabular}{llrr}
+Dataset & Model & n & Test Macro-F1 (mean and SD) \\
+\hline
+goemotions & E1 & 3 & 0.4616 $\pm$ 0.0000 \\
+goemotions & E2 & 3 & 0.3837 $\pm$ 0.0008 \\
+goemotions & E3-BiLSTM & 3 & 0.3702 $\pm$ 0.0143 \\
+goemotions & E5-FROZEN & 3 & 0.2647 $\pm$ 0.0080 \\
+goemotions & E5-TUNE & 3 & 0.3763 $\pm$ 0.0076 \\
+movie\_reviews\_zh & E1 & 3 & 0.8371 $\pm$ 0.0000 \\
+movie\_reviews\_zh & E2 & 3 & 0.8317 $\pm$ 0.0210 \\
+movie\_reviews\_zh & E3-LSTM & 3 & 0.8345 $\pm$ 0.0097 \\
+movie\_reviews\_zh & E5-FROZEN & 3 & 0.7918 $\pm$ 0.0155 \\
+movie\_reviews\_zh & E5-TUNE & 3 & 0.8427 $\pm$ 0.0027 \\
+\end{tabular}
+\section{Paired Bootstrap on Chinese reviews}
+\begin{tabular}{llrr}
+A & B & Difference & 95\% CI \\
+\hline
+E2 & E1 & -0.0296 & [-0.0624, 0.0028] \\
+E3-LSTM & E2 & 0.0378 & [0.0053, 0.0705] \\
+E5-TUNE & E2 & 0.0353 & [0.0027, 0.0705] \\
+E5-FROZEN & E2 & -0.0336 & [-0.0787, 0.0126] \\
+E5-TUNE & E5-FROZEN & 0.0689 & [0.0300, 0.1093] \\
+\end{tabular}
+
+See the generated Markdown companion for trial parameters, per-class metrics, convergence plots, and evidence paths.
+\end{document}

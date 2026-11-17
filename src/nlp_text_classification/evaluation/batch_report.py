@@ -98,7 +98,8 @@ def _curve(run, target, label):
         points = list(csv.DictReader(stream))
     fig, scores = plt.subplots(figsize=(6, 3))
     x = [int(row["epoch"]) for row in points]
-    scores.plot(x, [float(row["val_macro_f1"]) for row in points], label="Validation Macro-F1")
+    scores.plot(x, [float(row["val_macro_f1"]) for row in points],
+                marker="o" if len(x) == 1 else None, label="Validation Macro-F1")
     if points and "loss" in points[0]:
         loss = scores.twinx()
         loss.plot(x, [float(row["loss"]) for row in points], color="darkorange",
@@ -142,10 +143,11 @@ def _append_replications(lines, frozen, digest):
         values = np.array(list(seeds.values()))
         val_mean, test_mean = values.mean(0)
         val_sd, test_sd = values.std(0, ddof=1)
-        individual = ", ".join(f"{seed}: {seeds[seed][1]:.4f}" for seed in ("42", "123", "2026"))
-        rows.append((dataset, experiment, individual, len(seeds), f"{val_mean:.4f} ± {val_sd:.4f}",
-                     f"{test_mean:.4f} ± {test_sd:.4f}"))
-    lines.extend(_table(["Dataset", "Model", "Test Macro-F1 by seed", "n",
+        val_by_seed = ", ".join(f"{seed}: {seeds[seed][0]:.4f}" for seed in ("42", "123", "2026"))
+        test_by_seed = ", ".join(f"{seed}: {seeds[seed][1]:.4f}" for seed in ("42", "123", "2026"))
+        rows.append((dataset, experiment, val_by_seed, test_by_seed, len(seeds),
+                     f"{val_mean:.4f} ± {val_sd:.4f}", f"{test_mean:.4f} ± {test_sd:.4f}"))
+    lines.extend(_table(["Dataset", "Model", "Validation Macro-F1 by seed", "Test Macro-F1 by seed", "n",
                          "Validation mean ± SD", "Test mean ± SD"], rows))
     if frozen["optional_replications"]:
         optional = []
@@ -158,7 +160,7 @@ def _append_replications(lines, frozen, digest):
     return rows
 
 
-def _append_intervals(lines, models, config, dataset_specs):
+def _append_intervals(lines, models, config, manifest):
     bootstrap = config["bootstrap"]
     chinese = models["movie_reviews_zh"]
     order = config["replication"]["select_best_of_per_dataset"]
@@ -179,28 +181,31 @@ def _append_intervals(lines, models, config, dataset_specs):
     lines.extend(["## Chinese paired Bootstrap", "",
                   f"{bootstrap['n_resamples']:,} label-stratified paired resamples.", ""])
     lines.extend(_table(["Model A", "Model B", "Macro-F1 A − B", "95% percentile CI", "n"], intervals))
-    root = Path(dataset_specs["goemotions"]["frozen_root"])
-    manifest = read_json(root / "dataset_manifest.json")
     labels = manifest["label_names"]
     support = manifest["derived_summary"]["label_counts"]["train"]
     conditions = bootstrap["goemotions"]
+    rare_labels = {i for i in range(len(labels)) if (
+        support[str(i)] < conditions["rare_label_train_support_below"]
+    )}
     rare = []
     low_support = sorted(range(len(labels)), key=lambda index: support[str(index)])[:5]
     for experiment, item in models["goemotions"].items():
-        for index in sorted(set(low_support) | {i for i in range(len(labels)) if (
-            support[str(i)] < conditions["rare_label_train_support_below"]
-        )}):
+        for index in sorted(set(low_support) | rare_labels):
             test_support = item["test"]["per_label_support"][index]
             ci = "—"
-            if (support[str(index)] < conditions["rare_label_train_support_below"] and
-                test_support >= conditions["min_positive_test_support_for_ci"]):
+            if (index in rare_labels and test_support >=
+                conditions["min_positive_test_support_for_ci"]):
                 result = _label_interval(item["y"][:, index].astype(bool),
                                          item["predictions"][:, index].astype(bool), bootstrap)
                 ci = f"[{result[0]:.4f}, {result[1]:.4f}]"
             rare.append((experiment, labels[index], support[str(index)], test_support,
                          f"{item['test']['per_label_f1'][index]:.4f}", ci))
     lines.extend(["## GoEmotions low-support labels", "",
-                  "Five lowest train support labels and all labels meeting the rare-label rule.", ""])
+                  ("Five lowest train support labels and all labels meeting the rare-label rule. "
+                   f"{len(rare_labels)} labels meet the frozen train support cutoff "
+                   f"(<{conditions['rare_label_train_support_below']}). "
+                   "Confidence intervals apply to rare labels with test support of at least "
+                   f"{conditions['min_positive_test_support_for_ci']}."), ""])
     lines.extend(_table(["Model", "Label", "Train support", "Test support", "F1", "95% CI"], rare))
     return intervals
 
@@ -226,7 +231,7 @@ def _write_latex(path, models, rows, intervals, freeze):
                   "was verified by comparing the embedding bytes before and after training."),
                   r"\section{Independent replications}", r"\begin{tabular}{llrr}",
                   "Dataset & Model & n & Test Macro-F1 (mean and SD)" + endrow, r"\hline"])
-    for dataset, experiment, _, count, _, test in rows:
+    for dataset, experiment, _, _, count, _, test in rows:
         test = test.replace("±", r"$\pm$")
         lines.append(" & ".join([dataset.replace("_", r"\_"), experiment, str(count), test]) + endrow)
     lines.extend([r"\end{tabular}", r"\section{Paired Bootstrap on Chinese reviews}",
@@ -249,26 +254,40 @@ def build_report(config, datasets, output, progress):
              "The independent seed cohort is reported separately."), ""]
     models = defaultdict(dict)
     all_results = {}
+    manifests = {name: read_json(Path(settings["frozen_root"]) / "dataset_manifest.json")
+                 for name, settings in datasets.items()}
     for key, entry in frozen["main"].items():
         dataset, model = key.split("/")
         result = _read_result(entry, dataset, digest)
         models[dataset][model] = result
-        all_results[key] = {"run": str(result["run"]), **result["test"]}
+        manifest = manifests[dataset]
+        train_support = manifest["derived_summary"]["label_counts"]["train"]
+        all_results[key] = {
+            "run": str(result["run"]),
+            "label_names": manifest["label_names"],
+            "train_per_label_support": [train_support[str(label)] for label in manifest["label_ids"]],
+            **result["test"],
+        }
     for dataset, items in models.items():
         lines.extend([f"## {dataset}", ""])
+        auxiliary = ({"samples_f1": "Test Samples-F1"} if dataset == "goemotions" else
+                     {"accuracy": "Test accuracy", "positive_f1": "Test positive F1"})
         rows = []
         for model, item in items.items():
             run = item["run"]
             tested = item["test"]
             params = load_yaml(run / "resolved_config.yaml")["settings"]
             result = read_json(run / "result.json")
+            curve_name = f"{dataset}-{model}.png"
             entry = (model, f"{item['validation']:.4f}", f"{tested['macro_f1']:.4f}",
-                     f"{tested['micro_f1']:.4f}", result.get("best_epoch", "—"),
-                     result["stop_reason"], run.name, "`" + str(params) + "`")
+                     f"{tested['micro_f1']:.4f}", *(f"{tested[metric]:.4f}" for metric in auxiliary),
+                     result.get("best_epoch", "—"), result["stop_reason"], run.name,
+                     f"[Curve](curves/{curve_name})", "`" + str(params) + "`")
             rows.append(entry)
-            _curve(run, curves / f"{dataset}-{model}.png", f"{dataset} · {model}")
+            _curve(run, curves / curve_name, f"{dataset} · {model}")
         lines.extend(_table(["Model", "Validation Macro-F1", "Test Macro-F1", "Test Micro-F1",
-                             "Best epoch", "Stop reason", "Run ID", "Selected parameters"], rows))
+                             *auxiliary.values(), "Best epoch", "Stop reason", "Run ID",
+                             "Training history", "Selected parameters"], rows))
         lines.extend(["### Embedding ablation", ""])
         ablation = []
         for model in ("E2", "E5-TUNE", "E5-FROZEN"):
@@ -284,7 +303,7 @@ def build_report(config, datasets, output, progress):
     queue = read_json(output / "queue.json")
     _append_trials(lines, queue)
     replications = _append_replications(lines, frozen, digest)
-    intervals = _append_intervals(lines, models, config, datasets)
+    intervals = _append_intervals(lines, models, config, manifests["goemotions"])
     lines.extend(["## Failed, pruned, or interrupted attempts", ""])
     failures = []
     for key, attempts in queue["tasks"].items():
@@ -307,7 +326,8 @@ def build_report(config, datasets, output, progress):
                   ("Run `batch-a smoke --output artifacts/batch-a-smoke`, followed by "
                   "`batch-a run`, `batch-a audit`, `batch-a final-test`, and `batch-a report` "
                   "with the same Batch A artifact location."),
-                  "", "Per-label metrics and confusion matrices: [class_metrics.json](class_metrics.json).",
+                  "", ("Per-label train/test support, test metrics, and confusion matrices: "
+                       "[class_metrics.json](class_metrics.json)."),
                   "", f"Independent audit evidence: `{output / 'audit.json'}`.", ""])
     (destination / "report.md").write_text("\n".join(lines), encoding="utf-8")
     write_atomic_json(destination / "class_metrics.json", all_results)

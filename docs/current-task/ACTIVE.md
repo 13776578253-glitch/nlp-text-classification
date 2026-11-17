@@ -7,8 +7,9 @@
 | Stage 0 | 双数据 v1 实物审计、派生冻结与 9 项测试通过。见 [Stage 0 验收](../stage0-data-audit.md)。 |
 | Stage 1 | 训练、Optuna、冻结审计与报告链路已用独立 CPU 合成批次验证。两个真实 Word2Vec 已读取或生成。 |
 | Stage 2 | [CPU 验收](../stage2-smoke.md) 与 CUDA 12.8 全矩阵 14/14 冒烟均通过。 |
-| Stage 3 | 14 个基础 Run 已通过。GoEmotions E1 搜索完成；在 E2 第 4 个 HPO Trial 因系统内存压力暂停，断点已保留。 |
-| Stage 4 / 5 | 待执行。Stage 4 依赖主实验和复验质量、独立审计与完整冻结清单，Stage 5 依赖正式测试产物。 |
+| Stage 3 | [正式训练验收](../stage3-training.md) 已通过。主 Run 14 个、必选复验 30 个、追加复验 3 个。 |
+| Stage 4 | [独立审计与正式测试](../stage4-final-evaluation.md) 已通过。47 个 Run 冻结后全部评估。 |
+| Stage 5 | [报告交付](../stage5-delivery.md) 已验收。18 份输出重建逐字节一致。 |
 
 查看批次进度的命令与证据路径见 [训练进度](../runbooks/batch-a-progress.md)。正式训练与审计状态以对应批次的进度文件及原始日志为准。
 
