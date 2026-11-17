@@ -1,0 +1,55 @@
+suite_id: batch-a-dual-dataset-v2
+revision: 1
+seed: 42
+dataset_configs:
+  goemotions: configs/datasets/goemotions.yaml
+  movie_reviews_zh: configs/datasets/movie_reviews_zh.yaml
+
+experiments:
+  - id: E1
+    model: tfidf_linear_svm
+  - id: E2
+    model: textcnn
+    embedding: random_trainable
+  - id: E3-RNN
+    model: vanilla_rnn
+    embedding: random_trainable
+  - id: E3-LSTM
+    model: lstm
+    embedding: random_trainable
+  - id: E3-BiLSTM
+    model: bilstm
+    embedding: random_trainable
+  - id: E5-TUNE
+    model: textcnn
+    embedding: word2vec_trainable
+  - id: E5-FROZEN
+    model: textcnn
+    embedding: word2vec_frozen
+report_aliases:
+  E5-RANDOM: E2
+
+# Starting values for Stage 0 review. Stage 1 will resolve and validate them at runtime.
+svm:
+  ngram_range: [1, 2]
+  min_df: 2
+  max_features: 100000
+  sublinear_tf: true
+  class_weight: balanced
+neural:
+  embedding_dim: 50
+  textcnn:
+    kernel_sizes: [3, 4, 5]
+    filters_per_size: 100
+  recurrent:
+    hidden_size: 128
+  optimizer: adam
+  learning_rate: 0.001
+  epoch_cap: 12
+  patience: 3
+  effective_batch_size: 64
+  grad_clip_norm: 1.0
+execution:
+  gpu_concurrency: 1
+  final_test_requires_freeze: true
+  artifacts_root: artifacts/runs

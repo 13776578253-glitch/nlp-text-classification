@@ -3,9 +3,7 @@ from __future__ import annotations
 
 import json
 import platform
-import hashlib
 import time
-from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
 
@@ -16,8 +14,17 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import LinearSVC
 
-from nlp_text_classification.data.goemotions import SPLIT_FILES, load_labels, load_split, validate_dataset
-from nlp_text_classification.evaluation.multilabel import evaluate, indicator_matrix, select_threshold
+from nlp_text_classification.data.audit import sha256_file
+from nlp_text_classification.data.loaders.goemotions import (
+    SPLIT_FILES,
+    load_labels,
+    load_training_splits,
+)
+from nlp_text_classification.evaluation.multilabel import (
+    evaluate,
+    indicator_matrix,
+    select_threshold,
+)
 from nlp_text_classification.training.run import git_commit, new_run_dir, write_json
 
 
@@ -31,13 +38,13 @@ def train(
     strict_data: bool = True,
 ) -> Path:
     started_at = time.perf_counter()
-    dataset_meta = validate_dataset(data_dir, strict=strict_data)
-    data_hashes = {name: hashlib.sha256((Path(data_dir) / filename).read_bytes()).hexdigest()
-                   for name, filename in SPLIT_FILES.items()}
-    data_hashes["labels"] = hashlib.sha256((Path(data_dir) / "emotions.txt").read_bytes()).hexdigest()
+    data_dir = Path(data_dir)
+    splits = load_training_splits(data_dir, strict=strict_data)
+    data_hashes = {name: sha256_file(data_dir / SPLIT_FILES[name]) for name in splits}
+    data_hashes["labels"] = sha256_file(data_dir / "emotions.txt")
     labels = load_labels(data_dir)
-    tr = load_split(data_dir, "train")
-    va = load_split(data_dir, "validation")
+    tr = splits["train"]
+    va = splits["validation"]
     x_train, x_val = [r.text for r in tr], [r.text for r in va]
     y_train = indicator_matrix(tr, len(labels))
     y_val = indicator_matrix(va, len(labels))
@@ -67,8 +74,9 @@ def train(
     _write_predictions(run_dir / "predictions_validation.jsonl", va, scores_val, labels,
                        tuning["threshold"])
     write_json(run_dir / "run_manifest.json", {
-        "experiment": "E1", "dataset": dataset_meta["dataset"],
-        "dataset_counts": dataset_meta["counts"], "num_labels": len(labels),
+        "experiment": "E1", "dataset": "goemotions-simplified-official",
+        "dataset_counts": {name: len(rows) for name, rows in splits.items()},
+        "num_labels": len(labels), "run_scope": "standalone_validation",
         "seed": seed, "git_commit": git_commit(), "data_sha256": data_hashes,
         "python": platform.python_version(), "sklearn": sklearn.__version__,
         "model": "TF-IDF (train-only fit) + OneVsRest(LinearSVC)",
@@ -78,39 +86,6 @@ def train(
         "training_elapsed_seconds": round(time.perf_counter() - started_at, 3),
     })
     return run_dir
-
-
-def evaluate_final(run_dir: str | Path, data_dir: str | Path, *, strict_data: bool = True) -> dict:
-    """Blind test on a frozen E1 run. Only allowed once for this run."""
-    run_dir = Path(run_dir)
-    output = run_dir / "metrics_test.json"
-    if output.exists():
-        raise FileExistsError(f"This run already has final test metrics: {output}")
-    meta_path = run_dir / "run_manifest.json"
-    meta = json.loads(meta_path.read_text(encoding="utf-8"))
-    if meta.get("experiment") != "E1":
-        raise ValueError("Only E1 runs can be evaluated with this command")
-    validate_dataset(data_dir, strict=strict_data)
-    for name, filename in SPLIT_FILES.items():
-        actual_sha = hashlib.sha256((Path(data_dir) / filename).read_bytes()).hexdigest()
-        if meta["data_sha256"][name] != actual_sha:
-            raise ValueError(f"Dataset changed since training: {filename}")
-    labels_sha = hashlib.sha256((Path(data_dir) / "emotions.txt").read_bytes()).hexdigest()
-    if meta["data_sha256"]["labels"] != labels_sha:
-        raise ValueError("Label mapping changed since training")
-    bundle, threshold = _load_trusted_run(str(run_dir.resolve()))
-    test = load_split(data_dir, "test")
-    scores = np.asarray(bundle["classifier"].decision_function(
-        bundle["vectorizer"].transform([row.text for row in test])
-    ))
-    y_true = indicator_matrix(test, len(bundle["labels"]))
-    metrics = evaluate(y_true, scores, threshold)
-    _write_predictions(run_dir / "predictions_test.jsonl", test, scores, bundle["labels"], threshold)
-    write_json(output, metrics)
-    meta["final_test_evaluated"] = True
-    meta["final_test_timestamp_utc"] = datetime.now(timezone.utc).isoformat()
-    write_json(meta_path, meta)
-    return metrics
 
 
 def _write_predictions(path: Path, rows: list, scores: np.ndarray,

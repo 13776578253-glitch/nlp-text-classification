@@ -1,4 +1,7 @@
 task_id: goemotions/simplified/multilabel-v1
+dataset_id: goemotions
+task_type: multilabel
+raw_root: data/raw/goemotions
 source: https://github.com/google-research/google-research/tree/master/goemotions
 format: official_tsv
 train: train.tsv
@@ -6,6 +9,10 @@ validation: dev.tsv
 test: test.tsv
 labels: emotions.txt
 num_labels: 28
+tokenizer: english_word
+max_length: 128
+word2vec:
+  source: train_only_unsupervised
 expected_rows:
   train: 43410
   validation: 5426

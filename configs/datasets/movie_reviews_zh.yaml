@@ -1,0 +1,18 @@
+task_id: movie_reviews_zh/course/binary-v1
+dataset_id: movie_reviews_zh
+task_type: binary
+raw_root: data/raw/movie_reviews_zh
+source: course_provided
+format: utf8_label_tab_pretokenized_text
+train: train.txt
+validation: validation.txt
+test: test.txt
+num_labels: 2
+label_ids: [0, 1]
+tokenizer: whitespace
+max_length: 256
+word2vec:
+  source: teacher_wiki_word2vec_50
+  file: wiki_word2vec_50.bin
+selection_metric: validation_macro_f1
+report_metrics: [accuracy, macro_f1, positive_precision, positive_recall, positive_f1, confusion_matrix, roc_auc, pr_auc]

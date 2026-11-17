@@ -1,12 +1,8 @@
-# Data and artifacts are reproducible locally and are not source code.
+# Local source data, processed datasets, and experiment outputs.
 /data/*
 !/data/.gitkeep
 /artifacts/*
 !/artifacts/.gitkeep
-/reports/figures/*
-!/reports/figures/.gitkeep
-/reports/tables/*
-!/reports/tables/.gitkeep
 .env
 .venv/
 __pycache__/

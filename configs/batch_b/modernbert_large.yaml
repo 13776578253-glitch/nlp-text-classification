@@ -1,6 +1,7 @@
 experiment_id: E4
-status: planned
-model_id: distilbert-base-uncased
+status: stretch
+dataset: goemotions
+model_id: answerdotai/ModernBERT-large
 model_type: encoder_sequence_classification
 num_labels: 28
 problem_type: multi_label_classification

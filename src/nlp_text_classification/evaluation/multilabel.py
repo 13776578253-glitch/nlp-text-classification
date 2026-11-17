@@ -31,7 +31,7 @@ def select_threshold(
         raise ValueError(f"Unknown score kind: {score_kind}")
     ranks = [(float(f1_score(y_true, as_predictions(scores, float(t)), average="micro", zero_division=0)), float(t)) for t in candidates]
     # Deterministic tie break: choose the lower threshold.
-    best = sorted(ranks, key=lambda item: (-item[0], item[1]))[0]
+    best = min(ranks, key=lambda item: (-item[0], item[1]))
     return {"threshold": best[1], "validation_micro_f1": best[0], "score_kind": score_kind}
 
 

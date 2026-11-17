@@ -9,7 +9,7 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
-from nlp_text_classification.data.goemotions import load_labels
+from nlp_text_classification.data.loaders.goemotions import DEFAULT_ROOT, load_labels
 from nlp_text_classification.experiments.e1_svm import predict
 
 app = FastAPI(title="nlp-text-classification API", version="0.1.0")
@@ -45,7 +45,7 @@ def health():
 
 @app.get("/api/labels")
 def labels():
-    path = Path(os.environ.get("NLP_TEXT_CLASSIFICATION_DATA", "data/goemotions"))
+    path = Path(os.environ.get("NLP_TEXT_CLASSIFICATION_DATA", DEFAULT_ROOT))
     if not (path / "emotions.txt").exists():
         raise HTTPException(status_code=503, detail="Download GoEmotions dataset first")
     return {"labels": load_labels(path)}

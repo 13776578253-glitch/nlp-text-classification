@@ -1,6 +1,10 @@
+import json
 from pathlib import Path
 
-from nlp_text_classification.experiments.e1_svm import evaluate_final, predict, train
+import pytest
+
+from nlp_text_classification.cli import main
+from nlp_text_classification.experiments.e1_svm import predict, train
 
 
 def synthetic_dataset(path: Path) -> Path:
@@ -23,9 +27,13 @@ def synthetic_dataset(path: Path) -> Path:
 
 def test_e1_end_to_end_without_test_peeking(tmp_path):
     path = synthetic_dataset(tmp_path / "data")
+    (path / "test.tsv").unlink()
     run = train(path, tmp_path / "out", strict_data=False, min_df=1, max_features=2000)
     assert (run / "metrics_validation.json").is_file()
     assert not (run / "metrics_test.json").exists()
+    manifest = json.loads((run / "run_manifest.json").read_text(encoding="utf-8"))
+    assert set(manifest["data_sha256"]) == {"train", "validation", "labels"}
+    assert manifest["run_scope"] == "standalone_validation"
     assert (run / "config.json").exists()
     assert (run / "predictions_validation.jsonl").exists()
     result = predict(run, ["uniqueemotion1 alpha context"])
@@ -33,17 +41,9 @@ def test_e1_end_to_end_without_test_peeking(tmp_path):
     assert result[0]["score_kind"] == "decision"
 
 
-def test_frozen_final_eval_is_one_time(tmp_path):
-    import pytest
-    path = synthetic_dataset(tmp_path / "data")
-    run = train(path, tmp_path / "out", strict_data=False, min_df=1, max_features=2000)
-    # Synthetic fixture size differs from official release, so strict validation
-    # must refuse to call it the official test split.
-    with pytest.raises(ValueError, match="rows"):
-        evaluate_final(run, path)
-    assert not (run / "metrics_test.json").exists()
-    metrics = evaluate_final(run, path, strict_data=False)
-    assert "macro_f1" in metrics
-    assert (run / "metrics_test.json").exists()
-    with pytest.raises(FileExistsError):
-        evaluate_final(run, path, strict_data=False)
+def test_legacy_single_run_final_test_entrypoint_is_removed(monkeypatch, capsys):
+    monkeypatch.setattr("sys.argv", ["nlp-text-classification", "evaluate-final-e1"])
+    with pytest.raises(SystemExit) as exc:
+        main()
+    assert exc.value.code == 2
+    assert "invalid choice" in capsys.readouterr().err

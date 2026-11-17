@@ -1,4 +1,0 @@
-experiment_id: E5-B
-status: planned
-base_model: textcnn
-embedding: {mode: word2vec, trainable: true, dim: 200, fit_split: train}
