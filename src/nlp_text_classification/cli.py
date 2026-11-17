@@ -19,6 +19,12 @@ def main() -> None:
     audit = command.add_parser("audit-data", help="Audit all splits without fitting a model")
     audit.add_argument("--dataset", choices=("goemotions", "movie_reviews_zh"), required=True)
     audit.add_argument("--data-dir", type=Path)
+    freeze = command.add_parser("freeze-data", help="Create audited immutable experiment splits")
+    freeze.add_argument("--dataset", choices=("goemotions", "movie_reviews_zh"), required=True)
+    freeze.add_argument("--data-dir", type=Path)
+    freeze.add_argument("--output", type=Path)
+    freeze.add_argument("--revision", required=True)
+    freeze.add_argument("--positive-id", type=int, choices=(0, 1))
     e1 = command.add_parser("train-e1", help="Train and validate the standalone GoEmotions E1")
     e1.add_argument("--data-dir", type=Path, default=goemotions.DEFAULT_ROOT)
     e1.add_argument("--output-root", default="artifacts")
@@ -39,6 +45,16 @@ def main() -> None:
             result = goemotions.validate_dataset(args.data_dir or goemotions.DEFAULT_ROOT)
         else:
             result = movie_reviews_zh.audit_dataset(args.data_dir or movie_reviews_zh.DEFAULT_ROOT)
+    elif args.command == "freeze-data":
+        from nlp_text_classification.data.freeze import freeze_dataset
+
+        default_root = (goemotions.DEFAULT_ROOT if args.dataset == "goemotions"
+                        else movie_reviews_zh.DEFAULT_ROOT)
+        result = freeze_dataset(
+            args.dataset, args.data_dir or default_root,
+            args.output or (Path("data/processed") / args.dataset),
+            args.revision, positive_id=args.positive_id,
+        )
     elif args.command == "train-e1":
         from nlp_text_classification.experiments.e1_svm import train
         run_dir = train(args.data_dir, args.output_root, seed=args.seed,

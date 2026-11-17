@@ -1,6 +1,6 @@
 # nlp-text-classification
 
-「自然语言处理之文本分类」课程项目。Batch A 在英文 GoEmotions 多标签任务和中文电影评论二分类任务上分别比较 7 个配置。首轮 14 个 Run 使用 seed 42，完成验证集选择后整批冻结并正式测试。
+「自然语言处理之文本分类」课程项目。Batch A 在英文 GoEmotions 多标签任务和中文电影评论二分类任务上分别比较 7 个配置。先运行 14 个 seed 42 基础配置，按 validation Macro-F1 完成调参、模型选择和多种子复验，再整批冻结并正式测试。
 
 | 位置 | 内容 |
 | --- | --- |
@@ -21,4 +21,4 @@ nlp-text-classification audit-data --dataset movie_reviews_zh
 
 中文审计需要老师提供的三个分区文件及 `wiki_word2vec_50.bin`，默认路径为 `data/raw/movie_reviews_zh/`。官方 GoEmotions 的下载与审计入口，以及正式执行顺序见执行报告。
 
-[文档索引](docs/INDEX.md) · [迁移验收与执行报告](docs/plans/2026-11-17-batch-a-execution.md)
+[文档索引](docs/INDEX.md) · [执行计划](docs/plans/2026-11-17-batch-a-execution.md) · [当前状态](docs/current-task/ACTIVE.md)

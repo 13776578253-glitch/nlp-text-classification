@@ -1,5 +1,5 @@
 suite_id: batch-a-dual-dataset-v2
-revision: 1
+revision: 3
 seed: 42
 dataset_configs:
   goemotions: configs/datasets/goemotions.yaml
@@ -31,6 +31,7 @@ report_aliases:
 
 # Starting values for Stage 0 review. Stage 1 will resolve and validate them at runtime.
 svm:
+  c: 1.0
   ngram_range: [1, 2]
   min_df: 2
   max_features: 100000
@@ -45,11 +46,113 @@ neural:
     hidden_size: 128
   optimizer: adam
   learning_rate: 0.001
+  weight_decay: 0.0
+  dropout: 0.3
   epoch_cap: 12
   patience: 3
   effective_batch_size: 64
   grad_clip_norm: 1.0
+
+selection:
+  metric: validation_macro_f1
+  f1_zero_division: 0
+  score_tie_atol: 1.0e-12
+  threshold_scope: global
+  threshold_tiebreak: [closest_to_default, smaller_threshold]
+  epoch_tiebreak: earliest_epoch
+  trial_tiebreak: [baseline_first, lowest_trial_number]
+  model_tiebreak: matrix_order
+  threshold_grids:
+    decision:
+      range_inclusive: [-1.50, 1.50]
+      step: 0.10
+      default: 0.0
+    sigmoid:
+      range_inclusive: [0.05, 0.95]
+      step: 0.05
+      default: 0.50
+
+hpo:
+  sampler: tpe
+  sampler_seed: 42
+  trials_exclude_baseline: true
+  per_dataset_svm_trials: 16
+  svm_startup_trials: 5
+  per_dataset_neural_model_trials: 6
+  neural_startup_trials: 4
+  neural_min_accepted_trials: 4
+  neural_extension_trials: 2
+  neural_experiments: [E2, E3-RNN, E3-LSTM, E3-BiLSTM]
+  neural_pruner:
+    type: median
+    n_startup_trials: 4
+    first_check_epoch: 6
+    interval_epochs: 2
+  svm_space:
+    c_log_range: [0.01, 10.0]
+    min_df: [2, 3, 5]
+    ngram_range: [[1, 1], [1, 2]]
+    class_weight: [null, balanced]
+  neural_space:
+    learning_rate_log_ranges:
+      E2: [0.0002, 0.003]
+      E3-RNN: [0.0001, 0.002]
+      E3-LSTM: [0.0001, 0.003]
+      E3-BiLSTM: [0.0001, 0.003]
+    weight_decay: [0.0, 0.00001, 0.0001, 0.001]
+    dropout: [0.1, 0.3, 0.5]
+  ablation:
+    source_experiment: E2
+    controlled_experiments: [E5-TUNE, E5-FROZEN]
+    independent_trials: 0
+
+replication:
+  seeds: [42, 123, 2026]
+  rerun_primary_seed: true
+  required_experiments_per_dataset: [E1, E2, E5-TUNE, E5-FROZEN]
+  select_best_of_per_dataset: [E3-RNN, E3-LSTM, E3-BiLSTM]
+  optional_blocks_per_dataset: 1
+  near_tie_macro_f1: 0.01
+  high_sd_macro_f1: 0.02
+  extra_seeds_for_high_sd: [52, 62, 72]
+  final_test_include_replications: true
+
+bootstrap:
+  seed: 20261117
+  n_resamples: 10000
+  confidence_level: 0.95
+  method: percentile
+  movie_reviews_zh:
+    resampling: paired_stratified_by_true_label
+    macro_f1_contrasts:
+      - [E2, E1]
+      - [best_recurrent, E2]
+      - [E5-TUNE, E2]
+      - [E5-FROZEN, E2]
+      - [E5-TUNE, E5-FROZEN]
+  goemotions:
+    resampling: by_row
+    rare_label_train_support_below: 50
+    min_positive_test_support_for_ci: 10
+
+quality:
+  reload_score_atol: 1.0e-7
+  reload_score_rtol: 1.0e-6
+  metric_recompute_atol: 1.0e-12
+  require_frozen_embedding_bitwise: true
+
+performance_review:
+  max_extra_runs_per_dataset: 1
+  min_train_macro_f1: 0.25
+  min_predicted_label_fraction: 0.25
+  constant_prediction_fraction: 0.99
+  unstable_macro_f1_sd: 0.02
+  diagnostic_epoch_cap: 18
+
 execution:
   gpu_concurrency: 1
+  retry_limit_per_attempt: 1
+  retry_budget_gpu: 8
+  retry_budget_cpu: 4
   final_test_requires_freeze: true
   artifacts_root: artifacts/runs

@@ -1,0 +1,31 @@
+# 实验矩阵
+
+[Batch A 配置](../../configs/experiment_suites/batch_a.yaml) 是机器可读的矩阵。两个数据集各展开七行，共 14 个主结果位。模型排名以各自数据集内的 validation Macro-F1 为准，各自使用固定分区、标签、预处理和测试复核。
+
+| 实验 ID | 模型 / Embedding | GoEmotions | 中文评论 | 每数据集首轮 HPO |
+| --- | --- | --- | --- | --- |
+| E1 | TF-IDF + LinearSVC | OvR 多标签 | 二分类 | 16 Trial |
+| E2 | TextCNN / 随机可训练 | 28 logit | 单 logit | 6 Trial |
+| E3-RNN | Vanilla RNN / 随机可训练 | 28 logit | 单 logit | 6 Trial |
+| E3-LSTM | LSTM / 随机可训练 | 28 logit | 单 logit | 6 Trial |
+| E3-BiLSTM | BiLSTM / 随机可训练 | 28 logit | 单 logit | 6 Trial |
+| E5-TUNE | TextCNN / Word2Vec 微调 | 28 logit | 单 logit | 复用同数据集 E2 入选配置 |
+| E5-FROZEN | TextCNN / Word2Vec 冻结 | 28 logit | 单 logit | 复用同数据集 E2 入选配置 |
+
+每行先完成 seed 42 基础配置，随后依 [实验契约](EXPERIMENTS.md) 运行 HPO 或受控补跑。各数据集的 E5-RANDOM 引用同 cohort、同 seed 的 E2 Run ID，在主表和消融表中共用同一结果。GoEmotions 的 Word2Vec 来源为官方 train 文本，中文为老师提供的 50d 词向量。跨数据集讨论方法的趋势和错误类型，模型排序与置信区间分别计算。
+
+## 复验矩阵
+
+| 每套数据的复验对象 | 种子 | 选取依据 |
+| --- | --- | --- |
+| E1、E2、E5-TUNE、E5-FROZEN | 42、123、2026 | 固定关键对照，独立重新训练 |
+| E3-RNN / E3-LSTM / E3-BiLSTM 中最高的一种 | 42、123、2026 | 第一轮 validation Macro-F1，平分按上表顺序 |
+| 可选一个三次训练区块 | 42、123、2026，或 52、62、72 | 接近时加入下一个循环模型，方差异常时针对已有模型补充种子，按预设上限执行 |
+
+5 个必选配置 × 3 个种子 × 2 数据集＝30 个独立复验 Run。复验使用第一轮入选的超参数；每个 seed 以同一 validation 规则独立选择最佳 epoch 和阈值。首轮主结果位仍为 14 个，复验 seed 42 与主结果 seed 42 有独立 Run ID。
+
+记录里的 `baseline` 是初始配置，`hpo` 是搜索尝试，`main` 是从合格的基础/搜索/受控 Run 引用的主结果位。三种子统计只按 `replication` cohort 的 `(dataset, experiment, seed)` 三键查询。主实验和基础训练即使恰好使用 seed 42，也不计入复验样本，额外诊断使用独立 cohort。
+
+## Batch B
+
+E4 Transformer 单独立项，英文候选参考 [现有配置目录](../../configs/batch_b/)；中文候选使用语言适配的预训练 Encoder。Batch B 的训练、参数空间、对照和验收另定。RQ3 显存极限、QLoRA 和复杂前端开发均在本轮范围之外。
