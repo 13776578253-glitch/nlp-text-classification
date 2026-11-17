@@ -1,0 +1,4 @@
+experiment_id: E5-A
+status: reused_from_e2
+base_model: textcnn
+embedding: {mode: random, trainable: true, dim: 200}

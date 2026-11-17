@@ -1,0 +1,10 @@
+experiment_id: E3
+status: planned
+model: bilstm
+seed: 42
+embedding_dim: 200
+hidden_size: 128
+bidirectional: true
+max_length: 128
+output_labels: 28
+loss: bce_with_logits

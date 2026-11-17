@@ -1,0 +1,10 @@
+experiment_id: E2
+status: planned
+model: textcnn
+seed: 42
+embedding: {mode: random, trainable: true, dim: 200}
+max_length: 128
+filters: [3, 4, 5]
+filters_per_size: 100
+output_labels: 28
+loss: bce_with_logits

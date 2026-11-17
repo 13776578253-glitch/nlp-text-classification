@@ -1,0 +1,5 @@
+experiment_id: E5-C
+status: planned
+base_model: textcnn
+embedding: {mode: word2vec, trainable: false, dim: 200, fit_split: train}
+verify_embedding_unchanged: true

@@ -1,0 +1,14 @@
+task_id: goemotions/simplified/multilabel-v1
+source: https://github.com/google-research/google-research/tree/master/goemotions
+format: official_tsv
+train: train.tsv
+validation: dev.tsv
+test: test.tsv
+labels: emotions.txt
+num_labels: 28
+expected_rows:
+  train: 43410
+  validation: 5426
+  test: 5427
+selection_metric: validation_micro_f1
+report_metrics: [micro_f1, macro_f1, samples_f1, micro_precision, micro_recall, hamming_loss, subset_accuracy]
