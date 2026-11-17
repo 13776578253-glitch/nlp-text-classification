@@ -6,11 +6,13 @@ import shlex
 import sys
 
 import numpy as np
+from threadpoolctl import threadpool_limits
 
 from nlp_text_classification.data.contracts import Example
 from nlp_text_classification.experiments.suite import TrainingData, load_suite, read_json
 from nlp_text_classification.training.batch_run import resolve, run_attempt
 from nlp_text_classification.training.progress import Progress, write_atomic_json
+from nlp_text_classification.training.resources import CPU_THREADS, protect
 from nlp_text_classification.training.run import git_commit
 
 
@@ -52,17 +54,13 @@ def smoke(config, datasets, output, progress, device):
 
 
 def batch_command(mode, suite_path, output, device):
-    if mode == "status":
-        snapshot = output / "progress.md"
-        if not snapshot.is_file():
-            raise FileNotFoundError(snapshot)
-        return {"progress": str(snapshot), "text": snapshot.read_text(encoding="utf-8")}
-    config, datasets = load_suite(suite_path)
     command = shlex.join(sys.orig_argv)
     progress = Progress(output / "progress.md", command)
     progress.emit("START", f"mode={mode} device={device}", output=output)
     try:
-        return dispatch(config, datasets, mode, output, progress, device)
+        with protect(progress), threadpool_limits(limits=CPU_THREADS):
+            config, datasets = load_suite(suite_path)
+            return dispatch(config, datasets, mode, output, progress, device)
     except (OSError, ValueError, RuntimeError) as exc:
         progress.context = {}
         progress.emit("BLOCKED", str(exc), mode=mode)

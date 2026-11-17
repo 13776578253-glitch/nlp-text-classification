@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gc
 import hashlib
 import json
 from contextlib import contextmanager
@@ -92,6 +93,7 @@ class Batch:
         key = f"{cohort}/{dataset}/{experiment}/{seed}{suffix}"
         history = self.state["tasks"].setdefault(key, [])
         resumed = None
+        failure_retry = False
         device = "cpu" if experiment == "E1" else self.device
         if history:
             previous = Path(history[-1])
@@ -99,17 +101,23 @@ class Batch:
             status = read_json(result_path) if result_path.exists() else {"status": "INCOMPLETE"}
             if status["status"] in {"PASS", "PRUNED"}:
                 return previous, status
-            if len(history) > self.config["execution"]["retry_limit_per_attempt"]:
-                return previous, status
-            budget_key = "retry_budget_cpu" if device == "cpu" else "retry_budget_gpu"
-            if self.state["retries"][device] >= self.config["execution"][budget_key]:
-                return previous, status
             if status["status"] == "INCOMPLETE":
                 checkpoint = previous / "checkpoint"
                 if (checkpoint / "resume.pt").is_file() and (checkpoint / "model.pt").is_file():
                     resumed = checkpoint
-            elif status.get("error_type") not in {"OSError", "PermissionError", "OutOfMemoryError"}:
-                return previous, status
+            else:
+                budget_key = "retry_budget_cpu" if device == "cpu" else "retry_budget_gpu"
+                if self.state["retries"][device] >= self.config["execution"][budget_key]:
+                    return previous, status
+                failed = sum(
+                    record.is_file() and read_json(record)["status"] == "FAIL"
+                    for record in (Path(item) / "result.json" for item in history)
+                )
+                if failed > self.config["execution"]["retry_limit_per_attempt"]:
+                    return previous, status
+                if status.get("error_type") not in {"OSError", "PermissionError", "OutOfMemoryError"}:
+                    return previous, status
+                failure_retry = True
             if not result_path.exists():
                 write_atomic_json(result_path, {"status": "INCOMPLETE", "reason": "Process stopped"})
         else:
@@ -132,7 +140,7 @@ class Batch:
             kwargs = saved_config
 
         def record(path):
-            if previous:
+            if failure_retry:
                 self.state["retries"][device] += 1
             history.append(str(path))
             self.save()
@@ -142,15 +150,16 @@ class Batch:
                              pruning=pruning, previous=str(previous) if previous else None,
                              resume=resumed, on_start=record)
         status = read_json(result / "result.json")
+        if device == "cuda":
+            import torch
+
+            gc.collect()
+            torch.cuda.empty_cache()
         if status.get("error_type") == "OutOfMemoryError":
             self.progress.emit("RESOURCE", "CUDA OOM. Retry budget still applies.",
                                failed_run=str(result))
-            if device == "cuda":
-                import torch
-
-                torch.cuda.empty_cache()
         if status.get("error_type") in {"OSError", "PermissionError", "OutOfMemoryError"} and (
-            len(history) == 1
+            not failure_retry
         ):
             kwargs = dict(params or {})
             if status["error_type"] == "OutOfMemoryError" and experiment.startswith("E5"):

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 import platform
 import shlex
 import sys
@@ -58,6 +59,7 @@ class Attempt:
             "run_id": run_id, "dataset": dataset, "experiment": experiment,
             "cohort": cohort, "seed": seed, "code_sha": git_commit(), "previous": previous,
             "code_dirty": git_dirty(), "platform": platform.platform(),
+            "process_id": os.getpid(),
             "python": platform.python_version(), "sklearn": sklearn.__version__,
             "training_manifest_sha256": data.settings["training_manifest_sha256"],
             "command": shlex.join(sys.orig_argv),

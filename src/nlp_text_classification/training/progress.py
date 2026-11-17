@@ -6,6 +6,7 @@ import json
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from threading import Lock
 
 
 def write_atomic_json(path: Path, payload: dict) -> None:
@@ -20,9 +21,14 @@ class Progress:
         self.path = path
         self.command = command
         self.context = {}
+        self._lock = Lock()
         self.path.parent.mkdir(parents=True, exist_ok=True)
 
     def emit(self, phase: str, message: str, **details) -> None:
+        with self._lock:
+            self._emit(phase, message, **details)
+
+    def _emit(self, phase: str, message: str, **details) -> None:
         details = {**self.context, **details}
         stamp = datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
         payload = {"time": stamp, "phase": phase, "message": message, **details}

@@ -17,6 +17,7 @@ from nlp_text_classification.data.features import encode, vocabulary
 from nlp_text_classification.evaluation.batch_metrics import select_threshold
 from nlp_text_classification.models.neural import make_model
 from nlp_text_classification.training.batch_run import PrunedRun
+from nlp_text_classification.training.resources import CPU_THREADS
 
 
 def _save_atomic(path, value):
@@ -139,7 +140,7 @@ def _train_epoch(model, train, target, minimum, device, optimizer, settings, gen
 def fit(data, resolved, attempt, seed, device, word2vec, pruning, resume):
     settings, experiment = resolved["settings"], resolved["experiment"]
     os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
-    torch.set_num_threads(min(torch.get_num_threads(), 4))
+    torch.set_num_threads(min(torch.get_num_threads(), CPU_THREADS))
     if device == "cuda" and not torch.cuda.is_available():
         raise RuntimeError("CUDA is required for this neural run")
     torch.backends.cudnn.deterministic = True
