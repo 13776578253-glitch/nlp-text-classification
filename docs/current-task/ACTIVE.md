@@ -6,7 +6,7 @@
 | 执行方案修订 | 已完成文档和配置修订。6 份 YAML、14 个主结果位、预算算式、12 份 Markdown 的 40 处本地链接和锚点核对通过。预算、质量验收、复验和 Stage 0–5 依赖见执行计划。 |
 | Stage 0 | 双数据 v1 实物审计、派生冻结与 9 项测试通过。见 [Stage 0 验收](../stage0-data-audit.md)。 |
 | Stage 1 | 训练、Optuna、冻结审计与报告链路已用独立 CPU 合成批次验证。两个真实 Word2Vec 已读取或生成。 |
-| Stage 2 | CPU 合成冒烟 14/14。RNN/LSTM/BiLSTM 七项专项测试通过，CUDA 预检与 GPU 冒烟待运行时安装完成。 |
+| Stage 2 | [CPU 验收](../stage2-smoke.md) 已通过。CUDA 预检与 GPU 冒烟待运行时安装完成。 |
 | Stage 3 | 待执行。依赖全套 14 项冒烟验收。常规 GPU 84–88 次，含 HPO 补充和性能诊断最多 120 次。 |
 | Stage 4 / 5 | 待执行。Stage 4 依赖主实验和复验质量、独立审计与完整冻结清单，Stage 5 依赖正式测试产物。 |
 
