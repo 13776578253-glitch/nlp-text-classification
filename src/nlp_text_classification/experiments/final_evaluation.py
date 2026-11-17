@@ -47,9 +47,12 @@ def _validate_run(run, data, experiment, cohort, seed, config):
     resolved_path = checked_file(run / "resolved_config.yaml", metadata["config_sha256"])
     resolved = load_yaml(resolved_path)
     threshold = read_json(run / "thresholds.json")
+    score_kind = "decision" if experiment == "E1" else "sigmoid"
+    if threshold["score_kind"] != score_kind:
+        raise ValueError(f"Unexpected score kind for audit: {run}")
     validation = read_json(run / "metrics_validation.json")
     predictions = run / "predictions_validation.jsonl"
-    ids, y, scores, y_pred = batch_metrics.read_predictions(predictions)
+    ids, y, scores, y_pred = batch_metrics.read_predictions(predictions, score_kind=score_kind)
     if not run.resolve().is_relative_to(Path(config["execution"]["artifacts_root"]).resolve()):
         raise ValueError(f"Run outside trusted artifacts: {run}")
     if (metadata["dataset"], metadata["experiment"], metadata["seed"]) != (
@@ -79,7 +82,7 @@ def _validate_run(run, data, experiment, cohort, seed, config):
     if batch_metrics.measure(y, scores, cutoff, data.binary) != validation:
         raise ValueError(f"Validation metrics differ from prediction records: {run}")
     tuning = batch_metrics.select_threshold(y, scores, data.binary, config["selection"],
-                                            threshold["score_kind"])
+                                            score_kind)
     if tuning != threshold or abs(result["macro_f1"] - objective) > 1e-12:
         raise ValueError(f"Validation threshold or candidate score differs: {run}")
     if experiment == "E5-FROZEN" and (

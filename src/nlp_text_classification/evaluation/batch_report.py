@@ -68,8 +68,11 @@ def _read_result(entry, dataset, freeze):
         raise ValueError(f"Test result belongs to another freeze: {run}")
     for path, digest in audit["files"].items():
         checked_file(base / path, digest)
-    cutoff = read_json(run / "thresholds.json")["threshold"]
-    ids, y, scores, pred = read_predictions(base / "predictions_test.jsonl")
+    thresholds = read_json(run / "thresholds.json")
+    cutoff = thresholds["threshold"]
+    ids, y, scores, pred = read_predictions(
+        base / "predictions_test.jsonl", score_kind=thresholds["score_kind"]
+    )
     if not np.array_equal(pred, scores >= cutoff):
         raise ValueError(f"Prediction decisions disagree with frozen threshold at {run}")
     actual = measure(y, scores, cutoff, dataset == "movie_reviews_zh")

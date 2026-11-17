@@ -119,12 +119,23 @@ def write_predictions(path: Path, rows: list[Example], targets: np.ndarray,
             handle.write(json.dumps(payload, ensure_ascii=False) + "\n")
 
 
-def read_predictions(path: Path) -> tuple[list[str], np.ndarray, np.ndarray, np.ndarray]:
+def read_predictions(
+    path: Path, *, score_kind: str
+) -> tuple[list[str], np.ndarray, np.ndarray, np.ndarray]:
     with path.open(encoding="utf-8") as stream:
         items = [json.loads(line) for line in stream]
     keys = [row["sample_id"] for row in items]
     if len(keys) != len(set(keys)):
         raise ValueError(f"Duplicate prediction ID in {path}")
-    return (keys, np.asarray([row["target"] for row in items]),
-            np.asarray([row["scores"] for row in items]),
+    scores = np.asarray([row["scores"] for row in items], dtype=np.float64)
+    if score_kind == "sigmoid":
+        # JSON preserves float32 score values but has no dtype. Restore it so
+        # NumPy rounds scalar threshold comparisons just as it did at inference.
+        native_scores = scores.astype(np.float32)
+        if not np.array_equal(scores, native_scores):
+            raise ValueError(f"Neural scores do not round-trip as float32 in {path}")
+        scores = native_scores
+    elif score_kind != "decision":
+        raise ValueError(f"Unknown score kind: {score_kind}")
+    return (keys, np.asarray([row["target"] for row in items]), scores,
             np.asarray([row["predicted"] for row in items]))

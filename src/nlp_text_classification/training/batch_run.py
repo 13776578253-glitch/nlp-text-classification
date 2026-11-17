@@ -139,7 +139,7 @@ def run_attempt(data, resolved, output: Path, progress, *, cohort: str, seed: in
                 raise ValueError("Checkpoint reload changed discrete validation predictions")
             prediction_path = attempt.path / "predictions_validation.jsonl"
             write_predictions(prediction_path, data.validation, y_val, scores, cutoff)
-            _, targets, raw_scores, predictions = read_predictions(prediction_path)
+            _, targets, raw_scores, predictions = read_predictions(prediction_path, score_kind=kind)
             recomputed = measure(targets, raw_scores, cutoff, data.binary)
             if recomputed != metrics or not np.array_equal(predictions, raw_scores >= cutoff):
                 raise ValueError("Full-precision prediction evidence did not reproduce metrics")
