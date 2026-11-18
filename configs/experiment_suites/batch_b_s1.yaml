@@ -1,0 +1,40 @@
+suite_id: batch-b-s1
+revision: 1
+dataset_configs:
+  goemotions: configs/datasets/goemotions.yaml
+  movie_reviews_zh: configs/datasets/movie_reviews_zh.yaml
+model_configs:
+  - configs/batch_b/distilbert.yaml
+  - configs/batch_b/modernbert_base.yaml
+  - configs/batch_b/modernbert_large.yaml
+  - configs/batch_b/chinese_macbert_base.yaml
+seed: 42
+training:
+  epochs: 6
+  patience: 2
+  effective_batch_size: 32
+  baseline_lr: 0.00002
+  optimizer: adamw
+  weight_decay: 0.01
+  scheduler: linear
+  warmup_ratio: 0.06
+  grad_clip_norm: 1.0
+  precision: bf16_if_supported
+tokenization:
+  coverage_quantile: 0.99
+  candidates:
+    goemotions: [64, 96, 128]
+    movie_reviews_zh: [128, 192, 256]
+  chinese_text: preserve_token_boundaries
+  padding_multiple: 8
+selection:
+  metric: validation_macro_f1
+  score_tie_atol: 1.0e-12
+  threshold_grids:
+    sigmoid:
+      range_inclusive: [0.05, 0.95]
+      step: 0.05
+      default: 0.50
+quality:
+  reload_score_atol: 1.0e-7
+  reload_score_rtol: 1.0e-6

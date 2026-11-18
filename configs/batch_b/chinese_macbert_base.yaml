@@ -1,0 +1,8 @@
+experiment_id: B4
+dataset: movie_reviews_zh
+model_id: hfl/chinese-macbert-base
+model_type: bert
+weight_format: pytorch_bin
+alternate_lr: 0.00003
+micro_batch_size: 16
+gradient_checkpointing: false

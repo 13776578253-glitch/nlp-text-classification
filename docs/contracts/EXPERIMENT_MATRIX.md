@@ -36,4 +36,13 @@ GoEmotions 六个神经配置使用原入选参数，在统一 24 轮上限与 p
 
 ## Batch B
 
-E4 Transformer 单独立项，英文候选参考 [现有配置目录](../../configs/batch_b/)；中文候选使用语言适配的预训练 Encoder。Batch B 的训练、参数空间、对照和验收另定。RQ3 显存极限、QLoRA 和复杂前端开发均在本轮范围之外。
+E4 对应 Batch B。S1 执行四个 Encoder 的完整微调，S2 根据 S1 的运行证据制定补充矩阵，S3 为 Qwen3.5-4B 与 QLoRA 的独立提案。
+
+| ID | 模型 | 数据集 |
+| --- | --- | --- |
+| B1 | DistilBERT | GoEmotions |
+| B2 | ModernBERT-base | GoEmotions |
+| B3 | ModernBERT-large | GoEmotions |
+| B4 | Chinese MacBERT-base | 中文电影评论 |
+
+[Batch B 总览](../plans/batch-b/overview.md) · [S1 实验契约](../plans/batch-b/s1-encoders.md)

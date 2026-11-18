@@ -1,9 +1,8 @@
-experiment_id: E4
-status: planned
+experiment_id: B2
 dataset: goemotions
 model_id: answerdotai/ModernBERT-base
-model_type: encoder_sequence_classification
-num_labels: 28
-problem_type: multi_label_classification
-max_length: 128
-seed: 42
+model_type: modernbert
+weight_format: safetensors
+alternate_lr: 0.00003
+micro_batch_size: 16
+gradient_checkpointing: false

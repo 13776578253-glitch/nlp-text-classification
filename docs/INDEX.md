@@ -13,6 +13,7 @@
 | [Batch A 研究归档](finish-task/batch-a/summary.md) · [模型结果索引](finish-task/batch-a/model-index.json) | 冻结测试、两轮验证补充实验与原始证据 |
 | [Batch A Supplement S1](runbooks/batch-a-s1.md) | GoEmotions 统一 24 轮预算、收敛诊断和多种子复验 |
 | [Batch A Supplement S2](runbooks/batch-a-s2.md) | GoEmotions 候选筛选、36 轮续训与恢复审计 |
+| [Batch B 规划](plans/batch-b/overview.md) · [S1 契约](plans/batch-b/s1-encoders.md) | Encoder、补充实验和 Qwen 提案 |
 | [当前状态](current-task/ACTIVE.md) · [下一步](NEXT.md) | 阶段与证据引用、当前工作入口 |
 | [待议与研究局限](BACKLOG.md) | 后续工作与研究边界 |
 
