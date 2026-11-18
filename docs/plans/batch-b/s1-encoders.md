@@ -11,7 +11,7 @@
 
 ## 数据、预测与长度
 
-GoEmotions 用 28 维标签顺序训练 BCEWithLogitsLoss，评分为 float32 sigmoid。中文使用两个 logit、cross-entropy 和 float32 softmax 的第 1 列，语义 class 1 对应原始标签 0（正向），class 0 对应原始标签 1（负向）。沿用 Batch A sigmoid 阈值网格 0.05 到 0.95，预测规则为 `score >= cutoff`。
+GoEmotions 用 28 维标签顺序训练 BCEWithLogitsLoss，评分为 float32 sigmoid。中文使用两个 logit 和 cross-entropy，评分取 float32 softmax 的第二列（零基索引 1）。语义 class 1 对应原始标签 0（正向），class 0 对应原始标签 1（负向）。两种分数共用 0.05 到 0.95 的概率阈值网格，预测规则为 `score >= cutoff`。见 [正式冻结与测试契约](final-test.md)。
 
 英语 Tokenizer 接收原始冻结文本。中文保留分词边界，用单个 ASCII 空格连接原有词元。审计在训练和验证分区对比删空格后的 Token ID 变化，特别覆盖混合英文和数字的样本。计算长度时包含特殊 Token。每个模型选使训练覆盖率达到 99% 的最小候选长度。英语候选为 64、96、128，中文为 128、192、256。全部低于 99% 时用最大候选，并记录实际截断比例。右侧截断与动态右侧 Padding，向上对齐 8。逐模型审计 train/validation 长度分位数、截断比例、特殊 Token 和 Mask。
 

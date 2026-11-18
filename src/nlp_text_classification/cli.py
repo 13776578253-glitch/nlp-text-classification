@@ -49,6 +49,8 @@ def main() -> None:
     encoders.add_argument("mode", choices=("data-audit", "smoke", "run", "report", "status"))
     replications = command.add_parser("batch-b-s2", help="Run Batch B seed replications")
     replications.add_argument("mode", choices=("audit", "run", "report", "status"))
+    final = command.add_parser("batch-b-final", help="Audit, freeze, and test Batch B encoders")
+    final.add_argument("mode", choices=("audit", "test", "report", "status"))
     args = parser.parse_args()
     if args.command == "download":
         from nlp_text_classification.data.download import download_official
@@ -116,13 +118,16 @@ def main() -> None:
             from nlp_text_classification.experiments.batch_a_s2 import execute
 
         result = execute(args.mode)
-    elif args.command in {"batch-b-s1", "batch-b-s2"}:
+    elif args.command in {"batch-b-s1", "batch-b-s2", "batch-b-final"}:
         from nlp_text_classification.training.resources import (
             configure_compute_threads,
             require_headroom,
         )
 
-        if args.mode in {"smoke", "run"}:
+        needs_gpu = args.mode in {"smoke", "run", "test"} or (
+            args.command == "batch-b-final" and args.mode == "audit"
+        )
+        if needs_gpu:
             try:
                 require_headroom()
             except RuntimeError as exc:
@@ -139,8 +144,10 @@ def main() -> None:
                 transformer_logging.get_logger("transformers")
             if args.command == "batch-b-s1":
                 from nlp_text_classification.experiments.batch_b_s1 import execute
-            else:
+            elif args.command == "batch-b-s2":
                 from nlp_text_classification.experiments.batch_b_s2 import execute
+            else:
+                from nlp_text_classification.experiments.batch_b_final import execute
 
             result = execute(args.mode)
     else:

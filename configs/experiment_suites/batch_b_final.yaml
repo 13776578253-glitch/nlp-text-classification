@@ -1,0 +1,13 @@
+revision: 1
+proposal: reports/batch-b-s2/proposed-freeze.json
+proposal_sha256: 192380533d8d3f04f9344ca98a20f2e7b12ebc50e1ecd071604656c796a6ab61
+s2_acceptance: artifacts/batch-b-s2/acceptance-check.json
+s2_acceptance_sha256: 2d33de06d7aa4fc9753dbeed4cc1a153370b20896a0fa08c27f9bb3a905684af
+bootstrap:
+  models: [B3, B2]
+  metrics: [macro_f1, micro_f1, subset_accuracy]
+  n_resamples: 10000
+  seed: 20261118
+  confidence: 0.95
+  unit: aligned_test_row
+  reuse_rows_across_fixed_seeds: true
