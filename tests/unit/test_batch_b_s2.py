@@ -1,6 +1,6 @@
 import pytest
 
-from nlp_text_classification.evaluation.batch_b_s2_report import rare_gap
+from nlp_text_classification.evaluation.batch_b_s2_report import _ranking, rare_gap
 from nlp_text_classification.experiments.batch_b_s2 import budget_decision
 
 
@@ -20,3 +20,7 @@ def test_rare_contribution_decomposes_the_signed_macro_gap():
     assert result["all_label_gap"] == pytest.approx(
         result["rare_contribution"] + result["remaining_contribution"]
     )
+
+
+def test_equal_subset_accuracy_is_reported_as_a_tied_rank():
+    assert _ranking({"B1": 0.416, "B2": 0.416, "B3": 0.3874}) == [["B1", "B2"], ["B3"]]

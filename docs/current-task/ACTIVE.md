@@ -1,6 +1,6 @@
-# 当前任务状态 · Batch B S2
+# 当前任务状态 · Batch B 待冻结审计
 
-Batch B S1 已完成。RTX 4070 Ti SUPER 串行完成 4 个基础配置和 4 个学习率候选，8/8 Run 通过验证审计。S2 执行九个新 Run，完成 B1 预算选择和 B1–B4 三种子验证。正式测试待独立冻结，S3 保持规划状态。 [S1 验证报告](../../reports/batch-b-s1/report.md) · [S2 运行手册](../runbooks/batch-b-s2.md)
+Batch B S1 和 S2 均已验收。S2 的九个新增 Run 通过，B1 采用六轮预算，B1–B4 的 12 项验证结果和逐标签分析已归档。下一入口为拟冻结清单的独立审计。S3 保持规划状态。 [S1 验证报告](../../reports/batch-b-s1/report.md) · [S2 验收](../finish-task/batch-b-s2.md) · [拟冻结清单](../../reports/batch-b-s2/proposed-freeze.json)
 
 Batch A Stage 0–5、Supplement S1 和 S2 均已完成。见 [统一研究总结](../finish-task/batch-a/summary.md) 与 [模型结果索引](../finish-task/batch-a/model-index.json)。
 

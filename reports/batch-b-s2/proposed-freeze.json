@@ -1,0 +1,1779 @@
+{
+  "status": "proposed",
+  "suite": {
+    "suite": "batch-b-s2",
+    "revision": 1,
+    "protocol_sha256": "a592aff84dec7534787840a044faf09cd8dd120128650e11d1e0833ce32c81aa",
+    "s1_training_identity": {
+      "suite_sha256": "0492326312fce669f189be43647627e1cfd2f71cf521e0f16ab9a1e8d0f782f2",
+      "config_sha256": "b83282785534eeafe52dc9923c504ed2ef91fc626a3bdecb1c5772f473c326f6",
+      "resource_lock_sha256": "bee0fd35f1af8703070fcb1bd40c201fd0c892248a4e7c15e86cb2676d09c3bb",
+      "tokenization_sha256": "1cd6d535d676071b19accaee3e470433c21f1978d3bc4c71e9439fa16f51713b",
+      "sources": {
+        "experiments/batch_b_s1.py": "3ef31562fd8621c99927f458a6e4bc7d37f3c99d465b85dee4bea36afee1821b",
+        "experiments/batch_b_resources.py": "a8671ddf8d04dab4dfb0e4141c0a49c90e0bcc37f1c33ad41e3778e5e11f7be6",
+        "data/transformer_inputs.py": "f3b04f9e903162a99b4bb2cd5fc116a1688e6b62ddf22281ef9985a940e38899",
+        "training/transformer_runner.py": "fe655a5e6935a7fac36026758086ac005b5fe8f2cec8d5e530d68f0bc8b2b47f",
+        "training/batch_run.py": "41bd5be27e6c75de4fcfc1c412fa199dfd52f88a653c5af552b780c73a9b3970",
+        "evaluation/batch_metrics.py": "258ce9db3cc4c7b3c4b9f105ecb1d846cfc89abcc8824013759a08e1c6e1af88"
+      }
+    },
+    "s1_results_sha256": "2fb0f94617c42f44b1ccbf2af0b1615d6229f9ee6379256a759c60672f53a172",
+    "s1_delivery_audit_sha256": "8c734c551c75dbbdf185d55d797f19c01fbe315486557d4736bd2cbcf2376f25",
+    "s2_engine_sha256": "f033d568cbb801b3b446048aec90d413387fac53fbc50b2fb0d2f67f2f32092c"
+  },
+  "source_split": "validation",
+  "primary_seed": 42,
+  "replication_seeds": [
+    123,
+    2026
+  ],
+  "b1_budget_decision": {
+    "s1_macro_f1": 0.4958101250851166,
+    "s2_macro_f1": 0.4918242244148444,
+    "gain": -0.003985900670272213,
+    "minimum_macro_f1_gain": 0.01,
+    "selected_budget": "s1_6_epochs",
+    "runs": {
+      "s1_6_epochs": "artifacts\\batch-b-s1\\formal\\runs\\goemotions\\B1\\20261118T024246-45479325d9",
+      "s2_12_epochs": "artifacts\\batch-b-s2\\runs\\goemotions\\B1\\20261118T050903-c91459261a"
+    },
+    "selected_run": "artifacts\\batch-b-s1\\formal\\runs\\goemotions\\B1\\20261118T024246-45479325d9"
+  },
+  "runs": [
+    {
+      "model": "B1",
+      "seed": 42,
+      "role": "primary",
+      "stage": "S1",
+      "run": "artifacts\\batch-b-s1\\formal\\runs\\goemotions\\B1\\20261118T024246-45479325d9",
+      "checkpoint": "checkpoint/best-epoch-5.pt",
+      "dataset": "goemotions",
+      "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+      "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+      "label_order": [
+        "admiration",
+        "amusement",
+        "anger",
+        "annoyance",
+        "approval",
+        "caring",
+        "confusion",
+        "curiosity",
+        "desire",
+        "disappointment",
+        "disapproval",
+        "disgust",
+        "embarrassment",
+        "excitement",
+        "fear",
+        "gratitude",
+        "grief",
+        "joy",
+        "love",
+        "nervousness",
+        "optimism",
+        "pride",
+        "realization",
+        "relief",
+        "remorse",
+        "sadness",
+        "surprise",
+        "neutral"
+      ],
+      "positive_raw_id": null,
+      "model_id": "distilbert/distilbert-base-uncased",
+      "model_revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+      "tokenizer_sha256": "b2867e5709ce52b82697f8efcb6e9cda022226e6aef1684bbe082b165d563b9e",
+      "settings": {
+        "accumulation_steps": 1,
+        "baseline_lr": 2e-05,
+        "effective_batch_size": 32,
+        "epochs": 6,
+        "evaluation_batch_size": 32,
+        "grad_clip_norm": 1.0,
+        "gradient_checkpointing": false,
+        "learning_rate": 3e-05,
+        "micro_batch_size": 32,
+        "optimizer": "adamw",
+        "patience": 2,
+        "precision": "bf16",
+        "scheduler": "linear",
+        "warmup_ratio": 0.06,
+        "weight_decay": 0.01
+      },
+      "tokenization": {
+        "attention_mask_verified": true,
+        "candidate_lengths": [
+          64,
+          96,
+          128
+        ],
+        "cls_token_id": 101,
+        "dataset": "goemotions",
+        "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+        "model_revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+        "pad_token_id": 0,
+        "padding_multiple": 8,
+        "padding_side": "right",
+        "partitions": {
+          "train": {
+            "encoded_sha256": "9762311c3ca7eba25efeade75f9b0a014bc25bc375082d2b038108eebeb51dbf",
+            "max": 316,
+            "percentiles": {
+              "50": 19.0,
+              "90": 31.0,
+              "95": 34.0,
+              "99": 38.0
+            },
+            "rows": 43211,
+            "truncated_fraction": 6.942676633264678e-05,
+            "truncated_rows": 3
+          },
+          "validation": {
+            "encoded_sha256": "033e1d58d7c6a12034f25bf4b6c6ef75f49080ab6edaac4b136baa7bf42e96ea",
+            "max": 48,
+            "percentiles": {
+              "50": 19.0,
+              "90": 31.0,
+              "95": 34.0,
+              "99": 38.0
+            },
+            "rows": 5416,
+            "truncated_fraction": 0.0,
+            "truncated_rows": 0
+          }
+        },
+        "selected_length": 64,
+        "sep_token_id": 102,
+        "special_token_count": 2,
+        "special_tokens_verified": true,
+        "text_rule": "frozen_text",
+        "tokenizer_sha256": "b2867e5709ce52b82697f8efcb6e9cda022226e6aef1684bbe082b165d563b9e",
+        "train_coverage": 0.9999305732336674,
+        "train_coverage_target": 0.99,
+        "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+        "truncation_side": "right"
+      },
+      "selection": {
+        "metric": "validation_macro_f1",
+        "score_tie_atol": 1e-12,
+        "threshold_grids": {
+          "sigmoid": {
+            "default": 0.5,
+            "range_inclusive": [
+              0.05,
+              0.95
+            ],
+            "step": 0.05
+          }
+        }
+      },
+      "best_epoch": 5,
+      "validation_macro_f1": 0.4958101250851166,
+      "threshold": 0.25,
+      "score_kind": "sigmoid",
+      "files": {
+        "resolved_config.yaml": "3a0f8fe98a7633f51453c62fb9c1c062742809253d498c719d91f41062ca0471",
+        "run_manifest.json": "868822dc134996efc888e7643dbdd0b0175874bd06e4be6fa78466f9dbda7dee",
+        "history.csv": "8cc2f4aaa6fa0a686a6038bf21597fcc14e29111620ea37526b29f1b32e6b433",
+        "quality.json": "97c5e39e66df7d50450152b4e11dd1baabaa4aaf90d5ee24a659bb526c106a0a",
+        "result.json": "078e44c687c4cd5b395ebc9dff54e1fda58b4d5151b23dd7c38d440a67b0b82e",
+        "thresholds.json": "23676c9d6a3b10ea44ae98e4dd0530148d2ce574c7b85eda20b89db29b415eb7",
+        "metrics_train.json": "6f2f87e910e14811bb1591acee9722c771a2ebf15867d53f8f340c921edcb0f9",
+        "metrics_validation.json": "690576b7c382fd596107d9041378c6c80ac19bab421eacd1ad81d0b1ef7b8104",
+        "predictions_train.jsonl": "d6edc102aabe20d4f66a72b1fd07758d0f144687684b970752dec25e47b0ff7b",
+        "predictions_validation.jsonl": "0ffee8521f7cc37e5680cd348e114cd618619746831fe3459c5171eeb295780b",
+        "checkpoint/config.json": "d6856983aaa07d5df9e2da2ce445219fb72f23a19ec76c02ec29a6f70a6afb36",
+        "checkpoint/resume.pt": "3fa97dae283431b1c5bfba165701390e62c62dc94ede06cd6c844026be27584d",
+        "checkpoint/best-epoch-5.pt": "e2b7552e3a5dcc8e031696d254edc8364178c2fea929a45656fae18e95673da6"
+      }
+    },
+    {
+      "model": "B1",
+      "seed": 123,
+      "role": "replication",
+      "stage": "S2",
+      "run": "artifacts\\batch-b-s2\\runs\\goemotions\\B1\\20261118T051253-ba7d0b0565",
+      "checkpoint": "checkpoint/best-epoch-5.pt",
+      "dataset": "goemotions",
+      "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+      "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+      "label_order": [
+        "admiration",
+        "amusement",
+        "anger",
+        "annoyance",
+        "approval",
+        "caring",
+        "confusion",
+        "curiosity",
+        "desire",
+        "disappointment",
+        "disapproval",
+        "disgust",
+        "embarrassment",
+        "excitement",
+        "fear",
+        "gratitude",
+        "grief",
+        "joy",
+        "love",
+        "nervousness",
+        "optimism",
+        "pride",
+        "realization",
+        "relief",
+        "remorse",
+        "sadness",
+        "surprise",
+        "neutral"
+      ],
+      "positive_raw_id": null,
+      "model_id": "distilbert/distilbert-base-uncased",
+      "model_revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+      "tokenizer_sha256": "b2867e5709ce52b82697f8efcb6e9cda022226e6aef1684bbe082b165d563b9e",
+      "settings": {
+        "accumulation_steps": 1,
+        "baseline_lr": 2e-05,
+        "effective_batch_size": 32,
+        "epochs": 6,
+        "evaluation_batch_size": 32,
+        "grad_clip_norm": 1.0,
+        "gradient_checkpointing": false,
+        "learning_rate": 3e-05,
+        "micro_batch_size": 32,
+        "optimizer": "adamw",
+        "patience": 2,
+        "precision": "bf16",
+        "scheduler": "linear",
+        "warmup_ratio": 0.06,
+        "weight_decay": 0.01
+      },
+      "tokenization": {
+        "attention_mask_verified": true,
+        "candidate_lengths": [
+          64,
+          96,
+          128
+        ],
+        "cls_token_id": 101,
+        "dataset": "goemotions",
+        "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+        "model_revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+        "pad_token_id": 0,
+        "padding_multiple": 8,
+        "padding_side": "right",
+        "partitions": {
+          "train": {
+            "encoded_sha256": "9762311c3ca7eba25efeade75f9b0a014bc25bc375082d2b038108eebeb51dbf",
+            "max": 316,
+            "percentiles": {
+              "50": 19.0,
+              "90": 31.0,
+              "95": 34.0,
+              "99": 38.0
+            },
+            "rows": 43211,
+            "truncated_fraction": 6.942676633264678e-05,
+            "truncated_rows": 3
+          },
+          "validation": {
+            "encoded_sha256": "033e1d58d7c6a12034f25bf4b6c6ef75f49080ab6edaac4b136baa7bf42e96ea",
+            "max": 48,
+            "percentiles": {
+              "50": 19.0,
+              "90": 31.0,
+              "95": 34.0,
+              "99": 38.0
+            },
+            "rows": 5416,
+            "truncated_fraction": 0.0,
+            "truncated_rows": 0
+          }
+        },
+        "selected_length": 64,
+        "sep_token_id": 102,
+        "special_token_count": 2,
+        "special_tokens_verified": true,
+        "text_rule": "frozen_text",
+        "tokenizer_sha256": "b2867e5709ce52b82697f8efcb6e9cda022226e6aef1684bbe082b165d563b9e",
+        "train_coverage": 0.9999305732336674,
+        "train_coverage_target": 0.99,
+        "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+        "truncation_side": "right"
+      },
+      "selection": {
+        "metric": "validation_macro_f1",
+        "score_tie_atol": 1e-12,
+        "threshold_grids": {
+          "sigmoid": {
+            "default": 0.5,
+            "range_inclusive": [
+              0.05,
+              0.95
+            ],
+            "step": 0.05
+          }
+        }
+      },
+      "best_epoch": 5,
+      "validation_macro_f1": 0.4930079855479605,
+      "threshold": 0.25,
+      "score_kind": "sigmoid",
+      "files": {
+        "resolved_config.yaml": "56ae07b88f075a11dc3bb6ff09b6fed4c734b91ec0d8c0675ee92f0c68b54c54",
+        "run_manifest.json": "d5fbe8e814496c38a2a17dbcbb99b599d2a1d1b13888f08ef0053e5bd93f1156",
+        "history.csv": "7f3153b2cf12dddd5b512c4d327c68fc89f8ccd2bbf4175d83894036c2ca791d",
+        "quality.json": "97c5e39e66df7d50450152b4e11dd1baabaa4aaf90d5ee24a659bb526c106a0a",
+        "result.json": "2a8d92ba2f909963dcb64c83ed1559b7d36eb0b6d7edf39145789ee1f9c4c546",
+        "thresholds.json": "632f851e78340cbbc34b59c212efb2716d1ff44665e612f7e8b53c53bc64e41e",
+        "metrics_train.json": "70e5aec8b8857018b0d9df54d1393dafb1d523cbd70ec578bfb1509681271854",
+        "metrics_validation.json": "787883a01eb63bdaea78c14f40b47621cf7560bf8e1cbe860ed6cf3fca3a9643",
+        "predictions_train.jsonl": "25ad3e3177be3faba5f08cf9477e22f46f78b3a3a4beace3e2cb86f195f3b2bf",
+        "predictions_validation.jsonl": "cf8d7950a4335bea5ed04a31dd7e9dc7d86f1c3c7dd175c78e8f6d155a857f47",
+        "checkpoint/config.json": "d6856983aaa07d5df9e2da2ce445219fb72f23a19ec76c02ec29a6f70a6afb36",
+        "checkpoint/resume.pt": "504946fb71ed472456a0c405db3cf8d764218ed1e2949c3bfe67533d77fdb022",
+        "checkpoint/best-epoch-5.pt": "3279d70ecf69c693980777a5cf724d8f251c6a080287c94dc7dc88a6de3365e9"
+      }
+    },
+    {
+      "model": "B1",
+      "seed": 2026,
+      "role": "replication",
+      "stage": "S2",
+      "run": "artifacts\\batch-b-s2\\runs\\goemotions\\B1\\20261118T051610-86ae4dc899",
+      "checkpoint": "checkpoint/best-epoch-4.pt",
+      "dataset": "goemotions",
+      "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+      "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+      "label_order": [
+        "admiration",
+        "amusement",
+        "anger",
+        "annoyance",
+        "approval",
+        "caring",
+        "confusion",
+        "curiosity",
+        "desire",
+        "disappointment",
+        "disapproval",
+        "disgust",
+        "embarrassment",
+        "excitement",
+        "fear",
+        "gratitude",
+        "grief",
+        "joy",
+        "love",
+        "nervousness",
+        "optimism",
+        "pride",
+        "realization",
+        "relief",
+        "remorse",
+        "sadness",
+        "surprise",
+        "neutral"
+      ],
+      "positive_raw_id": null,
+      "model_id": "distilbert/distilbert-base-uncased",
+      "model_revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+      "tokenizer_sha256": "b2867e5709ce52b82697f8efcb6e9cda022226e6aef1684bbe082b165d563b9e",
+      "settings": {
+        "accumulation_steps": 1,
+        "baseline_lr": 2e-05,
+        "effective_batch_size": 32,
+        "epochs": 6,
+        "evaluation_batch_size": 32,
+        "grad_clip_norm": 1.0,
+        "gradient_checkpointing": false,
+        "learning_rate": 3e-05,
+        "micro_batch_size": 32,
+        "optimizer": "adamw",
+        "patience": 2,
+        "precision": "bf16",
+        "scheduler": "linear",
+        "warmup_ratio": 0.06,
+        "weight_decay": 0.01
+      },
+      "tokenization": {
+        "attention_mask_verified": true,
+        "candidate_lengths": [
+          64,
+          96,
+          128
+        ],
+        "cls_token_id": 101,
+        "dataset": "goemotions",
+        "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+        "model_revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+        "pad_token_id": 0,
+        "padding_multiple": 8,
+        "padding_side": "right",
+        "partitions": {
+          "train": {
+            "encoded_sha256": "9762311c3ca7eba25efeade75f9b0a014bc25bc375082d2b038108eebeb51dbf",
+            "max": 316,
+            "percentiles": {
+              "50": 19.0,
+              "90": 31.0,
+              "95": 34.0,
+              "99": 38.0
+            },
+            "rows": 43211,
+            "truncated_fraction": 6.942676633264678e-05,
+            "truncated_rows": 3
+          },
+          "validation": {
+            "encoded_sha256": "033e1d58d7c6a12034f25bf4b6c6ef75f49080ab6edaac4b136baa7bf42e96ea",
+            "max": 48,
+            "percentiles": {
+              "50": 19.0,
+              "90": 31.0,
+              "95": 34.0,
+              "99": 38.0
+            },
+            "rows": 5416,
+            "truncated_fraction": 0.0,
+            "truncated_rows": 0
+          }
+        },
+        "selected_length": 64,
+        "sep_token_id": 102,
+        "special_token_count": 2,
+        "special_tokens_verified": true,
+        "text_rule": "frozen_text",
+        "tokenizer_sha256": "b2867e5709ce52b82697f8efcb6e9cda022226e6aef1684bbe082b165d563b9e",
+        "train_coverage": 0.9999305732336674,
+        "train_coverage_target": 0.99,
+        "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+        "truncation_side": "right"
+      },
+      "selection": {
+        "metric": "validation_macro_f1",
+        "score_tie_atol": 1e-12,
+        "threshold_grids": {
+          "sigmoid": {
+            "default": 0.5,
+            "range_inclusive": [
+              0.05,
+              0.95
+            ],
+            "step": 0.05
+          }
+        }
+      },
+      "best_epoch": 4,
+      "validation_macro_f1": 0.5033840550863985,
+      "threshold": 0.2,
+      "score_kind": "sigmoid",
+      "files": {
+        "resolved_config.yaml": "3fd87a57e139d5f269ba38f32b971af1d5cfb8c5d3acd3d034c99b7325f23fab",
+        "run_manifest.json": "fa0a235fa06c42a8486eff292dacfe56eade9ca2fdddf276d7a7678d06bfc50b",
+        "history.csv": "cb3b26faf8c7fa0096a2b4bfacef7f32300a3aab444360eeffea06ab4afb873f",
+        "quality.json": "97c5e39e66df7d50450152b4e11dd1baabaa4aaf90d5ee24a659bb526c106a0a",
+        "result.json": "e126494b5cef3a6abb57f2a7b6b9f6257339065bc65312ea4230c1e7c77d2b6d",
+        "thresholds.json": "d40d1841ef08fcc0bf3594409dc11711fd067a8667bacbacbfb3cca81b125135",
+        "metrics_train.json": "7d8d96cf2b08dbdbca6ad91da384e7d8430f4ea5d47888004dec73176baa65a3",
+        "metrics_validation.json": "7fdccbe8273d967813e7ab4f4dc9021265681dccfadc68a8fe419237a6a84f53",
+        "predictions_train.jsonl": "8f06b1e9417693b474e739c3696f873e56621cf9d6e7c1a4878a53f5f4d6ea14",
+        "predictions_validation.jsonl": "e08ebbf8bef863b3bfd7eec265a7fcdfbed7056b394213ffb5c5ddf3e131595c",
+        "checkpoint/config.json": "d6856983aaa07d5df9e2da2ce445219fb72f23a19ec76c02ec29a6f70a6afb36",
+        "checkpoint/resume.pt": "4ba01a7683477ecc55d82c256dd4fb4658520eb25c30483b443994b229529dc0",
+        "checkpoint/best-epoch-4.pt": "884f847a9bbc980b728df9108e5d177bd49266989dc986875399689905e5df04"
+      }
+    },
+    {
+      "model": "B2",
+      "seed": 42,
+      "role": "primary",
+      "stage": "S1",
+      "run": "artifacts\\batch-b-s1\\formal\\runs\\goemotions\\B2\\20261118T024653-ae365ea198",
+      "checkpoint": "checkpoint/best-epoch-2.pt",
+      "dataset": "goemotions",
+      "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+      "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+      "label_order": [
+        "admiration",
+        "amusement",
+        "anger",
+        "annoyance",
+        "approval",
+        "caring",
+        "confusion",
+        "curiosity",
+        "desire",
+        "disappointment",
+        "disapproval",
+        "disgust",
+        "embarrassment",
+        "excitement",
+        "fear",
+        "gratitude",
+        "grief",
+        "joy",
+        "love",
+        "nervousness",
+        "optimism",
+        "pride",
+        "realization",
+        "relief",
+        "remorse",
+        "sadness",
+        "surprise",
+        "neutral"
+      ],
+      "positive_raw_id": null,
+      "model_id": "answerdotai/ModernBERT-base",
+      "model_revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+      "tokenizer_sha256": "d0ae49f1c7ed074e91148171b549bcd987221bf8b66ef8b450b140bcbcda043e",
+      "settings": {
+        "accumulation_steps": 2,
+        "baseline_lr": 2e-05,
+        "effective_batch_size": 32,
+        "epochs": 6,
+        "evaluation_batch_size": 32,
+        "grad_clip_norm": 1.0,
+        "gradient_checkpointing": false,
+        "learning_rate": 3e-05,
+        "micro_batch_size": 16,
+        "optimizer": "adamw",
+        "patience": 2,
+        "precision": "bf16",
+        "scheduler": "linear",
+        "warmup_ratio": 0.06,
+        "weight_decay": 0.01
+      },
+      "tokenization": {
+        "attention_mask_verified": true,
+        "candidate_lengths": [
+          64,
+          96,
+          128
+        ],
+        "cls_token_id": 50281,
+        "dataset": "goemotions",
+        "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+        "model_revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+        "pad_token_id": 50283,
+        "padding_multiple": 8,
+        "padding_side": "right",
+        "partitions": {
+          "train": {
+            "encoded_sha256": "32288a4c7fa84d37a0ff544f4183f347721ee07c17c49319b60d52963503df17",
+            "max": 1437,
+            "percentiles": {
+              "50": 18.0,
+              "90": 31.0,
+              "95": 33.0,
+              "99": 37.0
+            },
+            "rows": 43211,
+            "truncated_fraction": 0.0002777070653305871,
+            "truncated_rows": 12
+          },
+          "validation": {
+            "encoded_sha256": "b61d60e2d726ddd59394fa224261913fc10a45e79149af8f346875ea9e2064d4",
+            "max": 77,
+            "percentiles": {
+              "50": 18.0,
+              "90": 31.0,
+              "95": 33.0,
+              "99": 37.0
+            },
+            "rows": 5416,
+            "truncated_fraction": 0.00036927621861152144,
+            "truncated_rows": 2
+          }
+        },
+        "selected_length": 64,
+        "sep_token_id": 50282,
+        "special_token_count": 2,
+        "special_tokens_verified": true,
+        "text_rule": "frozen_text",
+        "tokenizer_sha256": "d0ae49f1c7ed074e91148171b549bcd987221bf8b66ef8b450b140bcbcda043e",
+        "train_coverage": 0.9997222929346694,
+        "train_coverage_target": 0.99,
+        "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+        "truncation_side": "right"
+      },
+      "selection": {
+        "metric": "validation_macro_f1",
+        "score_tie_atol": 1e-12,
+        "threshold_grids": {
+          "sigmoid": {
+            "default": 0.5,
+            "range_inclusive": [
+              0.05,
+              0.95
+            ],
+            "step": 0.05
+          }
+        }
+      },
+      "best_epoch": 2,
+      "validation_macro_f1": 0.5304939897691711,
+      "threshold": 0.25,
+      "score_kind": "sigmoid",
+      "files": {
+        "resolved_config.yaml": "2a2123c78d97c500a4d5d9d71dde9aafe0bd4591af7cbd5f893bdc85073090d4",
+        "run_manifest.json": "42142a31d9da85613925cf6559c99cf9a2c0b27ec48eb04cc1d95e4c5a25740a",
+        "history.csv": "b0ec27f8f1e8aceaf7573b14d2c90aa518ed111a6ee4b43745fd3ec3b4f1a1a3",
+        "quality.json": "d545d9a5c8874407bfe0dbed858b7c47396781f2f90a2e40cdede211338a3abf",
+        "result.json": "3f38e73a4f1ff2a7a5f22a7b43cbfce693b682a1dc1b73cf92a773c4b8a3f18a",
+        "thresholds.json": "1072a1ea62d0c6aee0bdb5a8c273d2972f3eea1da864e27d4dc3dcc2017b8b44",
+        "metrics_train.json": "7579c4a517d84a27fb20056faee17b23fc8e73b0510dad010e1a8023ed686b15",
+        "metrics_validation.json": "153a544f8e4d5eb12e592537f0738c77a5c844942a591ac40f3cdb2e9e63d009",
+        "predictions_train.jsonl": "f380d453dd5caf7026f21cf3d1a2767ea743889657ee7ad76b060fb89de84475",
+        "predictions_validation.jsonl": "e3152769fd83dd712a6cf8dbd39197c3f36bc322ef05de0bd96ea3a10617a87e",
+        "checkpoint/config.json": "11fa5ced516c46663958390051b15a388e2efb94890cb5c7002f3d284db6d405",
+        "checkpoint/resume.pt": "71abb8989e13c57c24e38955ff06b61e9aee6f62a552b59a5ae8d7f6e9ec29c8",
+        "checkpoint/best-epoch-2.pt": "7729e22f9584184394d122a63d092f5b7bee9d6ca2234ce70f4e88765f245dba"
+      }
+    },
+    {
+      "model": "B2",
+      "seed": 123,
+      "role": "replication",
+      "stage": "S2",
+      "run": "artifacts\\batch-b-s2\\runs\\goemotions\\B2\\20261118T051925-161dfd68df",
+      "checkpoint": "checkpoint/best-epoch-3.pt",
+      "dataset": "goemotions",
+      "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+      "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+      "label_order": [
+        "admiration",
+        "amusement",
+        "anger",
+        "annoyance",
+        "approval",
+        "caring",
+        "confusion",
+        "curiosity",
+        "desire",
+        "disappointment",
+        "disapproval",
+        "disgust",
+        "embarrassment",
+        "excitement",
+        "fear",
+        "gratitude",
+        "grief",
+        "joy",
+        "love",
+        "nervousness",
+        "optimism",
+        "pride",
+        "realization",
+        "relief",
+        "remorse",
+        "sadness",
+        "surprise",
+        "neutral"
+      ],
+      "positive_raw_id": null,
+      "model_id": "answerdotai/ModernBERT-base",
+      "model_revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+      "tokenizer_sha256": "d0ae49f1c7ed074e91148171b549bcd987221bf8b66ef8b450b140bcbcda043e",
+      "settings": {
+        "accumulation_steps": 2,
+        "baseline_lr": 2e-05,
+        "effective_batch_size": 32,
+        "epochs": 6,
+        "evaluation_batch_size": 32,
+        "grad_clip_norm": 1.0,
+        "gradient_checkpointing": false,
+        "learning_rate": 3e-05,
+        "micro_batch_size": 16,
+        "optimizer": "adamw",
+        "patience": 2,
+        "precision": "bf16",
+        "scheduler": "linear",
+        "warmup_ratio": 0.06,
+        "weight_decay": 0.01
+      },
+      "tokenization": {
+        "attention_mask_verified": true,
+        "candidate_lengths": [
+          64,
+          96,
+          128
+        ],
+        "cls_token_id": 50281,
+        "dataset": "goemotions",
+        "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+        "model_revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+        "pad_token_id": 50283,
+        "padding_multiple": 8,
+        "padding_side": "right",
+        "partitions": {
+          "train": {
+            "encoded_sha256": "32288a4c7fa84d37a0ff544f4183f347721ee07c17c49319b60d52963503df17",
+            "max": 1437,
+            "percentiles": {
+              "50": 18.0,
+              "90": 31.0,
+              "95": 33.0,
+              "99": 37.0
+            },
+            "rows": 43211,
+            "truncated_fraction": 0.0002777070653305871,
+            "truncated_rows": 12
+          },
+          "validation": {
+            "encoded_sha256": "b61d60e2d726ddd59394fa224261913fc10a45e79149af8f346875ea9e2064d4",
+            "max": 77,
+            "percentiles": {
+              "50": 18.0,
+              "90": 31.0,
+              "95": 33.0,
+              "99": 37.0
+            },
+            "rows": 5416,
+            "truncated_fraction": 0.00036927621861152144,
+            "truncated_rows": 2
+          }
+        },
+        "selected_length": 64,
+        "sep_token_id": 50282,
+        "special_token_count": 2,
+        "special_tokens_verified": true,
+        "text_rule": "frozen_text",
+        "tokenizer_sha256": "d0ae49f1c7ed074e91148171b549bcd987221bf8b66ef8b450b140bcbcda043e",
+        "train_coverage": 0.9997222929346694,
+        "train_coverage_target": 0.99,
+        "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+        "truncation_side": "right"
+      },
+      "selection": {
+        "metric": "validation_macro_f1",
+        "score_tie_atol": 1e-12,
+        "threshold_grids": {
+          "sigmoid": {
+            "default": 0.5,
+            "range_inclusive": [
+              0.05,
+              0.95
+            ],
+            "step": 0.05
+          }
+        }
+      },
+      "best_epoch": 3,
+      "validation_macro_f1": 0.5124634501105001,
+      "threshold": 0.25,
+      "score_kind": "sigmoid",
+      "files": {
+        "resolved_config.yaml": "0a99ec4738805a6fe7ad0ddcdb2e9a375e17aeb0baef2161ecbe40350c4123c8",
+        "run_manifest.json": "dcb8721e624c4fcc3ec1d8d47a6b779976d669cbee2abe989eaead4993c2d8ac",
+        "history.csv": "6eb8efb70d3434552fdeb9afb61872c2e66724a8c1547977dbdb52b07fb0bb09",
+        "quality.json": "d545d9a5c8874407bfe0dbed858b7c47396781f2f90a2e40cdede211338a3abf",
+        "result.json": "b8a4f1b2ee5a44101460eb33f650b2630bc688d518072258c03e971b0aa03953",
+        "thresholds.json": "320144ba4a96926c1e407b33ec148e3b38cbc4ea3a452a163dc0daa15f707f8a",
+        "metrics_train.json": "5c98cc41a0e8985b3c884c83faf6d5dc2c3da734c591fa35ee4e212d41bbe907",
+        "metrics_validation.json": "b19557474859c42a340c58675f4943dcb2e5d056644e4591c3b28244ecafc6f5",
+        "predictions_train.jsonl": "b9451336ed5dfa135bc4808c759d8d266a5f35f21e7d1dce8997f4f0c50eaf40",
+        "predictions_validation.jsonl": "cf2a01f6eba6cd271fbbdb0449bbfdb674fd4130860e30f14c467e3efca09250",
+        "checkpoint/config.json": "11fa5ced516c46663958390051b15a388e2efb94890cb5c7002f3d284db6d405",
+        "checkpoint/resume.pt": "f568fc0c6db558429f884193b6e83b996451b5126588ffccbab883c14eb92079",
+        "checkpoint/best-epoch-3.pt": "1f2a85296826b67fd7af720b343df35cb18553a599eb510b40cfbb0e884b4bae"
+      }
+    },
+    {
+      "model": "B2",
+      "seed": 2026,
+      "role": "replication",
+      "stage": "S2",
+      "run": "artifacts\\batch-b-s2\\runs\\goemotions\\B2\\20261118T053129-c8a452a1a7",
+      "checkpoint": "checkpoint/best-epoch-3.pt",
+      "dataset": "goemotions",
+      "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+      "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+      "label_order": [
+        "admiration",
+        "amusement",
+        "anger",
+        "annoyance",
+        "approval",
+        "caring",
+        "confusion",
+        "curiosity",
+        "desire",
+        "disappointment",
+        "disapproval",
+        "disgust",
+        "embarrassment",
+        "excitement",
+        "fear",
+        "gratitude",
+        "grief",
+        "joy",
+        "love",
+        "nervousness",
+        "optimism",
+        "pride",
+        "realization",
+        "relief",
+        "remorse",
+        "sadness",
+        "surprise",
+        "neutral"
+      ],
+      "positive_raw_id": null,
+      "model_id": "answerdotai/ModernBERT-base",
+      "model_revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+      "tokenizer_sha256": "d0ae49f1c7ed074e91148171b549bcd987221bf8b66ef8b450b140bcbcda043e",
+      "settings": {
+        "accumulation_steps": 2,
+        "baseline_lr": 2e-05,
+        "effective_batch_size": 32,
+        "epochs": 6,
+        "evaluation_batch_size": 32,
+        "grad_clip_norm": 1.0,
+        "gradient_checkpointing": false,
+        "learning_rate": 3e-05,
+        "micro_batch_size": 16,
+        "optimizer": "adamw",
+        "patience": 2,
+        "precision": "bf16",
+        "scheduler": "linear",
+        "warmup_ratio": 0.06,
+        "weight_decay": 0.01
+      },
+      "tokenization": {
+        "attention_mask_verified": true,
+        "candidate_lengths": [
+          64,
+          96,
+          128
+        ],
+        "cls_token_id": 50281,
+        "dataset": "goemotions",
+        "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+        "model_revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+        "pad_token_id": 50283,
+        "padding_multiple": 8,
+        "padding_side": "right",
+        "partitions": {
+          "train": {
+            "encoded_sha256": "32288a4c7fa84d37a0ff544f4183f347721ee07c17c49319b60d52963503df17",
+            "max": 1437,
+            "percentiles": {
+              "50": 18.0,
+              "90": 31.0,
+              "95": 33.0,
+              "99": 37.0
+            },
+            "rows": 43211,
+            "truncated_fraction": 0.0002777070653305871,
+            "truncated_rows": 12
+          },
+          "validation": {
+            "encoded_sha256": "b61d60e2d726ddd59394fa224261913fc10a45e79149af8f346875ea9e2064d4",
+            "max": 77,
+            "percentiles": {
+              "50": 18.0,
+              "90": 31.0,
+              "95": 33.0,
+              "99": 37.0
+            },
+            "rows": 5416,
+            "truncated_fraction": 0.00036927621861152144,
+            "truncated_rows": 2
+          }
+        },
+        "selected_length": 64,
+        "sep_token_id": 50282,
+        "special_token_count": 2,
+        "special_tokens_verified": true,
+        "text_rule": "frozen_text",
+        "tokenizer_sha256": "d0ae49f1c7ed074e91148171b549bcd987221bf8b66ef8b450b140bcbcda043e",
+        "train_coverage": 0.9997222929346694,
+        "train_coverage_target": 0.99,
+        "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+        "truncation_side": "right"
+      },
+      "selection": {
+        "metric": "validation_macro_f1",
+        "score_tie_atol": 1e-12,
+        "threshold_grids": {
+          "sigmoid": {
+            "default": 0.5,
+            "range_inclusive": [
+              0.05,
+              0.95
+            ],
+            "step": 0.05
+          }
+        }
+      },
+      "best_epoch": 3,
+      "validation_macro_f1": 0.5282304897515784,
+      "threshold": 0.2,
+      "score_kind": "sigmoid",
+      "files": {
+        "resolved_config.yaml": "1e17b85dbb27435583f36ddcdd1492e6c50c9369b0410e95523dee966da12787",
+        "run_manifest.json": "623ccd1e6befa6fb5d824c4ae6ce9bd8cac41bfac9a212b7fec036cfbd74c032",
+        "history.csv": "4acebf872b4568fa1bc67b418eb45ff275375c616a4824ffc0fcd63d9617c52e",
+        "quality.json": "d545d9a5c8874407bfe0dbed858b7c47396781f2f90a2e40cdede211338a3abf",
+        "result.json": "605350de695001d7c38f860806ba220594eee4b792c4c653968c2a8ea577fa9f",
+        "thresholds.json": "dcff937847ec20c9bb731bd330b311c95c35ee6bed39a9a259cd48969e7968f4",
+        "metrics_train.json": "dadd106c22ee5fb5045111577bc02b04fc989ab8e1cd027c6c4e552dc0fab0ff",
+        "metrics_validation.json": "93cfc1a78e41261f0f90b8a73cdeff05281f336675f9a915ecca7a33f15adeb9",
+        "predictions_train.jsonl": "92eaf23cac5faf7a61b1cd88912c07d844f4d41c17c28704c26f4e005c8bac13",
+        "predictions_validation.jsonl": "cd52acded3ff5f31c0316d91cc48fdd48e258f2ca12323c479c27de28aea9ac6",
+        "checkpoint/config.json": "11fa5ced516c46663958390051b15a388e2efb94890cb5c7002f3d284db6d405",
+        "checkpoint/resume.pt": "0488f14132f3b22617d318cc85c56948dee7197dda7962e6bfe9f738792346bb",
+        "checkpoint/best-epoch-3.pt": "2149ee3a91c76488748398a0e32416d8a57fee6e89f5a8ed3ce297e3423ed902"
+      }
+    },
+    {
+      "model": "B3",
+      "seed": 42,
+      "role": "primary",
+      "stage": "S1",
+      "run": "artifacts\\batch-b-s1\\formal\\runs\\goemotions\\B3\\20261118T021618-7daa0e9e37",
+      "checkpoint": "checkpoint/best-epoch-2.pt",
+      "dataset": "goemotions",
+      "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+      "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+      "label_order": [
+        "admiration",
+        "amusement",
+        "anger",
+        "annoyance",
+        "approval",
+        "caring",
+        "confusion",
+        "curiosity",
+        "desire",
+        "disappointment",
+        "disapproval",
+        "disgust",
+        "embarrassment",
+        "excitement",
+        "fear",
+        "gratitude",
+        "grief",
+        "joy",
+        "love",
+        "nervousness",
+        "optimism",
+        "pride",
+        "realization",
+        "relief",
+        "remorse",
+        "sadness",
+        "surprise",
+        "neutral"
+      ],
+      "positive_raw_id": null,
+      "model_id": "answerdotai/ModernBERT-large",
+      "model_revision": "45bb4654a4d5aaff24dd11d4781fa46d39bf8c13",
+      "tokenizer_sha256": "0949304ddf3a6db1e9b3c95e1d8d16c0ad1e71ec2c22f601666589422e6c50c9",
+      "settings": {
+        "accumulation_steps": 2,
+        "baseline_lr": 2e-05,
+        "effective_batch_size": 32,
+        "epochs": 6,
+        "evaluation_batch_size": 32,
+        "grad_clip_norm": 1.0,
+        "gradient_checkpointing": false,
+        "learning_rate": 2e-05,
+        "micro_batch_size": 16,
+        "optimizer": "adamw",
+        "patience": 2,
+        "precision": "bf16",
+        "scheduler": "linear",
+        "warmup_ratio": 0.06,
+        "weight_decay": 0.01
+      },
+      "tokenization": {
+        "attention_mask_verified": true,
+        "candidate_lengths": [
+          64,
+          96,
+          128
+        ],
+        "cls_token_id": 50281,
+        "dataset": "goemotions",
+        "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+        "model_revision": "45bb4654a4d5aaff24dd11d4781fa46d39bf8c13",
+        "pad_token_id": 50283,
+        "padding_multiple": 8,
+        "padding_side": "right",
+        "partitions": {
+          "train": {
+            "encoded_sha256": "32288a4c7fa84d37a0ff544f4183f347721ee07c17c49319b60d52963503df17",
+            "max": 1437,
+            "percentiles": {
+              "50": 18.0,
+              "90": 31.0,
+              "95": 33.0,
+              "99": 37.0
+            },
+            "rows": 43211,
+            "truncated_fraction": 0.0002777070653305871,
+            "truncated_rows": 12
+          },
+          "validation": {
+            "encoded_sha256": "b61d60e2d726ddd59394fa224261913fc10a45e79149af8f346875ea9e2064d4",
+            "max": 77,
+            "percentiles": {
+              "50": 18.0,
+              "90": 31.0,
+              "95": 33.0,
+              "99": 37.0
+            },
+            "rows": 5416,
+            "truncated_fraction": 0.00036927621861152144,
+            "truncated_rows": 2
+          }
+        },
+        "selected_length": 64,
+        "sep_token_id": 50282,
+        "special_token_count": 2,
+        "special_tokens_verified": true,
+        "text_rule": "frozen_text",
+        "tokenizer_sha256": "0949304ddf3a6db1e9b3c95e1d8d16c0ad1e71ec2c22f601666589422e6c50c9",
+        "train_coverage": 0.9997222929346694,
+        "train_coverage_target": 0.99,
+        "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+        "truncation_side": "right"
+      },
+      "selection": {
+        "metric": "validation_macro_f1",
+        "score_tie_atol": 1e-12,
+        "threshold_grids": {
+          "sigmoid": {
+            "default": 0.5,
+            "range_inclusive": [
+              0.05,
+              0.95
+            ],
+            "step": 0.05
+          }
+        }
+      },
+      "best_epoch": 2,
+      "validation_macro_f1": 0.5284963200700573,
+      "threshold": 0.3,
+      "score_kind": "sigmoid",
+      "files": {
+        "resolved_config.yaml": "67f0e31d53e389dd8689091a351aecc8f2384ed27fbc881d1e88057a441e6572",
+        "run_manifest.json": "03dd7ce256202ea4027d4161a25f13f58e4603004ac50d7fb0889bba38944633",
+        "history.csv": "e740fda4eefa372073eb96d62588fb97c806efa0f06d361ba3eaaece6b150026",
+        "quality.json": "d545d9a5c8874407bfe0dbed858b7c47396781f2f90a2e40cdede211338a3abf",
+        "result.json": "c94eedf538a046c7888960ca095e8aabdf0a5bbc2faaf74cc6731842f0d3d0b2",
+        "thresholds.json": "f6a0c5e70056e41735d3c3757201b252f05a117fb48e88f092b24c0aed9254c5",
+        "metrics_train.json": "d515fba6fc2a96b2c882b01e4418b2f995f91beac9e280491a97bd69ca15811a",
+        "metrics_validation.json": "3eb830b0d29b2dba47c941e33d7d12282285e42a3a0639234d9c01aa0fff09fa",
+        "predictions_train.jsonl": "cbbcd52af4cfaf6a1f3854c2a88089f6dfdc4e7be95f40517f2d7ac43a3b1a44",
+        "predictions_validation.jsonl": "4e28c1b6b81341313f77d5c7d92c1a00621f62eb70ab67073e05b36b5ed467e6",
+        "checkpoint/config.json": "9760a779bc7b13c787dd9a3181ba4fc6e22dfadb05e2517ddfdaf30f82f51ea0",
+        "checkpoint/resume.pt": "1e4b05f9f8d8afc039086c6088b7c9ba0f431967a4b4dfa74ae37376b8bccdae",
+        "checkpoint/best-epoch-2.pt": "2fab4d0bd00c6de9184b33cea453960d918bb5cb0b4b4e2b9cec7a43a0d69445"
+      }
+    },
+    {
+      "model": "B3",
+      "seed": 123,
+      "role": "replication",
+      "stage": "S2",
+      "run": "artifacts\\batch-b-s2\\runs\\goemotions\\B3\\20261118T054328-d85053a8ca",
+      "checkpoint": "checkpoint/best-epoch-2.pt",
+      "dataset": "goemotions",
+      "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+      "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+      "label_order": [
+        "admiration",
+        "amusement",
+        "anger",
+        "annoyance",
+        "approval",
+        "caring",
+        "confusion",
+        "curiosity",
+        "desire",
+        "disappointment",
+        "disapproval",
+        "disgust",
+        "embarrassment",
+        "excitement",
+        "fear",
+        "gratitude",
+        "grief",
+        "joy",
+        "love",
+        "nervousness",
+        "optimism",
+        "pride",
+        "realization",
+        "relief",
+        "remorse",
+        "sadness",
+        "surprise",
+        "neutral"
+      ],
+      "positive_raw_id": null,
+      "model_id": "answerdotai/ModernBERT-large",
+      "model_revision": "45bb4654a4d5aaff24dd11d4781fa46d39bf8c13",
+      "tokenizer_sha256": "0949304ddf3a6db1e9b3c95e1d8d16c0ad1e71ec2c22f601666589422e6c50c9",
+      "settings": {
+        "accumulation_steps": 2,
+        "baseline_lr": 2e-05,
+        "effective_batch_size": 32,
+        "epochs": 6,
+        "evaluation_batch_size": 32,
+        "grad_clip_norm": 1.0,
+        "gradient_checkpointing": false,
+        "learning_rate": 2e-05,
+        "micro_batch_size": 16,
+        "optimizer": "adamw",
+        "patience": 2,
+        "precision": "bf16",
+        "scheduler": "linear",
+        "warmup_ratio": 0.06,
+        "weight_decay": 0.01
+      },
+      "tokenization": {
+        "attention_mask_verified": true,
+        "candidate_lengths": [
+          64,
+          96,
+          128
+        ],
+        "cls_token_id": 50281,
+        "dataset": "goemotions",
+        "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+        "model_revision": "45bb4654a4d5aaff24dd11d4781fa46d39bf8c13",
+        "pad_token_id": 50283,
+        "padding_multiple": 8,
+        "padding_side": "right",
+        "partitions": {
+          "train": {
+            "encoded_sha256": "32288a4c7fa84d37a0ff544f4183f347721ee07c17c49319b60d52963503df17",
+            "max": 1437,
+            "percentiles": {
+              "50": 18.0,
+              "90": 31.0,
+              "95": 33.0,
+              "99": 37.0
+            },
+            "rows": 43211,
+            "truncated_fraction": 0.0002777070653305871,
+            "truncated_rows": 12
+          },
+          "validation": {
+            "encoded_sha256": "b61d60e2d726ddd59394fa224261913fc10a45e79149af8f346875ea9e2064d4",
+            "max": 77,
+            "percentiles": {
+              "50": 18.0,
+              "90": 31.0,
+              "95": 33.0,
+              "99": 37.0
+            },
+            "rows": 5416,
+            "truncated_fraction": 0.00036927621861152144,
+            "truncated_rows": 2
+          }
+        },
+        "selected_length": 64,
+        "sep_token_id": 50282,
+        "special_token_count": 2,
+        "special_tokens_verified": true,
+        "text_rule": "frozen_text",
+        "tokenizer_sha256": "0949304ddf3a6db1e9b3c95e1d8d16c0ad1e71ec2c22f601666589422e6c50c9",
+        "train_coverage": 0.9997222929346694,
+        "train_coverage_target": 0.99,
+        "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+        "truncation_side": "right"
+      },
+      "selection": {
+        "metric": "validation_macro_f1",
+        "score_tie_atol": 1e-12,
+        "threshold_grids": {
+          "sigmoid": {
+            "default": 0.5,
+            "range_inclusive": [
+              0.05,
+              0.95
+            ],
+            "step": 0.05
+          }
+        }
+      },
+      "best_epoch": 2,
+      "validation_macro_f1": 0.5330022012597139,
+      "threshold": 0.2,
+      "score_kind": "sigmoid",
+      "files": {
+        "resolved_config.yaml": "490b3c789be3826e6a3e9f62bde4efbcef583ea602282ecdc7b9a84ee942d8ef",
+        "run_manifest.json": "b36bf1165b089212759787fa1a9461e133bcf860013f0cb34080a13adbb218e4",
+        "history.csv": "18c9b4abc180b80d2e317d07913466653e3505e58c87b668e839a2000d09f789",
+        "quality.json": "d545d9a5c8874407bfe0dbed858b7c47396781f2f90a2e40cdede211338a3abf",
+        "result.json": "60191737faeafc31f5eafdc99cf2d6a1a0a8399e65f496aec018f2e72a123f3d",
+        "thresholds.json": "f689693311e242f2e5914e12a355a1ee1a4233816472ddb62097043e34a713fe",
+        "metrics_train.json": "bfd57ef947e5e0c5a2a2af797d849c1bcf996a51a98fcdecff961409033c979c",
+        "metrics_validation.json": "64fb7a206a3ec426977e62bacbdeae9c4eeb700fd59d74700d6a9d537867c42b",
+        "predictions_train.jsonl": "82344d43f0f660e4a2dd57118df103058bc5c50844832f9747195de73208473f",
+        "predictions_validation.jsonl": "b182c59a0e97b68312d4ceb4275d366316b17146e9ccbadcd1cbb17ddb8faa50",
+        "checkpoint/config.json": "9760a779bc7b13c787dd9a3181ba4fc6e22dfadb05e2517ddfdaf30f82f51ea0",
+        "checkpoint/resume.pt": "36d477c31665cbbab627891996c83f54a2a696d55731fdb7b1a6d4d9808c2897",
+        "checkpoint/best-epoch-2.pt": "62dca0f6e6581a91e93cb6e98bcb86e083fd4622c733418378c079fbe1b994f9"
+      }
+    },
+    {
+      "model": "B3",
+      "seed": 2026,
+      "role": "replication",
+      "stage": "S2",
+      "run": "artifacts\\batch-b-s2\\runs\\goemotions\\B3\\20261118T055911-30c5e6d381",
+      "checkpoint": "checkpoint/best-epoch-2.pt",
+      "dataset": "goemotions",
+      "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+      "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+      "label_order": [
+        "admiration",
+        "amusement",
+        "anger",
+        "annoyance",
+        "approval",
+        "caring",
+        "confusion",
+        "curiosity",
+        "desire",
+        "disappointment",
+        "disapproval",
+        "disgust",
+        "embarrassment",
+        "excitement",
+        "fear",
+        "gratitude",
+        "grief",
+        "joy",
+        "love",
+        "nervousness",
+        "optimism",
+        "pride",
+        "realization",
+        "relief",
+        "remorse",
+        "sadness",
+        "surprise",
+        "neutral"
+      ],
+      "positive_raw_id": null,
+      "model_id": "answerdotai/ModernBERT-large",
+      "model_revision": "45bb4654a4d5aaff24dd11d4781fa46d39bf8c13",
+      "tokenizer_sha256": "0949304ddf3a6db1e9b3c95e1d8d16c0ad1e71ec2c22f601666589422e6c50c9",
+      "settings": {
+        "accumulation_steps": 2,
+        "baseline_lr": 2e-05,
+        "effective_batch_size": 32,
+        "epochs": 6,
+        "evaluation_batch_size": 32,
+        "grad_clip_norm": 1.0,
+        "gradient_checkpointing": false,
+        "learning_rate": 2e-05,
+        "micro_batch_size": 16,
+        "optimizer": "adamw",
+        "patience": 2,
+        "precision": "bf16",
+        "scheduler": "linear",
+        "warmup_ratio": 0.06,
+        "weight_decay": 0.01
+      },
+      "tokenization": {
+        "attention_mask_verified": true,
+        "candidate_lengths": [
+          64,
+          96,
+          128
+        ],
+        "cls_token_id": 50281,
+        "dataset": "goemotions",
+        "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+        "model_revision": "45bb4654a4d5aaff24dd11d4781fa46d39bf8c13",
+        "pad_token_id": 50283,
+        "padding_multiple": 8,
+        "padding_side": "right",
+        "partitions": {
+          "train": {
+            "encoded_sha256": "32288a4c7fa84d37a0ff544f4183f347721ee07c17c49319b60d52963503df17",
+            "max": 1437,
+            "percentiles": {
+              "50": 18.0,
+              "90": 31.0,
+              "95": 33.0,
+              "99": 37.0
+            },
+            "rows": 43211,
+            "truncated_fraction": 0.0002777070653305871,
+            "truncated_rows": 12
+          },
+          "validation": {
+            "encoded_sha256": "b61d60e2d726ddd59394fa224261913fc10a45e79149af8f346875ea9e2064d4",
+            "max": 77,
+            "percentiles": {
+              "50": 18.0,
+              "90": 31.0,
+              "95": 33.0,
+              "99": 37.0
+            },
+            "rows": 5416,
+            "truncated_fraction": 0.00036927621861152144,
+            "truncated_rows": 2
+          }
+        },
+        "selected_length": 64,
+        "sep_token_id": 50282,
+        "special_token_count": 2,
+        "special_tokens_verified": true,
+        "text_rule": "frozen_text",
+        "tokenizer_sha256": "0949304ddf3a6db1e9b3c95e1d8d16c0ad1e71ec2c22f601666589422e6c50c9",
+        "train_coverage": 0.9997222929346694,
+        "train_coverage_target": 0.99,
+        "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+        "truncation_side": "right"
+      },
+      "selection": {
+        "metric": "validation_macro_f1",
+        "score_tie_atol": 1e-12,
+        "threshold_grids": {
+          "sigmoid": {
+            "default": 0.5,
+            "range_inclusive": [
+              0.05,
+              0.95
+            ],
+            "step": 0.05
+          }
+        }
+      },
+      "best_epoch": 2,
+      "validation_macro_f1": 0.5411999274167181,
+      "threshold": 0.2,
+      "score_kind": "sigmoid",
+      "files": {
+        "resolved_config.yaml": "d3a99c8441ac9cbe61b98b9b7f11e45a9f5faee0132b3030e3c8463c3ab83612",
+        "run_manifest.json": "168d80520e61005cc47d80783429fbf8593c22561e6a43886ee6f5cf80d5012d",
+        "history.csv": "2292f1f2545a148831ca27f38b5ed3324d1f4225931e0f0bbd3ba9a287c0c3a4",
+        "quality.json": "d545d9a5c8874407bfe0dbed858b7c47396781f2f90a2e40cdede211338a3abf",
+        "result.json": "65843bec1df6e8f5318c46df2e0d6ba2d28814de95db0336a0a2c0ff53668b06",
+        "thresholds.json": "57b896c3dfe76d94a7f820de58a3461fb9c9654adb2c11517287c9ad84116645",
+        "metrics_train.json": "99005a4287fb2de409baa968f188ecd93bda688fc338fe6dccb2e69d2cac4208",
+        "metrics_validation.json": "d0612694adfe1bacb9c355bbeeb0861a52c9640d71baa7e74ee2697b962600d0",
+        "predictions_train.jsonl": "8d40a1bc7ad3966a2f940b5a77dcb6b381ec6b89520be92753306bb179e3515b",
+        "predictions_validation.jsonl": "1990f8cd0a5e4abde91b39a236b22bcc05e18e9deb5d85d8718a325f120d19b3",
+        "checkpoint/config.json": "9760a779bc7b13c787dd9a3181ba4fc6e22dfadb05e2517ddfdaf30f82f51ea0",
+        "checkpoint/resume.pt": "417d63c2079afe7ac94d1a00d2482b645a6cb844416734def54da95157750f92",
+        "checkpoint/best-epoch-2.pt": "bdb7ec705eff5a9afe0685a7177cd09d1402b5a94cd316a7592de7b893481c05"
+      }
+    },
+    {
+      "model": "B4",
+      "seed": 42,
+      "role": "primary",
+      "stage": "S1",
+      "run": "artifacts\\batch-b-s1\\formal\\runs\\movie_reviews_zh\\B4\\20261118T031702-dd2ab25555",
+      "checkpoint": "checkpoint/best-epoch-2.pt",
+      "dataset": "movie_reviews_zh",
+      "training_manifest_sha256": "e65b32fda0842d92bdf7a3ae58992641addafa4380bea0b3871e2ce1c3bd6deb",
+      "dataset_manifest_sha256": "fb00047e210b51b1188f91081aa7fae4eaa7ec11b672362d13f28ca854a9e2c8",
+      "label_order": [
+        "negative",
+        "positive"
+      ],
+      "positive_raw_id": 0,
+      "model_id": "hfl/chinese-macbert-base",
+      "model_revision": "a986e004d2a7f2a1c2f5a3edef4e20604a974ed1",
+      "tokenizer_sha256": "45c6330d94f6f50aff42a795360a901b518468ba9bcc1c8ca2cf0423d8acde6b",
+      "settings": {
+        "accumulation_steps": 2,
+        "baseline_lr": 2e-05,
+        "effective_batch_size": 32,
+        "epochs": 6,
+        "evaluation_batch_size": 32,
+        "grad_clip_norm": 1.0,
+        "gradient_checkpointing": false,
+        "learning_rate": 3e-05,
+        "micro_batch_size": 16,
+        "optimizer": "adamw",
+        "patience": 2,
+        "precision": "bf16",
+        "scheduler": "linear",
+        "warmup_ratio": 0.06,
+        "weight_decay": 0.01
+      },
+      "tokenization": {
+        "attention_mask_verified": true,
+        "candidate_lengths": [
+          128,
+          192,
+          256
+        ],
+        "cls_token_id": 101,
+        "dataset": "movie_reviews_zh",
+        "dataset_manifest_sha256": "fb00047e210b51b1188f91081aa7fae4eaa7ec11b672362d13f28ca854a9e2c8",
+        "join_without_spaces_comparison": {
+          "train": {
+            "different_ids": 1753,
+            "different_ids_on_mixed_ascii": 1723,
+            "mixed_ascii_rows": 5643
+          },
+          "validation": {
+            "different_ids": 491,
+            "different_ids_on_mixed_ascii": 482,
+            "mixed_ascii_rows": 1573
+          }
+        },
+        "model_revision": "a986e004d2a7f2a1c2f5a3edef4e20604a974ed1",
+        "pad_token_id": 0,
+        "padding_multiple": 8,
+        "padding_side": "right",
+        "partitions": {
+          "train": {
+            "encoded_sha256": "d5d81a4342631de7ecf571803dfb1c6fc3bd763420e8a27e75c8e381d0d1aee9",
+            "max": 1230,
+            "percentiles": {
+              "50": 79.0,
+              "90": 110.0,
+              "95": 114.0,
+              "99": 121.0
+            },
+            "rows": 19994,
+            "truncated_fraction": 0.005601680504151245,
+            "truncated_rows": 112
+          },
+          "validation": {
+            "encoded_sha256": "50c602a6d5827eafa299fe6605fa99fb4a5459dcbf8354fe6aa239c917aef037",
+            "max": 209,
+            "percentiles": {
+              "50": 80.0,
+              "90": 110.0,
+              "95": 114.0,
+              "99": 122.0
+            },
+            "rows": 5629,
+            "truncated_fraction": 0.007106057914372002,
+            "truncated_rows": 40
+          }
+        },
+        "selected_length": 128,
+        "sep_token_id": 102,
+        "special_token_count": 2,
+        "special_tokens_verified": true,
+        "text_rule": "preserve_token_boundaries",
+        "tokenizer_sha256": "45c6330d94f6f50aff42a795360a901b518468ba9bcc1c8ca2cf0423d8acde6b",
+        "train_coverage": 0.9943983194958488,
+        "train_coverage_target": 0.99,
+        "training_manifest_sha256": "e65b32fda0842d92bdf7a3ae58992641addafa4380bea0b3871e2ce1c3bd6deb",
+        "truncation_side": "right"
+      },
+      "selection": {
+        "metric": "validation_macro_f1",
+        "score_tie_atol": 1e-12,
+        "threshold_grids": {
+          "sigmoid": {
+            "default": 0.5,
+            "range_inclusive": [
+              0.05,
+              0.95
+            ],
+            "step": 0.05
+          }
+        }
+      },
+      "best_epoch": 2,
+      "validation_macro_f1": 0.9076142465227672,
+      "threshold": 0.6,
+      "score_kind": "softmax_positive",
+      "files": {
+        "resolved_config.yaml": "d1bdb2f9a9e7b4865012b746642ccb66dd6401b6429976865ac02c09c3f02816",
+        "run_manifest.json": "01628492414ce687a785e07dba43a9c226fe220cca3121f73ce000385c7c0355",
+        "history.csv": "275f864f2e6e8cfb6bb0027a72c45afa74aa86b968ffc92f6456a1e0e4cde7d1",
+        "quality.json": "dd60338b4c1953e4e413cfaf0563d378f418538c6fe30186c93483b2b58a7808",
+        "result.json": "cea67c68050459589b8e6e9e975ce8addf01ec7618ada2bf54a443aa02ce0931",
+        "thresholds.json": "0f3ba6da61d0492d4356442e1cf75680bbb50aab841e3ea8bfb7d9801b85ff65",
+        "metrics_train.json": "2cbbef3363b7db8da081d7b2ca9631f2a27378d780ef9cac4319a557dcef5fe4",
+        "metrics_validation.json": "5f80ec2c82c2299ee43d8d5123e9eb2b19ebd2c6e706c1ec94bbbc4aa1f5ad0d",
+        "predictions_train.jsonl": "ec731bec3b133e9705e9c3786d27826a4e611991d426ce982653dbd757cf975e",
+        "predictions_validation.jsonl": "7b038bf311246bb038c9dd5ba423450f9031ad0d63d72daac2129af73f2de1aa",
+        "checkpoint/config.json": "46f268b41a00f00d59b69cc1bee8f13a8be711b7e6b5e9afeab82a93eea73a92",
+        "checkpoint/resume.pt": "23065b3d87f92068341e9d6a29dd13fb94c7e37ff27943b733d6dc85dde764c1",
+        "checkpoint/best-epoch-2.pt": "8769ce5fe5fb231a6aa85ec023319ec2e276b2f5e8ffc77553b2da463ac2162b"
+      }
+    },
+    {
+      "model": "B4",
+      "seed": 123,
+      "role": "replication",
+      "stage": "S2",
+      "run": "artifacts\\batch-b-s2\\runs\\movie_reviews_zh\\B4\\20261118T061456-26e0ed0c0c",
+      "checkpoint": "checkpoint/best-epoch-2.pt",
+      "dataset": "movie_reviews_zh",
+      "training_manifest_sha256": "e65b32fda0842d92bdf7a3ae58992641addafa4380bea0b3871e2ce1c3bd6deb",
+      "dataset_manifest_sha256": "fb00047e210b51b1188f91081aa7fae4eaa7ec11b672362d13f28ca854a9e2c8",
+      "label_order": [
+        "negative",
+        "positive"
+      ],
+      "positive_raw_id": 0,
+      "model_id": "hfl/chinese-macbert-base",
+      "model_revision": "a986e004d2a7f2a1c2f5a3edef4e20604a974ed1",
+      "tokenizer_sha256": "45c6330d94f6f50aff42a795360a901b518468ba9bcc1c8ca2cf0423d8acde6b",
+      "settings": {
+        "accumulation_steps": 2,
+        "baseline_lr": 2e-05,
+        "effective_batch_size": 32,
+        "epochs": 6,
+        "evaluation_batch_size": 32,
+        "grad_clip_norm": 1.0,
+        "gradient_checkpointing": false,
+        "learning_rate": 3e-05,
+        "micro_batch_size": 16,
+        "optimizer": "adamw",
+        "patience": 2,
+        "precision": "bf16",
+        "scheduler": "linear",
+        "warmup_ratio": 0.06,
+        "weight_decay": 0.01
+      },
+      "tokenization": {
+        "attention_mask_verified": true,
+        "candidate_lengths": [
+          128,
+          192,
+          256
+        ],
+        "cls_token_id": 101,
+        "dataset": "movie_reviews_zh",
+        "dataset_manifest_sha256": "fb00047e210b51b1188f91081aa7fae4eaa7ec11b672362d13f28ca854a9e2c8",
+        "join_without_spaces_comparison": {
+          "train": {
+            "different_ids": 1753,
+            "different_ids_on_mixed_ascii": 1723,
+            "mixed_ascii_rows": 5643
+          },
+          "validation": {
+            "different_ids": 491,
+            "different_ids_on_mixed_ascii": 482,
+            "mixed_ascii_rows": 1573
+          }
+        },
+        "model_revision": "a986e004d2a7f2a1c2f5a3edef4e20604a974ed1",
+        "pad_token_id": 0,
+        "padding_multiple": 8,
+        "padding_side": "right",
+        "partitions": {
+          "train": {
+            "encoded_sha256": "d5d81a4342631de7ecf571803dfb1c6fc3bd763420e8a27e75c8e381d0d1aee9",
+            "max": 1230,
+            "percentiles": {
+              "50": 79.0,
+              "90": 110.0,
+              "95": 114.0,
+              "99": 121.0
+            },
+            "rows": 19994,
+            "truncated_fraction": 0.005601680504151245,
+            "truncated_rows": 112
+          },
+          "validation": {
+            "encoded_sha256": "50c602a6d5827eafa299fe6605fa99fb4a5459dcbf8354fe6aa239c917aef037",
+            "max": 209,
+            "percentiles": {
+              "50": 80.0,
+              "90": 110.0,
+              "95": 114.0,
+              "99": 122.0
+            },
+            "rows": 5629,
+            "truncated_fraction": 0.007106057914372002,
+            "truncated_rows": 40
+          }
+        },
+        "selected_length": 128,
+        "sep_token_id": 102,
+        "special_token_count": 2,
+        "special_tokens_verified": true,
+        "text_rule": "preserve_token_boundaries",
+        "tokenizer_sha256": "45c6330d94f6f50aff42a795360a901b518468ba9bcc1c8ca2cf0423d8acde6b",
+        "train_coverage": 0.9943983194958488,
+        "train_coverage_target": 0.99,
+        "training_manifest_sha256": "e65b32fda0842d92bdf7a3ae58992641addafa4380bea0b3871e2ce1c3bd6deb",
+        "truncation_side": "right"
+      },
+      "selection": {
+        "metric": "validation_macro_f1",
+        "score_tie_atol": 1e-12,
+        "threshold_grids": {
+          "sigmoid": {
+            "default": 0.5,
+            "range_inclusive": [
+              0.05,
+              0.95
+            ],
+            "step": 0.05
+          }
+        }
+      },
+      "best_epoch": 2,
+      "validation_macro_f1": 0.8997997735143031,
+      "threshold": 0.55,
+      "score_kind": "softmax_positive",
+      "files": {
+        "resolved_config.yaml": "b96595df2002cf54b4e10f32674f23675bf42813ccf61985a9ddce92e8c04a5c",
+        "run_manifest.json": "47c5a7cceac052b88edb282a065b17695a5ba2100008189765379f4cd7a149ef",
+        "history.csv": "717a5874e602335cf1aa3d3916f7f5657412edc2df0449aa9575fd33dcad80bb",
+        "quality.json": "dd60338b4c1953e4e413cfaf0563d378f418538c6fe30186c93483b2b58a7808",
+        "result.json": "2b4d4de07147ca592bd7975ead42911ae1871f6a74d20fa87990f4776de03cd6",
+        "thresholds.json": "36c82d438d5422dc5b92bcf67b6c8ea11dbe0ec3875087c727a2db9c890ee44d",
+        "metrics_train.json": "e2f84843af0b604239ed92c558483fdc6341a6439cfbdd626ccebf6382d98c9e",
+        "metrics_validation.json": "bbb15a4ded9d0ce7ed11c6e86fc9548168f29225a2cd68f9afa2993628c18a82",
+        "predictions_train.jsonl": "9847c63aac3dc75ffff4bf3649f9d6dd52e2f7c54b9efaa60dfc5c397ab4cef6",
+        "predictions_validation.jsonl": "7005d32cdfbdcbaf138a493170fc95ef5aec679957e3f7525879ab91408fcee2",
+        "checkpoint/config.json": "46f268b41a00f00d59b69cc1bee8f13a8be711b7e6b5e9afeab82a93eea73a92",
+        "checkpoint/resume.pt": "c740d5a023692ee325a08fb3eae0410d3c1fb432e953abcbb1f2896f226c5118",
+        "checkpoint/best-epoch-2.pt": "fb64267b3d3c69813f93810a735686fd94013c496233318ce60f10b7572b337b"
+      }
+    },
+    {
+      "model": "B4",
+      "seed": 2026,
+      "role": "replication",
+      "stage": "S2",
+      "run": "artifacts\\batch-b-s2\\runs\\movie_reviews_zh\\B4\\20261118T061831-8e75bd172c",
+      "checkpoint": "checkpoint/best-epoch-3.pt",
+      "dataset": "movie_reviews_zh",
+      "training_manifest_sha256": "e65b32fda0842d92bdf7a3ae58992641addafa4380bea0b3871e2ce1c3bd6deb",
+      "dataset_manifest_sha256": "fb00047e210b51b1188f91081aa7fae4eaa7ec11b672362d13f28ca854a9e2c8",
+      "label_order": [
+        "negative",
+        "positive"
+      ],
+      "positive_raw_id": 0,
+      "model_id": "hfl/chinese-macbert-base",
+      "model_revision": "a986e004d2a7f2a1c2f5a3edef4e20604a974ed1",
+      "tokenizer_sha256": "45c6330d94f6f50aff42a795360a901b518468ba9bcc1c8ca2cf0423d8acde6b",
+      "settings": {
+        "accumulation_steps": 2,
+        "baseline_lr": 2e-05,
+        "effective_batch_size": 32,
+        "epochs": 6,
+        "evaluation_batch_size": 32,
+        "grad_clip_norm": 1.0,
+        "gradient_checkpointing": false,
+        "learning_rate": 3e-05,
+        "micro_batch_size": 16,
+        "optimizer": "adamw",
+        "patience": 2,
+        "precision": "bf16",
+        "scheduler": "linear",
+        "warmup_ratio": 0.06,
+        "weight_decay": 0.01
+      },
+      "tokenization": {
+        "attention_mask_verified": true,
+        "candidate_lengths": [
+          128,
+          192,
+          256
+        ],
+        "cls_token_id": 101,
+        "dataset": "movie_reviews_zh",
+        "dataset_manifest_sha256": "fb00047e210b51b1188f91081aa7fae4eaa7ec11b672362d13f28ca854a9e2c8",
+        "join_without_spaces_comparison": {
+          "train": {
+            "different_ids": 1753,
+            "different_ids_on_mixed_ascii": 1723,
+            "mixed_ascii_rows": 5643
+          },
+          "validation": {
+            "different_ids": 491,
+            "different_ids_on_mixed_ascii": 482,
+            "mixed_ascii_rows": 1573
+          }
+        },
+        "model_revision": "a986e004d2a7f2a1c2f5a3edef4e20604a974ed1",
+        "pad_token_id": 0,
+        "padding_multiple": 8,
+        "padding_side": "right",
+        "partitions": {
+          "train": {
+            "encoded_sha256": "d5d81a4342631de7ecf571803dfb1c6fc3bd763420e8a27e75c8e381d0d1aee9",
+            "max": 1230,
+            "percentiles": {
+              "50": 79.0,
+              "90": 110.0,
+              "95": 114.0,
+              "99": 121.0
+            },
+            "rows": 19994,
+            "truncated_fraction": 0.005601680504151245,
+            "truncated_rows": 112
+          },
+          "validation": {
+            "encoded_sha256": "50c602a6d5827eafa299fe6605fa99fb4a5459dcbf8354fe6aa239c917aef037",
+            "max": 209,
+            "percentiles": {
+              "50": 80.0,
+              "90": 110.0,
+              "95": 114.0,
+              "99": 122.0
+            },
+            "rows": 5629,
+            "truncated_fraction": 0.007106057914372002,
+            "truncated_rows": 40
+          }
+        },
+        "selected_length": 128,
+        "sep_token_id": 102,
+        "special_token_count": 2,
+        "special_tokens_verified": true,
+        "text_rule": "preserve_token_boundaries",
+        "tokenizer_sha256": "45c6330d94f6f50aff42a795360a901b518468ba9bcc1c8ca2cf0423d8acde6b",
+        "train_coverage": 0.9943983194958488,
+        "train_coverage_target": 0.99,
+        "training_manifest_sha256": "e65b32fda0842d92bdf7a3ae58992641addafa4380bea0b3871e2ce1c3bd6deb",
+        "truncation_side": "right"
+      },
+      "selection": {
+        "metric": "validation_macro_f1",
+        "score_tie_atol": 1e-12,
+        "threshold_grids": {
+          "sigmoid": {
+            "default": 0.5,
+            "range_inclusive": [
+              0.05,
+              0.95
+            ],
+            "step": 0.05
+          }
+        }
+      },
+      "best_epoch": 3,
+      "validation_macro_f1": 0.8989162751247608,
+      "threshold": 0.7,
+      "score_kind": "softmax_positive",
+      "files": {
+        "resolved_config.yaml": "a51a706e9db9e0a7dfa89160bc934b682edc9d158857631e15a6529eaca77057",
+        "run_manifest.json": "914e6bf4b086e6ea6dd09093ad92f06b673dd28b4e5d56ff75ffbcaf4c07ddda",
+        "history.csv": "5f1a3d9a0ebf82d13961aa693a709fe86677036aafc473c52dea8b023a783249",
+        "quality.json": "dd60338b4c1953e4e413cfaf0563d378f418538c6fe30186c93483b2b58a7808",
+        "result.json": "d1389d200fbd360a0c5dc3cb3cde32df7884eb4f18c450f68de3b54235a12846",
+        "thresholds.json": "f10eb13468e70dc1207d8e1ae9c9e31dcc40da7e8e52222319be36faea071563",
+        "metrics_train.json": "e7e473cd2345379a2405ac4165453ae182988fc264f1316cc403f1a8ca2f5bdc",
+        "metrics_validation.json": "50468867e471dff709dd71b229ef45ec37c4866fc216295ff269d0e62c568e0b",
+        "predictions_train.jsonl": "bc81aa36dcc33aacba20d233ff420155a97dee3fdaa81f538834f71740c2cc63",
+        "predictions_validation.jsonl": "05af113d2bf1de5efae73471107d7b8c8fedc7768b3dc909d445c13f75cdfec7",
+        "checkpoint/config.json": "46f268b41a00f00d59b69cc1bee8f13a8be711b7e6b5e9afeab82a93eea73a92",
+        "checkpoint/resume.pt": "98735e0df7366d2eea1c0b02979f61c5ad14cace832d10e2105cfc6ebcd6eae0",
+        "checkpoint/best-epoch-3.pt": "85c58d670ad57ddafad1c2d8f8926a8e079eaa5c93115abb32b9754053d5ffb8"
+      }
+    }
+  ]
+}

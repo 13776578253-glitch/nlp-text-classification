@@ -4,6 +4,6 @@
 | --- | --- |
 | Batch A 收敛边界 | Vanilla RNN 在 36 轮仍改善。将此作为局限归档，Batch A 训练已收束。 |
 | Batch A 样本和选模局限 | 中文测试样本 369 条。英文低支持标签与全局阈值影响逐类解读，复验为小样本种子设计。 |
-| Batch B S2 | 评估 B2/B3 的 0.0020 验证差与种子稳定性，以及 B1 到达 6 轮上限的证据。见 [S2 评估入口](plans/batch-b/s2-followups.md)。 |
+| Batch B S2 | 三种子复验和 B1 预算对照已完成。见 [验收与拟冻结清单](finish-task/batch-b-s2.md)。 |
 | Batch B S3 | Qwen3.5-4B 与 QLoRA 分类器另行讨论。 |
 | Batch B 正式测试 | 待选模与独立冻结协议获得批准后执行。 |

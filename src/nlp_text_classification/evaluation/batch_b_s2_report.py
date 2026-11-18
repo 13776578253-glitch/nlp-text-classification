@@ -103,6 +103,16 @@ def _labels(inputs, cohort):
     return labels
 
 
+def _ranking(scores):
+    groups = []
+    for model in sorted(scores, key=scores.get, reverse=True):
+        if groups and abs(scores[groups[-1][0]] - scores[model]) <= 1e-12:
+            groups[-1].append(model)
+        else:
+            groups.append([model])
+    return groups
+
+
 def _diagnostics(inputs, labels, cohort):
     english = labels["goemotions"]
     width = len(english["names"])
@@ -121,12 +131,12 @@ def _diagnostics(inputs, labels, cohort):
             raise ValueError("Label gap does not reconstruct the accepted Macro-F1 gap")
         comparisons[str(seed)] = comparison
         rankings[str(seed)] = {
-            field: sorted(keys, key=lambda key, current=field: scores[key][current], reverse=True)
+            field: _ranking({key: scores[key][field] for key in keys})
             for field in ("macro_f1", "micro_f1", "subset_accuracy")
         }
-        rankings[str(seed)]["macro_f1_without_low_support_labels"] = sorted(
-            keys, key=lambda key: mean(vectors[key][index] for index in common), reverse=True,
-        )
+        rankings[str(seed)]["macro_f1_without_low_support_labels"] = _ranking({
+            key: mean(vectors[key][index] for index in common) for key in keys
+        })
     rare_reversals = [seed for seed, gap in comparisons.items()
                       if gap["all_label_gap"] * gap["remaining_label_gap"] < 0]
     return {"rare_label_indices": rare, "rare_label_names": [english["names"][i] for i in rare],
@@ -235,7 +245,7 @@ def _write_report(cohort, summary, budget, decision, label_results, diagnostics)
     lines.extend(_table(["模型", "Seed", "来源", "Macro-F1", "Micro-F1", "Subset Accuracy",
                          "Accuracy", "最佳/实际轮次", "阈值", "Run ID"], rows))
     lines.append("")
-    rows = [[seed, *(" > ".join(value) for value in ranks.values())]
+    rows = [[seed, *(" > ".join(" = ".join(group) for group in value) for value in ranks.values())]
             for seed, ranks in diagnostics["rankings"].items()]
     lines.extend(_table(["Seed", "Macro-F1 排名", "Micro-F1 排名", "Subset Accuracy 排名",
                          "去掉最低支持组后的 Macro-F1 排名"], rows))
