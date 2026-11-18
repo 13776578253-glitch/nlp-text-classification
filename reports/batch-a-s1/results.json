@@ -1,0 +1,663 @@
+{
+  "inputs": {
+    "protocol_sha256": "67c1c609b32d9157ac5644126287409ab97426df297dee21e19ec64191532743",
+    "freeze_sha256": "255a9bfe53eea86f1339b2de4da46b96bfd9ab1594b723de5da11acf678c3289",
+    "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+    "dataset_config_sha256": "8724692b4278863a846e8a0c0cfbf7026f90586cd06a4fb4f5eb940788ee034b",
+    "word2vec_sha256": "3a9886f2e11ad605597614b9a792e2cce2c5eb9681a77715d817bbf2f84db48c",
+    "base_runs": {
+      "E2": {
+        "run": "artifacts\\runs\\goemotions\\E2\\20261117T162113-b964b3038d",
+        "files": {
+          "history.csv": "4079f701e14f325884ae8d7a402adcb00e6e795b6071f92f97ae37acf20caeca",
+          "checkpoint/resume.pt": "b01b01676618e13c66194282e05b93216a4fafc3e231bf7e2a607b6ee6677b57"
+        }
+      },
+      "E3-RNN": {
+        "run": "artifacts\\runs\\goemotions\\E3-RNN\\20261117T155932-5a7fabb41f",
+        "files": {
+          "history.csv": "2ec480b49c05aca0f1cd53f6bf884abc9c184a85a1dbe19acb3a214f2761abdf",
+          "checkpoint/resume.pt": "8513f753ed4aceb77e48c52fa960bf413ba699fdea13fee6ff089fd12823d878"
+        }
+      },
+      "E3-LSTM": {
+        "run": "artifacts\\runs\\goemotions\\E3-LSTM\\20261117T160026-136beb5c60",
+        "files": {
+          "history.csv": "a851653713460610562acd4c336379bb927478e673d21151398f35049e0dbee8",
+          "checkpoint/resume.pt": "c8513d6ce9c90c1ce7460363558991f6b4da2aa498371923c1d7b252f328afe4"
+        }
+      },
+      "E3-BiLSTM": {
+        "run": "artifacts\\runs\\goemotions\\E3-BiLSTM\\20261117T160116-8e04380378",
+        "files": {
+          "history.csv": "8ecfa9c3643c45dc50a924dd1f94ee32565316cde58b254c30c908c963cdd569",
+          "checkpoint/resume.pt": "05840904ebfac853caf7a4625d09a5886c5ac9bec061ef3c60a454cf6ecd4756"
+        }
+      },
+      "E5-TUNE": {
+        "run": "artifacts\\runs\\goemotions\\E5-TUNE\\20261117T163246-bd54996e97",
+        "files": {
+          "history.csv": "526b958b215b2d0c1d52892842f10d622daaaebb1804f41d13b1e41794a7130f",
+          "checkpoint/resume.pt": "6c0f21f40bdd645e240de91b10480b7fb362db56522fae2c6fb8d4c96778561d"
+        }
+      },
+      "E5-FROZEN": {
+        "run": "artifacts\\runs\\goemotions\\E5-FROZEN\\20261117T163326-c4703be677",
+        "files": {
+          "history.csv": "33534ed7781107a541422f778319bcdd6e5e5335b765abdebcb8c0f81cfa8f6d",
+          "checkpoint/resume.pt": "63ea02dd6e39e7e5c40380ec6d07d785b3674121d9ed3c575b3a46a9276811af"
+        }
+      }
+    }
+  },
+  "runs": {
+    "E2": "artifacts\\batch-a-s1\\runs\\goemotions\\E2\\20261118T002517-3718e90449",
+    "E3-RNN": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T002613-434447052e",
+    "E3-LSTM": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-LSTM\\20261118T002732-3f7f1b5aab",
+    "E3-BiLSTM": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-BiLSTM\\20261118T002902-ad016f51dd",
+    "E5-TUNE": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-TUNE\\20261118T003017-2207e9dbfd",
+    "E5-FROZEN": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-FROZEN\\20261118T003103-9dd682e8d2"
+  },
+  "before": {
+    "E2": {
+      "macro_f1": 0.39379631873874654,
+      "best_epoch": 11,
+      "stop_reason": "epoch_cap",
+      "run": "artifacts\\runs\\goemotions\\E2\\20261117T162113-b964b3038d",
+      "epochs": 12,
+      "last_three_f1": [
+        0.3822949416646262,
+        0.39379631873874654,
+        0.38524446653584066
+      ],
+      "last_three_loss": [
+        0.08650406716099489,
+        0.08284769815013827,
+        0.07963782325030085
+      ]
+    },
+    "E3-RNN": {
+      "macro_f1": 0.19761251292753523,
+      "best_epoch": 11,
+      "stop_reason": "epoch_cap",
+      "run": "artifacts\\runs\\goemotions\\E3-RNN\\20261117T155932-5a7fabb41f",
+      "epochs": 12,
+      "last_three_f1": [
+        0.1931569414974184,
+        0.19761251292753523,
+        0.1937361583689857
+      ],
+      "last_three_loss": [
+        0.12252755284389391,
+        0.12092443185762884,
+        0.1191211439216866
+      ]
+    },
+    "E3-LSTM": {
+      "macro_f1": 0.31800512012920457,
+      "best_epoch": 12,
+      "stop_reason": "epoch_cap",
+      "run": "artifacts\\runs\\goemotions\\E3-LSTM\\20261117T160026-136beb5c60",
+      "epochs": 12,
+      "last_three_f1": [
+        0.2851095200289584,
+        0.30529813335895273,
+        0.31800512012920457
+      ],
+      "last_three_loss": [
+        0.09761109548205318,
+        0.09371850144675256,
+        0.09010453542102995
+      ]
+    },
+    "E3-BiLSTM": {
+      "macro_f1": 0.38815817921297185,
+      "best_epoch": 12,
+      "stop_reason": "epoch_cap",
+      "run": "artifacts\\runs\\goemotions\\E3-BiLSTM\\20261117T160116-8e04380378",
+      "epochs": 12,
+      "last_three_f1": [
+        0.385880964341081,
+        0.3867774907416025,
+        0.38815817921297185
+      ],
+      "last_three_loss": [
+        0.078804781153815,
+        0.07436684687492769,
+        0.07005643794946599
+      ]
+    },
+    "E5-TUNE": {
+      "macro_f1": 0.3948772143852612,
+      "best_epoch": 10,
+      "stop_reason": "epoch_cap",
+      "run": "artifacts\\runs\\goemotions\\E5-TUNE\\20261117T163246-bd54996e97",
+      "epochs": 12,
+      "last_three_f1": [
+        0.3948772143852612,
+        0.3908969934513523,
+        0.3866954240893721
+      ],
+      "last_three_loss": [
+        0.0763252376420356,
+        0.0724030886413471,
+        0.06845343561245978
+      ]
+    },
+    "E5-FROZEN": {
+      "macro_f1": 0.2697833238323266,
+      "best_epoch": 10,
+      "stop_reason": "epoch_cap",
+      "run": "artifacts\\runs\\goemotions\\E5-FROZEN\\20261117T163326-c4703be677",
+      "epochs": 12,
+      "last_three_f1": [
+        0.2697833238323266,
+        0.2683559359357419,
+        0.2677282104505894
+      ],
+      "last_three_loss": [
+        0.11519511904520839,
+        0.11434929672855292,
+        0.11354250436810072
+      ]
+    }
+  },
+  "after": {
+    "E2": {
+      "macro_f1": 0.39379631873874654,
+      "best_epoch": 11,
+      "stop_reason": "early_stopping",
+      "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E2\\20261118T002517-3718e90449",
+      "epochs": 17,
+      "last_three_f1": [
+        0.3857921475529008,
+        0.3866450048983937,
+        0.38657808777295827
+      ],
+      "last_three_loss": [
+        0.07086903282367336,
+        0.06798222290584284,
+        0.06484246971799715
+      ]
+    },
+    "E3-RNN": {
+      "macro_f1": 0.2658143559482834,
+      "best_epoch": 23,
+      "stop_reason": "epoch_cap",
+      "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T002613-434447052e",
+      "epochs": 24,
+      "last_three_f1": [
+        0.26182568448363247,
+        0.2658143559482834,
+        0.2644393860939262
+      ],
+      "last_three_loss": [
+        0.10245896860029853,
+        0.10172856376269931,
+        0.10120701552049825
+      ]
+    },
+    "E3-LSTM": {
+      "macro_f1": 0.35599252544392435,
+      "best_epoch": 24,
+      "stop_reason": "epoch_cap",
+      "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-LSTM\\20261118T002732-3f7f1b5aab",
+      "epochs": 24,
+      "last_three_f1": [
+        0.3444352866762787,
+        0.3484642877134473,
+        0.35599252544392435
+      ],
+      "last_three_loss": [
+        0.06168630903263926,
+        0.059413226531221795,
+        0.05737144228502291
+      ]
+    },
+    "E3-BiLSTM": {
+      "macro_f1": 0.4025113532856093,
+      "best_epoch": 14,
+      "stop_reason": "early_stopping",
+      "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-BiLSTM\\20261118T002902-ad016f51dd",
+      "epochs": 20,
+      "last_three_f1": [
+        0.3928651333921836,
+        0.38834284346254855,
+        0.39454421728788597
+      ],
+      "last_three_loss": [
+        0.04681027682928681,
+        0.043667238186963386,
+        0.040703970121721035
+      ]
+    },
+    "E5-TUNE": {
+      "macro_f1": 0.3948772143852612,
+      "best_epoch": 10,
+      "stop_reason": "early_stopping",
+      "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-TUNE\\20261118T003017-2207e9dbfd",
+      "epochs": 16,
+      "last_three_f1": [
+        0.3761581638658993,
+        0.3824174482627392,
+        0.3751272534007476
+      ],
+      "last_three_loss": [
+        0.061705191214693596,
+        0.05815510368996031,
+        0.05525523670368945
+      ]
+    },
+    "E5-FROZEN": {
+      "macro_f1": 0.28493149018970204,
+      "best_epoch": 21,
+      "stop_reason": "epoch_cap",
+      "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-FROZEN\\20261118T003103-9dd682e8d2",
+      "epochs": 24,
+      "last_three_f1": [
+        0.2763490557371326,
+        0.2754788250186384,
+        0.2735798732958966
+      ],
+      "last_three_loss": [
+        0.10808822053773923,
+        0.10757090976906922,
+        0.10720819333474116
+      ]
+    }
+  },
+  "rank_before": [
+    "E1",
+    "E5-TUNE",
+    "E2",
+    "E3-BiLSTM",
+    "E3-LSTM",
+    "E5-FROZEN",
+    "E3-RNN"
+  ],
+  "rank_after": [
+    "E1",
+    "E3-BiLSTM",
+    "E5-TUNE",
+    "E2",
+    "E3-LSTM",
+    "E5-FROZEN",
+    "E3-RNN"
+  ],
+  "rank_flips": [
+    [
+      "E2",
+      "E3-BiLSTM"
+    ],
+    [
+      "E3-BiLSTM",
+      "E5-TUNE"
+    ]
+  ],
+  "reasons": {
+    "E2": [
+      "E2 与 E3-BiLSTM 的排名互换"
+    ],
+    "E3-RNN": [
+      "验证 Macro-F1 提升至少 0.02",
+      "最佳轮次落在第 22–24 轮"
+    ],
+    "E3-LSTM": [
+      "验证 Macro-F1 提升至少 0.02",
+      "最佳轮次落在第 22–24 轮"
+    ],
+    "E3-BiLSTM": [
+      "E2 与 E3-BiLSTM 的排名互换",
+      "E3-BiLSTM 与 E5-TUNE 的排名互换"
+    ],
+    "E5-TUNE": [
+      "E3-BiLSTM 与 E5-TUNE 的排名互换"
+    ],
+    "E5-FROZEN": [
+      "随 TextCNN 三组受控消融复验"
+    ]
+  },
+  "replicate": [
+    "E2",
+    "E3-RNN",
+    "E3-LSTM",
+    "E3-BiLSTM",
+    "E5-TUNE",
+    "E5-FROZEN"
+  ],
+  "replications": {
+    "E2/123": {
+      "reference": {
+        "macro_f1": 0.39055710682174144,
+        "best_epoch": 12,
+        "epochs": 12
+      },
+      "extended": {
+        "macro_f1": 0.395668641321191,
+        "best_epoch": 15,
+        "stop_reason": "early_stopping",
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E2\\20261118T003208-e566fe735e",
+        "epochs": 21,
+        "last_three_f1": [
+          0.38830268474948054,
+          0.3812784929608798,
+          0.38058030467994935
+        ],
+        "last_three_loss": [
+          0.06108801731980861,
+          0.058610389146065235,
+          0.056895534457733564
+        ]
+      },
+      "frozen_prefix_exact": true,
+      "gain": 0.005111534499449566
+    },
+    "E3-RNN/123": {
+      "reference": {
+        "macro_f1": 0.21536523849776418,
+        "best_epoch": 12,
+        "epochs": 12
+      },
+      "extended": {
+        "macro_f1": 0.27692540853377035,
+        "best_epoch": 24,
+        "stop_reason": "epoch_cap",
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T003304-e63d577e1b",
+        "epochs": 24,
+        "last_three_f1": [
+          0.25685614243504346,
+          0.2738422852334817,
+          0.27692540853377035
+        ],
+        "last_three_loss": [
+          0.10372693368008146,
+          0.10363488445505774,
+          0.10109775650297378
+        ]
+      },
+      "frozen_prefix_exact": null,
+      "gain": 0.06156017003600617
+    },
+    "E3-LSTM/123": {
+      "reference": {
+        "macro_f1": 0.3279693040254524,
+        "best_epoch": 12,
+        "epochs": 12
+      },
+      "extended": {
+        "macro_f1": 0.3644858998845118,
+        "best_epoch": 21,
+        "stop_reason": "epoch_cap",
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-LSTM\\20261118T003413-7773c3d614",
+        "epochs": 24,
+        "last_three_f1": [
+          0.35969969839514976,
+          0.3624524932543815,
+          0.3634443527029905
+        ],
+        "last_three_loss": [
+          0.05979583649128694,
+          0.05762852697916908,
+          0.05574715653096145
+        ]
+      },
+      "frozen_prefix_exact": null,
+      "gain": 0.03651659585905942
+    },
+    "E3-BiLSTM/123": {
+      "reference": {
+        "macro_f1": 0.40225869706215356,
+        "best_epoch": 11,
+        "epochs": 12
+      },
+      "extended": {
+        "macro_f1": 0.403875722496546,
+        "best_epoch": 13,
+        "stop_reason": "early_stopping",
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-BiLSTM\\20261118T003532-17eea18717",
+        "epochs": 19,
+        "last_three_f1": [
+          0.3974880025059308,
+          0.3886267499381001,
+          0.3962132102509612
+        ],
+        "last_three_loss": [
+          0.0504837680581912,
+          0.046989349635726436,
+          0.04383203070760339
+        ]
+      },
+      "frozen_prefix_exact": true,
+      "gain": 0.0016170254343924606
+    },
+    "E5-TUNE/123": {
+      "reference": {
+        "macro_f1": 0.3738173123103653,
+        "best_epoch": 9,
+        "epochs": 12
+      },
+      "extended": {
+        "macro_f1": 0.3738173123103653,
+        "best_epoch": 9,
+        "stop_reason": "early_stopping",
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-TUNE\\20261118T003654-beb6946d87",
+        "epochs": 15,
+        "last_three_f1": [
+          0.36155384177160876,
+          0.35742076494715425,
+          0.36402649122374947
+        ],
+        "last_three_loss": [
+          0.06569186846231284,
+          0.06257166415235704,
+          0.059276491735322026
+        ]
+      },
+      "frozen_prefix_exact": true,
+      "gain": 0.0
+    },
+    "E5-FROZEN/123": {
+      "reference": {
+        "macro_f1": 0.27242593928208436,
+        "best_epoch": 11,
+        "epochs": 12
+      },
+      "extended": {
+        "macro_f1": 0.2776072850201637,
+        "best_epoch": 16,
+        "stop_reason": "early_stopping",
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-FROZEN\\20261118T003733-01dba5281a",
+        "epochs": 22,
+        "last_three_f1": [
+          0.26809403001631255,
+          0.26570809187339617,
+          0.2677181434049679
+        ],
+        "last_three_loss": [
+          0.10907321278508365,
+          0.10851832975110504,
+          0.10797343585473028
+        ]
+      },
+      "frozen_prefix_exact": true,
+      "gain": 0.005181345738079324
+    },
+    "E2/2026": {
+      "reference": {
+        "macro_f1": 0.39319417390341144,
+        "best_epoch": 10,
+        "epochs": 12
+      },
+      "extended": {
+        "macro_f1": 0.39319417390341144,
+        "best_epoch": 10,
+        "stop_reason": "early_stopping",
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E2\\20261118T003826-90443055d3",
+        "epochs": 16,
+        "last_three_f1": [
+          0.3798845600709805,
+          0.38074440580000657,
+          0.37254139728709024
+        ],
+        "last_three_loss": [
+          0.0733056253037421,
+          0.07053061123758997,
+          0.06753245181529298
+        ]
+      },
+      "frozen_prefix_exact": true,
+      "gain": 0.0
+    },
+    "E3-RNN/2026": {
+      "reference": {
+        "macro_f1": 0.2008395052490954,
+        "best_epoch": 12,
+        "epochs": 12
+      },
+      "extended": {
+        "macro_f1": 0.26400480315095626,
+        "best_epoch": 24,
+        "stop_reason": "epoch_cap",
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T003909-9a8eb05797",
+        "epochs": 24,
+        "last_three_f1": [
+          0.2466320908461896,
+          0.25701468595104016,
+          0.26400480315095626
+        ],
+        "last_three_loss": [
+          0.1042165031220349,
+          0.10183919007168314,
+          0.10099186486441532
+        ]
+      },
+      "frozen_prefix_exact": null,
+      "gain": 0.06316529790186085
+    },
+    "E3-LSTM/2026": {
+      "reference": {
+        "macro_f1": 0.3216808409579439,
+        "best_epoch": 12,
+        "epochs": 12
+      },
+      "extended": {
+        "macro_f1": 0.344176799246631,
+        "best_epoch": 20,
+        "stop_reason": "epoch_cap",
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-LSTM\\20261118T004110-4bb15ed1a2",
+        "epochs": 24,
+        "last_three_f1": [
+          0.3337268779724957,
+          0.339065772798466,
+          0.336062893621607
+        ],
+        "last_three_loss": [
+          0.05718494824993925,
+          0.05492288317970251,
+          0.05301668678656766
+        ]
+      },
+      "frozen_prefix_exact": null,
+      "gain": 0.022495958288687112
+    },
+    "E3-BiLSTM/2026": {
+      "reference": {
+        "macro_f1": 0.37780717483279924,
+        "best_epoch": 11,
+        "epochs": 12
+      },
+      "extended": {
+        "macro_f1": 0.389101138680271,
+        "best_epoch": 15,
+        "stop_reason": "early_stopping",
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-BiLSTM\\20261118T004343-a1acc22b91",
+        "epochs": 21,
+        "last_three_f1": [
+          0.38167717178459915,
+          0.38320193176944223,
+          0.3846794900381205
+        ],
+        "last_three_loss": [
+          0.04464528945266396,
+          0.04131747436452813,
+          0.0386021493505343
+        ]
+      },
+      "frozen_prefix_exact": true,
+      "gain": 0.011293963847471777
+    },
+    "E5-TUNE/2026": {
+      "reference": {
+        "macro_f1": 0.3862551906848946,
+        "best_epoch": 10,
+        "epochs": 12
+      },
+      "extended": {
+        "macro_f1": 0.3862551906848946,
+        "best_epoch": 10,
+        "stop_reason": "early_stopping",
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-TUNE\\20261118T004517-965267fe2d",
+        "epochs": 16,
+        "last_three_f1": [
+          0.37067327662268773,
+          0.37083262690792146,
+          0.368941747542749
+        ],
+        "last_three_loss": [
+          0.06169504387807792,
+          0.05876619822281942,
+          0.05578516384355257
+        ]
+      },
+      "frozen_prefix_exact": true,
+      "gain": 0.0
+    },
+    "E5-FROZEN/2026": {
+      "reference": {
+        "macro_f1": 0.27899921411180667,
+        "best_epoch": 11,
+        "epochs": 12
+      },
+      "extended": {
+        "macro_f1": 0.27899921411180667,
+        "best_epoch": 11,
+        "stop_reason": "early_stopping",
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-FROZEN\\20261118T004602-67715e95f9",
+        "epochs": 17,
+        "last_three_f1": [
+          0.27403908458032217,
+          0.27059751504270496,
+          0.2786400610858683
+        ],
+        "last_three_loss": [
+          0.11143283014596977,
+          0.11072168038809563,
+          0.11023278894190715
+        ]
+      },
+      "frozen_prefix_exact": true,
+      "gain": 0.0
+    }
+  },
+  "conclusion": {
+    "recommend_new_version": true,
+    "material_gain_at_least_two_seeds": [
+      "E3-RNN",
+      "E3-LSTM"
+    ],
+    "near_cap_at_least_two_seeds": [
+      "E3-RNN"
+    ],
+    "repeated_rank_flips": [
+      {
+        "models": [
+          "E3-BiLSTM",
+          "E5-TUNE"
+        ],
+        "additional_seeds": [
+          2026
+        ]
+      }
+    ]
+  }
+}

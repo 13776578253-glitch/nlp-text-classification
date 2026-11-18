@@ -26,6 +26,10 @@
 
 记录里的 `baseline` 是初始配置，`hpo` 是搜索尝试，`main` 是从合格的基础/搜索/受控 Run 引用的主结果位。三种子统计只按 `replication` cohort 的 `(dataset, experiment, seed)` 三键查询。主实验和基础训练即使恰好使用 seed 42，也不计入复验样本，额外诊断使用独立 cohort。
 
+## Batch A Supplement S1
+
+GoEmotions 六个神经配置使用原入选参数，在统一 24 轮上限与 patience 6 下比较验证表现。Seed 42 对照先复核原 12 轮轨迹和检查点，按固定规则触发 seed 123、2026 复验。见 [协议、结果与复现](../runbooks/batch-a-s1.md)。
+
 ## Batch B
 
 E4 Transformer 单独立项，英文候选参考 [现有配置目录](../../configs/batch_b/)；中文候选使用语言适配的预训练 Encoder。Batch B 的训练、参数空间、对照和验收另定。RQ3 显存极限、QLoRA 和复杂前端开发均在本轮范围之外。
