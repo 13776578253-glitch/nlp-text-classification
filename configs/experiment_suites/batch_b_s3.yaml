@@ -1,0 +1,73 @@
+revision: 1
+model_id: Qwen/Qwen3.5-4B-Base
+model_revision: 1001bb4d826a52d1f399e183466143f4da7b741b
+license: apache-2.0
+dataset_config: configs/datasets/goemotions.yaml
+quantization:
+  loader: streaming_official_safetensors
+  type: nf4
+  double_quant: true
+  compute_dtype: bfloat16
+  skip_modules: [score]
+lora:
+  rank: 32
+  alpha: 64
+  dropout: 0.05
+  targets:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - in_proj_qkv
+    - in_proj_z
+    - in_proj_a
+    - in_proj_b
+    - out_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+  modules_to_save: [score]
+  expected_targets: 248
+  expected_trainable: 65001472
+preprocessing:
+  text: frozen_text
+  add_special_tokens: false
+  pad_token_id: 248044
+  eos_token_id: 248044
+  padding_side: right
+  truncation_side: right
+  padding_multiple: 8
+  pooling: last_content_token
+  length_candidates: [64, 96, 128]
+  train_coverage: 0.99
+training:
+  seeds: [42, 123, 2026]
+  micro_batch_size: 1
+  evaluation_micro_batch_size: 1
+  accumulation_steps: 16
+  rank_learning_rate: 0.0001
+  head_learning_rate: 0.0005
+  rank_weight_decay: 0.01
+  head_weight_decay: 0.0
+  optimizer: adamw
+  scheduler: linear
+  warmup_ratio: 0.06
+  gradient_clip: 1.0
+  gradient_checkpointing: non_reentrant
+  use_cache: false
+  epochs: 5
+  patience: 2
+selection:
+  metric: validation_macro_f1
+  score_tie_atol: 1.0e-12
+  threshold_grids:
+    sigmoid: {default: 0.5, range_inclusive: [0.05, 0.95], step: 0.05}
+preflight:
+  seed: 42
+  warmup_updates: 5
+  stable_updates: 100
+  stress_length: 128
+  replay_atol: 1.0e-7
+  replay_rtol: 1.0e-6
+  min_free_vram_gib: 2.0
+  process_commit_limit_gib: 14
