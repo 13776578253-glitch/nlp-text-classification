@@ -17,9 +17,10 @@ def write_atomic_json(path: Path, payload: dict) -> None:
 
 
 class Progress:
-    def __init__(self, path: Path, command: str) -> None:
+    def __init__(self, path: Path, command: str, title: str = "Batch A training progress") -> None:
         self.path = path
         self.command = command
+        self.title = title
         self.context = {}
         self._lock = Lock()
         self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -37,7 +38,7 @@ class Progress:
         print(f"[{stamp}]{position}{run} {phase} {message}", flush=True)
         with self.path.with_suffix(".jsonl").open("a", encoding="utf-8") as stream:
             stream.write(json.dumps(payload, ensure_ascii=False, default=str) + "\n")
-        lines = ["# Batch A training progress", "", f"Updated {stamp}", "",
+        lines = [f"# {self.title}", "", f"Updated {stamp}", "",
                  f"**{phase}** {message}", "", f"Command: `{self.command}`"]
         lines.extend(f"- {name}: `{value}`" for name, value in details.items())
         tmp = self.path.with_suffix(".tmp")

@@ -1,4 +1,4 @@
-# Batch A V2 架构
+# EmotionLab 架构
 
 ## 当前文件树
 
@@ -9,7 +9,7 @@ apps/
 configs/
   datasets/                    # 两种任务各一份数据定义
   experiment_suites/batch_a.yaml
-  batch_b/                     # 独立的英文 Transformer 草案
+  batch_b/                     # B1–B4 配置、资源及 Tokenization 锁
 data/
   raw/movie_reviews_zh/        # 本地导入的原始中文数据
   processed/movie_reviews_zh/  # 本地聚合审计 JSON
@@ -44,6 +44,6 @@ Python 包和 CLI 继续使用 `nlp_text_classification` 和 `nlp-text-classific
 - **Stage 4** 的独立审计和冻结校验器检查 14 个主 Run、入选复验和产物指纹。最终评估器单独获得 test 路径，以冻结模型和阈值计算正式结果，禁止覆盖成功输出。
 - **Stage 5** 的汇总器从冻结清单及正式指标生成验收文件与课程报告。汇总器读取现有产物，推理服务只加载可信本地模型。前端在正式测试结束后另行开展。
 
-当前落地到 loader、独立数据审计与 E1 训练边界。配置解析器、共享训练器、二分类指标、模型模块和整批冻结评估按后续阶段引入，对应模块随实现创建。
+Batch B S1 复用冻结训练分区加载、Run 记录、全局阈值搜索和指标复算。Transformer 输入和训练位于 `data/transformer_inputs.py`、`training/transformer_runner.py`，入口为 `batch-b-s1`。资源与 Tokenization 锁通过后进入 CUDA 冒烟，正式队列按基础和候选顺序串行。 [Batch B S1 运行与验收](runbooks/batch-b-s1.md)
 
 [数据契约](contracts/DATASETS.md) · [评估契约](contracts/EVALUATION.md) · [产物契约](contracts/ARTIFACTS.md)

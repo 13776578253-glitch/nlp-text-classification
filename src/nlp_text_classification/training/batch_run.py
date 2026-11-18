@@ -48,7 +48,8 @@ class Tee:
 
 
 class Attempt:
-    def __init__(self, output, data, resolved, cohort, seed, progress, *, previous=None):
+    def __init__(self, output, data, resolved, cohort, seed, progress, *,
+                 previous=None, provenance=None):
         dataset, experiment = data.manifest["dataset"], resolved["experiment"]["id"]
         run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S") + "-" + uuid4().hex[:10]
         self.path = output / dataset / experiment / run_id
@@ -65,6 +66,8 @@ class Attempt:
             "command": shlex.join(sys.orig_argv),
             "started_at_utc": datetime.now(timezone.utc).isoformat(),
         }
+        if provenance is not None:
+            self.identity["transformer"] = provenance
         config_path = self.path / "resolved_config.yaml"
         config_path.write_text(yaml.safe_dump(resolved, sort_keys=True), encoding="utf-8")
         self.identity["config_sha256"] = sha256_file(config_path)

@@ -45,6 +45,8 @@ def main() -> None:
     s1.add_argument("mode", choices=("primary", "replicate", "report"))
     s2 = command.add_parser("batch-a-s2", help="Run the GoEmotions convergence boundary supplement")
     s2.add_argument("mode", choices=("screen", "run", "report"))
+    encoders = command.add_parser("batch-b-s1", help="Run the Batch B encoder experiments")
+    encoders.add_argument("mode", choices=("data-audit", "smoke", "run", "report", "status"))
     args = parser.parse_args()
     if args.command == "download":
         from nlp_text_classification.data.download import download_official
@@ -112,6 +114,25 @@ def main() -> None:
             from nlp_text_classification.experiments.batch_a_s2 import execute
 
         result = execute(args.mode)
+    elif args.command == "batch-b-s1":
+        from nlp_text_classification.training.resources import (
+            configure_compute_threads,
+            require_headroom,
+        )
+
+        if args.mode in {"smoke", "run"}:
+            try:
+                require_headroom()
+            except RuntimeError as exc:
+                parser.exit(status=75, message=f"{exc}\n")
+        configure_compute_threads()
+        if args.mode == "status":
+            path = Path("artifacts/batch-b-s1/progress.md")
+            result = {"progress": str(path), "text": path.read_text(encoding="utf-8")}
+        else:
+            from nlp_text_classification.experiments.batch_b_s1 import execute
+
+            result = execute(args.mode)
     else:
         from nlp_text_classification.experiments.e1_svm import predict
         result = predict(args.run_dir, [args.text])[0]

@@ -1,0 +1,230 @@
+{
+  "suite": "batch-b-s1",
+  "models": {
+    "B1": {
+      "dataset": "goemotions",
+      "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+      "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+      "tokenizer_sha256": "b2867e5709ce52b82697f8efcb6e9cda022226e6aef1684bbe082b165d563b9e",
+      "model_revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+      "text_rule": "frozen_text",
+      "selected_length": 64,
+      "candidate_lengths": [
+        64,
+        96,
+        128
+      ],
+      "train_coverage_target": 0.99,
+      "train_coverage": 0.9999305732336674,
+      "padding_multiple": 8,
+      "padding_side": "right",
+      "truncation_side": "right",
+      "pad_token_id": 0,
+      "cls_token_id": 101,
+      "sep_token_id": 102,
+      "special_token_count": 2,
+      "attention_mask_verified": true,
+      "special_tokens_verified": true,
+      "partitions": {
+        "train": {
+          "rows": 43211,
+          "max": 316,
+          "percentiles": {
+            "50": 19.0,
+            "90": 31.0,
+            "95": 34.0,
+            "99": 38.0
+          },
+          "truncated_rows": 3,
+          "truncated_fraction": 6.942676633264678e-05,
+          "encoded_sha256": "9762311c3ca7eba25efeade75f9b0a014bc25bc375082d2b038108eebeb51dbf"
+        },
+        "validation": {
+          "rows": 5416,
+          "max": 48,
+          "percentiles": {
+            "50": 19.0,
+            "90": 31.0,
+            "95": 34.0,
+            "99": 38.0
+          },
+          "truncated_rows": 0,
+          "truncated_fraction": 0.0,
+          "encoded_sha256": "033e1d58d7c6a12034f25bf4b6c6ef75f49080ab6edaac4b136baa7bf42e96ea"
+        }
+      }
+    },
+    "B2": {
+      "dataset": "goemotions",
+      "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+      "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+      "tokenizer_sha256": "d0ae49f1c7ed074e91148171b549bcd987221bf8b66ef8b450b140bcbcda043e",
+      "model_revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+      "text_rule": "frozen_text",
+      "selected_length": 64,
+      "candidate_lengths": [
+        64,
+        96,
+        128
+      ],
+      "train_coverage_target": 0.99,
+      "train_coverage": 0.9997222929346694,
+      "padding_multiple": 8,
+      "padding_side": "right",
+      "truncation_side": "right",
+      "pad_token_id": 50283,
+      "cls_token_id": 50281,
+      "sep_token_id": 50282,
+      "special_token_count": 2,
+      "attention_mask_verified": true,
+      "special_tokens_verified": true,
+      "partitions": {
+        "train": {
+          "rows": 43211,
+          "max": 1437,
+          "percentiles": {
+            "50": 18.0,
+            "90": 31.0,
+            "95": 33.0,
+            "99": 37.0
+          },
+          "truncated_rows": 12,
+          "truncated_fraction": 0.0002777070653305871,
+          "encoded_sha256": "32288a4c7fa84d37a0ff544f4183f347721ee07c17c49319b60d52963503df17"
+        },
+        "validation": {
+          "rows": 5416,
+          "max": 77,
+          "percentiles": {
+            "50": 18.0,
+            "90": 31.0,
+            "95": 33.0,
+            "99": 37.0
+          },
+          "truncated_rows": 2,
+          "truncated_fraction": 0.00036927621861152144,
+          "encoded_sha256": "b61d60e2d726ddd59394fa224261913fc10a45e79149af8f346875ea9e2064d4"
+        }
+      }
+    },
+    "B3": {
+      "dataset": "goemotions",
+      "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+      "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+      "tokenizer_sha256": "0949304ddf3a6db1e9b3c95e1d8d16c0ad1e71ec2c22f601666589422e6c50c9",
+      "model_revision": "45bb4654a4d5aaff24dd11d4781fa46d39bf8c13",
+      "text_rule": "frozen_text",
+      "selected_length": 64,
+      "candidate_lengths": [
+        64,
+        96,
+        128
+      ],
+      "train_coverage_target": 0.99,
+      "train_coverage": 0.9997222929346694,
+      "padding_multiple": 8,
+      "padding_side": "right",
+      "truncation_side": "right",
+      "pad_token_id": 50283,
+      "cls_token_id": 50281,
+      "sep_token_id": 50282,
+      "special_token_count": 2,
+      "attention_mask_verified": true,
+      "special_tokens_verified": true,
+      "partitions": {
+        "train": {
+          "rows": 43211,
+          "max": 1437,
+          "percentiles": {
+            "50": 18.0,
+            "90": 31.0,
+            "95": 33.0,
+            "99": 37.0
+          },
+          "truncated_rows": 12,
+          "truncated_fraction": 0.0002777070653305871,
+          "encoded_sha256": "32288a4c7fa84d37a0ff544f4183f347721ee07c17c49319b60d52963503df17"
+        },
+        "validation": {
+          "rows": 5416,
+          "max": 77,
+          "percentiles": {
+            "50": 18.0,
+            "90": 31.0,
+            "95": 33.0,
+            "99": 37.0
+          },
+          "truncated_rows": 2,
+          "truncated_fraction": 0.00036927621861152144,
+          "encoded_sha256": "b61d60e2d726ddd59394fa224261913fc10a45e79149af8f346875ea9e2064d4"
+        }
+      }
+    },
+    "B4": {
+      "dataset": "movie_reviews_zh",
+      "dataset_manifest_sha256": "fb00047e210b51b1188f91081aa7fae4eaa7ec11b672362d13f28ca854a9e2c8",
+      "training_manifest_sha256": "e65b32fda0842d92bdf7a3ae58992641addafa4380bea0b3871e2ce1c3bd6deb",
+      "tokenizer_sha256": "45c6330d94f6f50aff42a795360a901b518468ba9bcc1c8ca2cf0423d8acde6b",
+      "model_revision": "a986e004d2a7f2a1c2f5a3edef4e20604a974ed1",
+      "text_rule": "preserve_token_boundaries",
+      "selected_length": 128,
+      "candidate_lengths": [
+        128,
+        192,
+        256
+      ],
+      "train_coverage_target": 0.99,
+      "train_coverage": 0.9943983194958488,
+      "padding_multiple": 8,
+      "padding_side": "right",
+      "truncation_side": "right",
+      "pad_token_id": 0,
+      "cls_token_id": 101,
+      "sep_token_id": 102,
+      "special_token_count": 2,
+      "attention_mask_verified": true,
+      "special_tokens_verified": true,
+      "partitions": {
+        "train": {
+          "rows": 19994,
+          "max": 1230,
+          "percentiles": {
+            "50": 79.0,
+            "90": 110.0,
+            "95": 114.0,
+            "99": 121.0
+          },
+          "truncated_rows": 112,
+          "truncated_fraction": 0.005601680504151245,
+          "encoded_sha256": "d5d81a4342631de7ecf571803dfb1c6fc3bd763420e8a27e75c8e381d0d1aee9"
+        },
+        "validation": {
+          "rows": 5629,
+          "max": 209,
+          "percentiles": {
+            "50": 80.0,
+            "90": 110.0,
+            "95": 114.0,
+            "99": 122.0
+          },
+          "truncated_rows": 40,
+          "truncated_fraction": 0.007106057914372002,
+          "encoded_sha256": "50c602a6d5827eafa299fe6605fa99fb4a5459dcbf8354fe6aa239c917aef037"
+        }
+      },
+      "join_without_spaces_comparison": {
+        "train": {
+          "different_ids": 1753,
+          "mixed_ascii_rows": 5643,
+          "different_ids_on_mixed_ascii": 1723
+        },
+        "validation": {
+          "different_ids": 491,
+          "mixed_ascii_rows": 1573,
+          "different_ids_on_mixed_ascii": 482
+        }
+      }
+    }
+  },
+  "resource_lock_sha256": "bee0fd35f1af8703070fcb1bd40c201fd0c892248a4e7c15e86cb2676d09c3bb"
+}

@@ -142,11 +142,11 @@ def set_windows_process_limit(limit: int, *, lower_priority: bool = True):
 
 
 @contextmanager
-def protect(progress):
+def protect(progress, *, process_limit=WINDOWS_PROCESS_LIMIT):
     current = require_headroom()
-    set_windows_process_limit(WINDOWS_PROCESS_LIMIT)
+    set_windows_process_limit(process_limit)
     progress.emit("RESOURCES", "memory guard active", **current.display(),
-                  windows_commit_limit_gib=4, cpu_threads=CPU_THREADS)
+                  windows_commit_limit_gib=process_limit // GIB, cpu_threads=CPU_THREADS)
     done, low_memory = Event(), Event()
 
     def watch():
