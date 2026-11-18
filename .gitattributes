@@ -1,2 +1,6 @@
 # Preserve the exact bytes recorded by the Batch B formal acceptance manifest.
 /reports/batch-b-final/** -text
+/reports/batch-b-s3/performance/** -text
+/scripts/batch_b_s3_wsl_*.sh text eol=lf
+/configs/experiment_suites/batch_b_s3.yaml text eol=lf
+/configs/batch_b/s3-wsl-runtime.lock.txt text eol=lf

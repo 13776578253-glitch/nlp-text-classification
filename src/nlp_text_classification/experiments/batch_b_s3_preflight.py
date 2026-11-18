@@ -4,6 +4,7 @@ import hashlib
 import os
 import random
 import time
+from contextlib import nullcontext
 from pathlib import Path
 
 import numpy as np
@@ -138,21 +139,26 @@ def _stress(model, rank, head, length):
             "gradients": gradients, "memory": memory()}
 
 
-def _update(model, optimizer, scheduler, config, partition, indices, parameters):
+def _update(model, optimizer, scheduler, config, partition, indices, parameters, trace=None):
     model.train()
     multiplier = config["preprocessing"]["padding_multiple"]
     loss_sum = torch.zeros((), device="cuda")
+    phase = trace.span if trace is not None else nullcontext
     for index in indices:
-        features, target = partition.batch(np.asarray([index]), multiplier)
-        with torch.autocast("cuda", dtype=torch.bfloat16):
+        with phase("data"):
+            features, target = partition.batch(np.asarray([index]), multiplier)
+        with phase("forward"), torch.autocast("cuda", dtype=torch.bfloat16):
             logits = model(**features, use_cache=False).logits
             loss = classification_loss(logits, target, binary=False)
-        (loss / len(indices)).backward()
+        with phase("backward"):
+            (loss / len(indices)).backward()
         loss_sum += loss.detach()
-    gn = torch.nn.utils.clip_grad_norm_(parameters, config["training"]["gradient_clip"],
-                                        error_if_nonfinite=True)
+    with phase("clip"):
+        gn = torch.nn.utils.clip_grad_norm_(parameters, config["training"]["gradient_clip"],
+                                            error_if_nonfinite=True)
     used_lrs = [group["lr"] for group in optimizer.param_groups]
-    optimizer.step()
+    with phase("adamw"):
+        optimizer.step()
     scheduler.step()
     optimizer.zero_grad(set_to_none=True)
     result = {"loss": (loss_sum / len(indices)).item(), "gradient_norm": gn.item(),
@@ -311,6 +317,7 @@ def json_line(payload):
 
 def recover(root: Path, suite, progress):
     preflight, options = suite["preflight"], suite["training"]
+    started = time.perf_counter()
     previous = read_json(root / "benchmark.json")
     if previous["pid"] == os.getpid() or previous["suite_sha256"] != sha256_file(SUITE):
         raise ValueError("Independent recovery requires the original configuration and fresh PID")
@@ -331,7 +338,9 @@ def recover(root: Path, suite, progress):
     scheduler.load_state_dict(state["scheduler"])
     if _state_evidence(rank, head, optimizer) != previous["trained"]:
         raise ValueError("Recovered LoRA, head or AdamW bytes differ")
+    validation_started = time.perf_counter()
     rows, targets, scores = _validation(model, data, encoded["validation"], suite)
+    validation_seconds = time.perf_counter() - validation_started
     _, reference = verify_prediction_file(root / "predictions_validation.jsonl", rows, targets,
                                           False, previous["threshold"]["threshold"], auc=True)
     if not np.allclose(scores, reference, atol=preflight["replay_atol"],
@@ -357,6 +366,8 @@ def recover(root: Path, suite, progress):
         raise ValueError("Recovered next optimizer update or random state differs")
     receipt = {"status": "PASS", "original_pid": previous["pid"], "recovery_pid": os.getpid(),
                "validated_rows": len(rows), "resume_cursor": cursor, "next_update": cursor + 1,
+               "validation_seconds": validation_seconds,
+               "recovery_seconds": time.perf_counter() - started,
                "max_abs_score_error": float(np.max(np.abs(scores - reference))),
                "exact_score_match": bool(np.array_equal(scores, reference)),
                "exact_next_update": True, "exact_rng_probe": True, "memory": memory()}

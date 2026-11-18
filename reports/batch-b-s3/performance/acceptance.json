@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "selected_backend": "WSL2 Ubuntu-22.04 FLA + causal-conv1d",
+  "formal_training_status": "awaiting_review",
+  "checkpoint": {
+    "adapter/README.md": "2208e95d1972f018b5bcaf5c24086b4c3294c09bfd0ba53e1633939b3f3d1b6c",
+    "adapter/adapter_config.json": "ac309bfc69f32d4e6080117df039e4ffca5232ed2c2d65f2de6c3a3c151d894e",
+    "adapter/adapter_model.safetensors": "cbec4dbdc132a1d385484a31f08eec232b9b5fbac2389a7a90aca2974ec18ac1",
+    "adapter/text_config.json": "b02f6a1d2dd37d22b84ed375376a46c41b092f91f1db15f62c60b95dc6306a8f",
+    "resume.pt": "23c835cd62f44e8f98ed23ddc99db3909abaf0bf22006c8cff289735fe77005e"
+  },
+  "evidence_sha256": {
+    "windows-baseline/updates.jsonl": "b3652de2cfa5d65cff83486b501ea6abaf2666e0db67acc6007c592732ffb7a0",
+    "windows-profile-r2/phase-profile.json": "e221a08ce11d5a8e8f398a48e9c28a12bbbbf35a48bb6ef2629f2b192ff8d979",
+    "windows-matched/updates.jsonl": "34841a4941ae2d64b8a8d2239daa1ea14a9884c188b173a2eb3c37596cee41ab",
+    "windows-matched-gpu.csv": "4d5b81a99c6d093f6dac15f178094756b5eee041b1e41319738cc2b859d6286a",
+    "ubuntu-fused/updates.jsonl": "9d29684f09a938b7e9aa16eb78fa936e3622e510f5946e5ecce5638d66ab8a1a",
+    "ubuntu-fused/initial-scores.npy": "6ba12ceb161bf471c084fe19ca36ba8b346360d67331a1edb4acee1317bd9ce4",
+    "windows-profile-r2/initial-scores.npy": "afba0fee74a9cff98fb5218223751902f2763f1eab53c1166947548708e6345e",
+    "ubuntu-fused-gpu.csv": "51ce0b3d72bf2a938c405321b8183a9a6f2f0cf775d1681189386655c88917d8",
+    "ubuntu-fused/adapter/adapter_config.json": "ac309bfc69f32d4e6080117df039e4ffca5232ed2c2d65f2de6c3a3c151d894e",
+    "ubuntu-fused/recovery.json": "2d07a19d3db6ec27b3b4cfb95fb20232e274cd9f043004571291cb4fea30faf1",
+    "ubuntu-fused/predictions_validation.jsonl": "85c75c0a6563e819290acd87bcdbce55baaadd95ff7dd3a4ecc196cf8653395c",
+    "wsl-install-accelerators.log": "f9e2edded579a7ab19eb4669687311983616a3bacf6d5c03ee7bbd8ee278e2ad"
+  },
+  "summary_sha256": "14c0596d9ed561a366410c1af21e0d537faddf0999ce369d63e14c21deb6042d",
+  "report_sha256": {
+    "comparison.json": "14c0596d9ed561a366410c1af21e0d537faddf0999ce369d63e14c21deb6042d",
+    "model-resources.json": "0df132ac8af94b906c52269613c4610aa53cbdae4b1a76a410dbb5c5f73ce47c",
+    "recommended-training.json": "d87c49399c2c4d769e1b9ae2a1ecb86c9ec7dd7820ebce04cb2377b4c9505474",
+    "report.md": "060ba737d2593edacef99be07503c5cf1865b1010ab3a3bec037a12d8531b79e",
+    "tokenization.json": "7f1b04c67d9d4706b713487ae66cc5d9a41a3835823bfd662eb8ab9b7cf89229",
+    "wsl-load-audit.json": "18a1d761a5cef0cecdfafcae0f647376c3bda5b1bc3b3b1bea5b5310a24de881",
+    "wsl-lora-audit.json": "7e716bbc04d744f8129ec0236097522f05725f9c4893051bd30c86ef12c6cbeb"
+  }
+}

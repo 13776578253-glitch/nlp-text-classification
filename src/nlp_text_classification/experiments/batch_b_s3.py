@@ -51,6 +51,12 @@ def memory():
     from nlp_text_classification.training.resources import memory_available
 
     info = psutil.Process().memory_info()
+    if sys.platform == "win32":
+        peak_rss = info.peak_wset
+    else:
+        import resource
+
+        peak_rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
     torch.cuda.synchronize()
     free, total = torch.cuda.mem_get_info()
     values = memory_available()
@@ -58,9 +64,9 @@ def memory():
         "gpu_free_bytes": free, "gpu_total_bytes": total,
         "gpu_peak_allocated_bytes": torch.cuda.max_memory_allocated(),
         "gpu_peak_reserved_bytes": torch.cuda.max_memory_reserved(),
-        "rss_bytes": info.rss, "peak_rss_bytes": getattr(info, "peak_wset", info.rss),
-        "process_commit_bytes": getattr(info, "pagefile", info.vms),
-        "peak_process_commit_bytes": getattr(info, "peak_pagefile", info.vms),
+        "rss_bytes": info.rss, "peak_rss_bytes": peak_rss,
+        "process_commit_bytes": getattr(info, "pagefile", None),
+        "peak_process_commit_bytes": getattr(info, "peak_pagefile", None),
         "host_free_physical_bytes": values.physical, "host_free_commit_bytes": values.commit,
     }
 

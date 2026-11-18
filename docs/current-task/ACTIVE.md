@@ -1,6 +1,8 @@
-# 当前任务状态 · Batch B Encoder 正式测试已验收
+# 当前任务状态 · Batch B S3 性能预检待审阅
 
-Batch B S1 和 S2 均已验收。独立审计精确复现 12 个 Run 的验证分数，随后 12/12 项正式测试通过。B1 保留六轮预算。S3 保持规划状态。 [S1 验证报告](../../reports/batch-b-s1/report.md) · [S2 验收](../finish-task/batch-b-s2.md) · [正式测试验收](../finish-task/batch-b-final.md)
+Batch B S1 和 S2 均已验收。独立审计精确复现 12 个 Run 的验证分数，随后 12/12 项正式测试通过。B1 保留六轮预算。 [S1 验证报告](../../reports/batch-b-s1/report.md) · [S2 验收](../finish-task/batch-b-s2.md) · [正式测试验收](../finish-task/batch-b-final.md)
+
+S3 Qwen 已完成 Windows 与 WSL2 的独立性能预检。WSL2 FLA 与 causal-conv1d 通过前向、反向、参数更新和独立进程恢复验证。正式训练暂缓，等待审阅。 [性能对照、验收及风险](../../reports/batch-b-s3/performance/report.md)
 
 Batch A Stage 0–5、Supplement S1 和 S2 均已完成。见 [统一研究总结](../finish-task/batch-a/summary.md) 与 [模型结果索引](../finish-task/batch-a/model-index.json)。
 

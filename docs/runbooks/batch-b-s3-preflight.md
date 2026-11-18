@@ -32,3 +32,16 @@ $env:TRANSFORMERS_OFFLINE = '1'
 - Adapter safetensors 包含全部 LoRA 张量及完整分类头。新进程校验验证分数、阈值和预测，再恢复 AdamW、调度器、RNG 和数据游标，比较下一步的模型与优化器指纹。 `recovery.json` 记录验收。
 
 预检完成后提交解析过的正式配置和风险清单，等待正式训练审阅。三种子训练及正式 test 属于后续阶段。
+
+## WSL2 性能对照
+
+从同一工作区调用下列命令。Windows 入口生成两边共用的初始 Adapter、分类头与 RNG，随后在现有 Ubuntu 发行版中使用独立的 ext4 环境。权重和数据均读取本地原路径。仅一种后端占用 GPU。
+
+```powershell
+& $s3python -u -m nlp_text_classification.experiments.batch_b_s3_perf fallback --attempt windows-profile-new
+wsl.exe -d Ubuntu-22.04 --cd /mnt/d/Desktop/code/nlp-text-classification --exec bash scripts/batch_b_s3_wsl_setup.sh
+wsl.exe -d Ubuntu-22.04 --cd /mnt/d/Desktop/code/nlp-text-classification --exec bash scripts/batch_b_s3_wsl_perf.sh --attempt ubuntu-fused-new
+wsl.exe -d Ubuntu-22.04 --cd /mnt/d/Desktop/code/nlp-text-classification --exec bash scripts/batch_b_s3_wsl_perf.sh --attempt ubuntu-fused-new --recover
+```
+
+匹配训练样本顺序、micro-batch 1、累积 16 和 5 次预热。稳态比较用第 6–13 次更新，性能剖析用第 5 次更新，CUDA event 记录数据准备、前向、反向、重计算、梯度裁剪和 AdamW。重计算已包含在反向跨度中。Windows 补采的匹配遥测可用 `fallback --attempt <new-attempt> --matched-telemetry`，预热后测第 6–7 次更新。依赖锁和验收见 [WSL 环境锁](../../configs/batch_b/s3-wsl-runtime.lock.txt) 与 [性能报告](../../reports/batch-b-s3/performance/report.md)。
