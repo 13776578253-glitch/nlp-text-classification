@@ -11,6 +11,7 @@ import random
 import time
 from collections import defaultdict
 from contextlib import ExitStack, contextmanager, nullcontext
+from decimal import Decimal
 from pathlib import Path
 
 import numpy as np
@@ -19,7 +20,7 @@ from safetensors import safe_open
 
 from nlp_text_classification.data.audit import sha256_file
 from nlp_text_classification.evaluation.batch_metrics import write_predictions
-from nlp_text_classification.experiments.batch_b_s3 import memory, optimizer_and_schedule
+from nlp_text_classification.experiments.batch_b_s3 import memory
 from nlp_text_classification.experiments.batch_b_s3_perf import INITIAL as S3_INITIAL
 from nlp_text_classification.experiments.batch_b_s3_perf import (
     MATCHED_STABLE,
@@ -39,6 +40,7 @@ from nlp_text_classification.training.qwen_s3 import (
     audit_weight_map,
     load_base,
     optimizer_digest,
+    optimizer_for,
     restore_rng,
     rng_state,
     seed_all,
@@ -134,14 +136,18 @@ def build_model_s4(
     precision_mode: str,
     gc_mode: str,
     saved: Path | None = None,
+    fresh: bool = False,
 ):
     """Build Qwen classifier under controlled precision and gradient checkpointing modes."""
     from peft import PeftModel
 
+    if fresh and (saved is not None or precision_mode != "nf4_fp32_stream"):
+        raise ValueError("Fresh initialization requires the approved NF4 pathway")
     use_gc = gc_mode != "off"
     if precision_mode == "nf4_fp32_stream":
         base_model, _ = load_base(snapshot, suite, labels, audit=False)
-        model = adapter_model(base_model, suite, saved=saved or (S3_INITIAL / "adapter"))
+        adapter = None if fresh else saved or (S3_INITIAL / "adapter")
+        model = adapter_model(base_model, suite, saved=adapter)
     elif precision_mode in {"nf4_bf16_stream", "bf16_lora"}:
         if precision_mode == "nf4_bf16_stream":
             base_model, _ = load_base(snapshot, suite, labels, audit=False)
@@ -161,7 +167,7 @@ def build_model_s4(
 
     configure_gradient_checkpointing(model, gc_mode, use_gc=use_gc)
     rank, head, lora = trainable_groups(model, suite)
-    if saved is None:
+    if saved is None and not fresh:
         expected_start = read_json(S3_INITIAL / "start.json")
         if (
             tensor_digest(rank.items()) != expected_start["lora_sha256"]
@@ -200,25 +206,33 @@ def configure_gradient_checkpointing(model, gc_mode: str, *, use_gc: bool = True
     }
 
 
+def update_budget(options, rows):
+    effective = options["micro_batch_size"] * options["accumulation_steps"]
+    if rows <= 0 or effective <= 0 or options["epochs"] <= 0 or not (
+        0 <= options["warmup_ratio"] < 1
+    ):
+        raise ValueError("Invalid training budget")
+    per_epoch = (rows + effective - 1) // effective
+    total = per_epoch * options["epochs"]
+    return {
+        "effective_batch_size": effective, "updates_per_epoch": per_epoch,
+        "tail_rows": rows % effective, "total_updates": total,
+        "warmup_updates": math.ceil(Decimal(str(options["warmup_ratio"])) * total),
+    }
+
+
 def make_optimizer(rank: dict, head: dict, options: dict, rows: int, *, foreach: bool):
     from transformers import get_linear_schedule_with_warmup
 
-    if not foreach:
-        return optimizer_and_schedule(rank, head, options, rows)
-    updates = math.ceil(rows / options["accumulation_steps"]) * options["epochs"]
-    warmup = math.ceil(updates * options["warmup_ratio"])
-    params = [
-        {
-            "params": list(values.values()),
-            "name": label,
-            "lr": options[f"{label}_learning_rate"],
-            "weight_decay": options[f"{label}_weight_decay"],
-        }
-        for label, values in (("rank", rank), ("head", head))
-    ]
-    optimizer = torch.optim.AdamW(params, betas=(0.9, 0.999), eps=1e-8, foreach=True)
-    scheduler = get_linear_schedule_with_warmup(optimizer, warmup, updates)
-    return optimizer, scheduler, {"total_updates": updates, "warmup_updates": warmup}
+    plan = update_budget(options, rows)
+    optimizer = optimizer_for(rank, head, options)
+    optimizer.defaults["foreach"] = foreach
+    for group in optimizer.param_groups:
+        group["foreach"] = foreach
+    scheduler = get_linear_schedule_with_warmup(
+        optimizer, plan["warmup_updates"], plan["total_updates"],
+    )
+    return optimizer, scheduler, plan
 
 
 def iter_micro_batches(
@@ -312,6 +326,7 @@ def evaluate_subset(
     batch_size: int,
     multiple: int = 8,
     sort_by_length: bool = False,
+    on_batch=None,
 ) -> tuple[np.ndarray, np.ndarray, float, dict]:
     """Evaluate validation samples and return logits, sigmoid scores, elapsed seconds, and stats."""
     model.eval()
@@ -339,6 +354,8 @@ def evaluate_subset(
         idx_t = torch.as_tensor(chunk, dtype=torch.long)
         logits_out[idx_t] = logits_f
         scores_out[idx_t] = scores_f
+        if on_batch is not None:
+            on_batch(min(pos + batch_size, n))
     torch.cuda.synchronize()
     elapsed = time.perf_counter() - started
     valid_tokens = int(np.minimum(subset.lengths, 64).sum())

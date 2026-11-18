@@ -20,6 +20,7 @@
 | [Batch B S2 验收](finish-task/batch-b-s2.md) · [研究报告](../reports/batch-b-s2/report.md) | 三种子统计、低支持标签分析与拟冻结清单 |
 | [Batch B 正式测试验收](finish-task/batch-b-final.md) · [测试报告](../reports/batch-b-final/2605f6766085/report.md) | 12 个冻结 Run、逐样本复算、配对比较与中文评价 |
 | [Batch B S3 性能对照](../reports/batch-b-s3/performance/report.md) · [预检运行手册](runbooks/batch-b-s3-preflight.md) | Qwen3.5 QLoRA 的 Windows/WSL2 计时、CUDA 内核与恢复验证 |
+| [Batch B S4 性能报告](../reports/batch-b-s4/performance/report.md) · [正式入口验收](../reports/batch-b-s4/formal/report.md) · [Runbook](runbooks/batch-b-s4-formal.md) | Qwen3.5 QLoRA 启动签收、三晚串行运行与恢复 |
 | [当前状态](current-task/ACTIVE.md) · [下一步](NEXT.md) | 阶段与证据引用、当前工作入口 |
 | [待议与研究局限](BACKLOG.md) | 后续工作与研究边界 |
 
