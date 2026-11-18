@@ -1,0 +1,1413 @@
+{
+  "screen": {
+    "inputs": {
+      "protocol_sha256": "0c4eb5fcd8bc5fd7a01d92568db9512f47bbbefa4ad88a0f9879e35c42ef0c96",
+      "s1_results_sha256": "3a757aff5e75834a1d5475d98b384d3e81f0d56de4d30562ccdaae0c75a88617",
+      "s1_delivery_audit_sha256": "c72327fa7910c962c1042b087fad61cfaac4337f637f5d1c39ef96b1366e6aed"
+    },
+    "records": {
+      "E2/42": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E2\\20261118T002517-3718e90449",
+        "macro_f1": 0.39379631873874654,
+        "best_epoch": 11,
+        "epochs": 17,
+        "stop_reason": "early_stopping",
+        "tail": [
+          {
+            "val_macro_f1": 0.3822949416646262,
+            "loss": 0.08650406716099489,
+            "epoch": 10
+          },
+          {
+            "val_macro_f1": 0.39379631873874654,
+            "loss": 0.08284769815013827,
+            "epoch": 11
+          },
+          {
+            "val_macro_f1": 0.38524446653584066,
+            "loss": 0.07963782325030085,
+            "epoch": 12
+          },
+          {
+            "val_macro_f1": 0.383117440981282,
+            "loss": 0.07663859033470934,
+            "epoch": 13
+          },
+          {
+            "val_macro_f1": 0.3905591057586961,
+            "loss": 0.07346226492530837,
+            "epoch": 14
+          },
+          {
+            "val_macro_f1": 0.3857921475529008,
+            "loss": 0.07086903282367336,
+            "epoch": 15
+          },
+          {
+            "val_macro_f1": 0.3866450048983937,
+            "loss": 0.06798222290584284,
+            "epoch": 16
+          },
+          {
+            "val_macro_f1": 0.38657808777295827,
+            "loss": 0.06484246971799715,
+            "epoch": 17
+          }
+        ],
+        "tail_slope": -0.0011090196611720671,
+        "tail_mean_gain": 0.0012802945156134005,
+        "rising_at_cap": false
+      },
+      "E2/123": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E2\\20261118T003208-e566fe735e",
+        "macro_f1": 0.395668641321191,
+        "best_epoch": 15,
+        "epochs": 21,
+        "stop_reason": "early_stopping",
+        "tail": [
+          {
+            "val_macro_f1": 0.3932469526590173,
+            "loss": 0.07439715328562171,
+            "epoch": 14
+          },
+          {
+            "val_macro_f1": 0.395668641321191,
+            "loss": 0.07123967050852213,
+            "epoch": 15
+          },
+          {
+            "val_macro_f1": 0.3840279376970549,
+            "loss": 0.06863764141183669,
+            "epoch": 16
+          },
+          {
+            "val_macro_f1": 0.3944201209251719,
+            "loss": 0.0657085302082369,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.3844907559437507,
+            "loss": 0.06374777210591631,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.38830268474948054,
+            "loss": 0.06108801731980861,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.3812784929608798,
+            "loss": 0.058610389146065235,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.38058030467994935,
+            "loss": 0.056895534457733564,
+            "epoch": 21
+          }
+        ],
+        "tail_slope": -0.0018755545580004807,
+        "tail_mean_gain": -0.008177853567093663,
+        "rising_at_cap": false
+      },
+      "E2/2026": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E2\\20261118T003826-90443055d3",
+        "macro_f1": 0.39319417390341144,
+        "best_epoch": 10,
+        "epochs": 16,
+        "stop_reason": "early_stopping",
+        "tail": [
+          {
+            "val_macro_f1": 0.37264754487679635,
+            "loss": 0.08985112885390872,
+            "epoch": 9
+          },
+          {
+            "val_macro_f1": 0.39319417390341144,
+            "loss": 0.08613050279442734,
+            "epoch": 10
+          },
+          {
+            "val_macro_f1": 0.38724139034585026,
+            "loss": 0.08271989029847723,
+            "epoch": 11
+          },
+          {
+            "val_macro_f1": 0.39170155116201766,
+            "loss": 0.0796046353576057,
+            "epoch": 12
+          },
+          {
+            "val_macro_f1": 0.37954021399100807,
+            "loss": 0.07634233443524219,
+            "epoch": 13
+          },
+          {
+            "val_macro_f1": 0.3798845600709805,
+            "loss": 0.0733056253037421,
+            "epoch": 14
+          },
+          {
+            "val_macro_f1": 0.38074440580000657,
+            "loss": 0.07053061123758997,
+            "epoch": 15
+          },
+          {
+            "val_macro_f1": 0.37254139728709024,
+            "loss": 0.06753245181529298,
+            "epoch": 16
+          }
+        ],
+        "tail_slope": -0.0020136604382727406,
+        "tail_mean_gain": -0.008018520784747574,
+        "rising_at_cap": false
+      },
+      "E3-RNN/42": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T002613-434447052e",
+        "macro_f1": 0.2658143559482834,
+        "best_epoch": 23,
+        "epochs": 24,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.23299907642053969,
+            "loss": 0.1097880689198063,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.24570813234468206,
+            "loss": 0.10946442764139919,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.24135318447063384,
+            "loss": 0.10729159811376154,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.2551958132537254,
+            "loss": 0.10602142954774248,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.26192314161903546,
+            "loss": 0.10454034779917151,
+            "epoch": 21
+          },
+          {
+            "val_macro_f1": 0.26182568448363247,
+            "loss": 0.10245896860029853,
+            "epoch": 22
+          },
+          {
+            "val_macro_f1": 0.2658143559482834,
+            "loss": 0.10172856376269931,
+            "epoch": 23
+          },
+          {
+            "val_macro_f1": 0.2644393860939262,
+            "loss": 0.10120701552049825,
+            "epoch": 24
+          }
+        ],
+        "tail_slope": 0.0011537404889323144,
+        "tail_mean_gain": 0.019686590413824118,
+        "rising_at_cap": true
+      },
+      "E3-RNN/123": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T003304-e63d577e1b",
+        "macro_f1": 0.27692540853377035,
+        "best_epoch": 24,
+        "epochs": 24,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.2497311528941781,
+            "loss": 0.1094649248382935,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.2505164444535736,
+            "loss": 0.1081897730034019,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.26325236571071103,
+            "loss": 0.10825505269563884,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.23911851618288965,
+            "loss": 0.10610708301271667,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.24706706237699308,
+            "loss": 0.10542873694993751,
+            "epoch": 21
+          },
+          {
+            "val_macro_f1": 0.25685614243504346,
+            "loss": 0.10372693368008146,
+            "epoch": 22
+          },
+          {
+            "val_macro_f1": 0.2738422852334817,
+            "loss": 0.10363488445505774,
+            "epoch": 23
+          },
+          {
+            "val_macro_f1": 0.27692540853377035,
+            "loss": 0.10109775650297378,
+            "epoch": 24
+          }
+        ],
+        "tail_slope": 0.010656118126877005,
+        "tail_mean_gain": 0.013018104834484068,
+        "rising_at_cap": true
+      },
+      "E3-RNN/2026": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T003909-9a8eb05797",
+        "macro_f1": 0.26400480315095626,
+        "best_epoch": 24,
+        "epochs": 24,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.2513161089756443,
+            "loss": 0.10936137228512416,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.24050659417071987,
+            "loss": 0.10877353865696814,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.24923742805315366,
+            "loss": 0.10703609540973363,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.24421338250241637,
+            "loss": 0.10617476958991923,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.251597966322076,
+            "loss": 0.1047841324763949,
+            "epoch": 21
+          },
+          {
+            "val_macro_f1": 0.2466320908461896,
+            "loss": 0.1042165031220349,
+            "epoch": 22
+          },
+          {
+            "val_macro_f1": 0.25701468595104016,
+            "loss": 0.10183919007168314,
+            "epoch": 23
+          },
+          {
+            "val_macro_f1": 0.26400480315095626,
+            "loss": 0.10099186486441532,
+            "epoch": 24
+          }
+        ],
+        "tail_slope": 0.004760310559149139,
+        "tail_mean_gain": 0.008494008142081955,
+        "rising_at_cap": true
+      },
+      "E3-LSTM/42": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-LSTM\\20261118T002732-3f7f1b5aab",
+        "macro_f1": 0.35599252544392435,
+        "best_epoch": 24,
+        "epochs": 24,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.3362016097781083,
+            "loss": 0.0742820465546244,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.339871365621131,
+            "loss": 0.07165093143962185,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.339846638153748,
+            "loss": 0.06898268475655793,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.3488294956226766,
+            "loss": 0.06637192646439853,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.3501234375178541,
+            "loss": 0.06432226616739661,
+            "epoch": 21
+          },
+          {
+            "val_macro_f1": 0.3444352866762787,
+            "loss": 0.06168630903263926,
+            "epoch": 22
+          },
+          {
+            "val_macro_f1": 0.3484642877134473,
+            "loss": 0.059413226531221795,
+            "epoch": 23
+          },
+          {
+            "val_macro_f1": 0.35599252544392435,
+            "loss": 0.05737144228502291,
+            "epoch": 24
+          }
+        ],
+        "tail_slope": 0.002163626481537939,
+        "tail_mean_gain": 0.008566607043960173,
+        "rising_at_cap": true
+      },
+      "E3-LSTM/123": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-LSTM\\20261118T003413-7773c3d614",
+        "macro_f1": 0.3644858998845118,
+        "best_epoch": 21,
+        "epochs": 24,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.3546352315379249,
+            "loss": 0.07202480090428363,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.3581627952131231,
+            "loss": 0.06905369916297355,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.3587005576119629,
+            "loss": 0.0666959462904411,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.35835888114322373,
+            "loss": 0.06429180720765545,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.3644858998845118,
+            "loss": 0.061768866316953434,
+            "epoch": 21
+          },
+          {
+            "val_macro_f1": 0.35969969839514976,
+            "loss": 0.05979583649128694,
+            "epoch": 22
+          },
+          {
+            "val_macro_f1": 0.3624524932543815,
+            "loss": 0.05762852697916908,
+            "epoch": 23
+          },
+          {
+            "val_macro_f1": 0.3634443527029905,
+            "loss": 0.05574715653096145,
+            "epoch": 24
+          }
+        ],
+        "tail_slope": -3.7184668533207785e-05,
+        "tail_mean_gain": 0.005056244682699718,
+        "rising_at_cap": false
+      },
+      "E3-LSTM/2026": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-LSTM\\20261118T004110-4bb15ed1a2",
+        "macro_f1": 0.344176799246631,
+        "best_epoch": 20,
+        "epochs": 24,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.332860529339412,
+            "loss": 0.06952304173127213,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.34359994050634807,
+            "loss": 0.06658430298780982,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.3433403732174245,
+            "loss": 0.06418131649782463,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.344176799246631,
+            "loss": 0.06154407117111384,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.34198438175074647,
+            "loss": 0.05929074659628046,
+            "epoch": 21
+          },
+          {
+            "val_macro_f1": 0.3337268779724957,
+            "loss": 0.05718494824993925,
+            "epoch": 22
+          },
+          {
+            "val_macro_f1": 0.339065772798466,
+            "loss": 0.05492288317970251,
+            "epoch": 23
+          },
+          {
+            "val_macro_f1": 0.336062893621607,
+            "loss": 0.05301668678656766,
+            "epoch": 24
+          }
+        ],
+        "tail_slope": -0.0012425569561448024,
+        "tail_mean_gain": -0.0032844290416251254,
+        "rising_at_cap": false
+      },
+      "E3-BiLSTM/42": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-BiLSTM\\20261118T002902-ad016f51dd",
+        "macro_f1": 0.4025113532856093,
+        "best_epoch": 14,
+        "epochs": 20,
+        "stop_reason": "early_stopping",
+        "tail": [
+          {
+            "val_macro_f1": 0.3979974440992911,
+            "loss": 0.06563067369455984,
+            "epoch": 13
+          },
+          {
+            "val_macro_f1": 0.4025113532856093,
+            "loss": 0.06149590522197762,
+            "epoch": 14
+          },
+          {
+            "val_macro_f1": 0.3931549256663476,
+            "loss": 0.05770877342791766,
+            "epoch": 15
+          },
+          {
+            "val_macro_f1": 0.3887473058909765,
+            "loss": 0.053593966280649025,
+            "epoch": 16
+          },
+          {
+            "val_macro_f1": 0.39455106689312774,
+            "loss": 0.05022440077830298,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.3928651333921836,
+            "loss": 0.04681027682928681,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.38834284346254855,
+            "loss": 0.043667238186963386,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.39454421728788597,
+            "loss": 0.040703970121721035,
+            "epoch": 20
+          }
+        ],
+        "tail_slope": -0.0004542838745360378,
+        "tail_mean_gain": -0.0030269419766196237,
+        "rising_at_cap": false
+      },
+      "E3-BiLSTM/123": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-BiLSTM\\20261118T003532-17eea18717",
+        "macro_f1": 0.403875722496546,
+        "best_epoch": 13,
+        "epochs": 19,
+        "stop_reason": "early_stopping",
+        "tail": [
+          {
+            "val_macro_f1": 0.40100984777446164,
+            "loss": 0.07092328378480017,
+            "epoch": 12
+          },
+          {
+            "val_macro_f1": 0.403875722496546,
+            "loss": 0.06673355245553794,
+            "epoch": 13
+          },
+          {
+            "val_macro_f1": 0.40090918894653005,
+            "loss": 0.06250432787296638,
+            "epoch": 14
+          },
+          {
+            "val_macro_f1": 0.3977550639108302,
+            "loss": 0.05826698994107403,
+            "epoch": 15
+          },
+          {
+            "val_macro_f1": 0.4003738542310939,
+            "loss": 0.054432324993925155,
+            "epoch": 16
+          },
+          {
+            "val_macro_f1": 0.3974880025059308,
+            "loss": 0.0504837680581912,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.3886267499381001,
+            "loss": 0.046989349635726436,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.3962132102509612,
+            "loss": 0.04383203070760339,
+            "epoch": 19
+          }
+        ],
+        "tail_slope": -0.0021343184508228865,
+        "tail_mean_gain": -0.005212001550570444,
+        "rising_at_cap": false
+      },
+      "E3-BiLSTM/2026": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-BiLSTM\\20261118T004343-a1acc22b91",
+        "macro_f1": 0.389101138680271,
+        "best_epoch": 15,
+        "epochs": 21,
+        "stop_reason": "early_stopping",
+        "tail": [
+          {
+            "val_macro_f1": 0.38141018897356416,
+            "loss": 0.06332304730891729,
+            "epoch": 14
+          },
+          {
+            "val_macro_f1": 0.389101138680271,
+            "loss": 0.05941616451286999,
+            "epoch": 15
+          },
+          {
+            "val_macro_f1": 0.3863217577408234,
+            "loss": 0.05531542577772442,
+            "epoch": 16
+          },
+          {
+            "val_macro_f1": 0.38561827457853354,
+            "loss": 0.05151890939228437,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.3734808785953209,
+            "loss": 0.048017564113087524,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.38167717178459915,
+            "loss": 0.04464528945266396,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.38320193176944223,
+            "loss": 0.04131747436452813,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.3846794900381205,
+            "loss": 0.0386021493505343,
+            "epoch": 21
+          }
+        ],
+        "tail_slope": 0.0035120594313241883,
+        "tail_mean_gain": -0.004852971946427365,
+        "rising_at_cap": false
+      },
+      "E5-TUNE/42": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-TUNE\\20261118T003017-2207e9dbfd",
+        "macro_f1": 0.3948772143852612,
+        "best_epoch": 10,
+        "epochs": 16,
+        "stop_reason": "early_stopping",
+        "tail": [
+          {
+            "val_macro_f1": 0.38561754936304016,
+            "loss": 0.08055697080893753,
+            "epoch": 9
+          },
+          {
+            "val_macro_f1": 0.3948772143852612,
+            "loss": 0.0763252376420356,
+            "epoch": 10
+          },
+          {
+            "val_macro_f1": 0.3908969934513523,
+            "loss": 0.0724030886413471,
+            "epoch": 11
+          },
+          {
+            "val_macro_f1": 0.3866954240893721,
+            "loss": 0.06845343561245978,
+            "epoch": 12
+          },
+          {
+            "val_macro_f1": 0.3827400719357649,
+            "loss": 0.06512012593364537,
+            "epoch": 13
+          },
+          {
+            "val_macro_f1": 0.3761581638658993,
+            "loss": 0.061705191214693596,
+            "epoch": 14
+          },
+          {
+            "val_macro_f1": 0.3824174482627392,
+            "loss": 0.05815510368996031,
+            "epoch": 15
+          },
+          {
+            "val_macro_f1": 0.3751272534007476,
+            "loss": 0.05525523670368945,
+            "epoch": 16
+          }
+        ],
+        "tail_slope": -0.0016579171208212062,
+        "tail_mean_gain": -0.01041106095596872,
+        "rising_at_cap": false
+      },
+      "E5-TUNE/123": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-TUNE\\20261118T003654-beb6946d87",
+        "macro_f1": 0.3738173123103653,
+        "best_epoch": 9,
+        "epochs": 15,
+        "stop_reason": "early_stopping",
+        "tail": [
+          {
+            "val_macro_f1": 0.3626265927364508,
+            "loss": 0.08497045204056837,
+            "epoch": 8
+          },
+          {
+            "val_macro_f1": 0.3738173123103653,
+            "loss": 0.08087874194902629,
+            "epoch": 9
+          },
+          {
+            "val_macro_f1": 0.37371972219584865,
+            "loss": 0.076508194799212,
+            "epoch": 10
+          },
+          {
+            "val_macro_f1": 0.3722723879290957,
+            "loss": 0.07275224516037583,
+            "epoch": 11
+          },
+          {
+            "val_macro_f1": 0.3644930885194933,
+            "loss": 0.06917700399276226,
+            "epoch": 12
+          },
+          {
+            "val_macro_f1": 0.36155384177160876,
+            "loss": 0.06569186846231284,
+            "epoch": 13
+          },
+          {
+            "val_macro_f1": 0.35742076494715425,
+            "loss": 0.06257166415235704,
+            "epoch": 14
+          },
+          {
+            "val_macro_f1": 0.36402649122374947,
+            "loss": 0.059276491735322026,
+            "epoch": 15
+          }
+        ],
+        "tail_slope": -0.0005532868711686012,
+        "tail_mean_gain": -0.008735457177438732,
+        "rising_at_cap": false
+      },
+      "E5-TUNE/2026": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-TUNE\\20261118T004517-965267fe2d",
+        "macro_f1": 0.3862551906848946,
+        "best_epoch": 10,
+        "epochs": 16,
+        "stop_reason": "early_stopping",
+        "tail": [
+          {
+            "val_macro_f1": 0.3777858116870295,
+            "loss": 0.08044848018661337,
+            "epoch": 9
+          },
+          {
+            "val_macro_f1": 0.3862551906848946,
+            "loss": 0.07636223926090868,
+            "epoch": 10
+          },
+          {
+            "val_macro_f1": 0.3842654969972856,
+            "loss": 0.07225314422795989,
+            "epoch": 11
+          },
+          {
+            "val_macro_f1": 0.3760128659835164,
+            "loss": 0.06897050343264736,
+            "epoch": 12
+          },
+          {
+            "val_macro_f1": 0.36842918052367934,
+            "loss": 0.06523124378955879,
+            "epoch": 13
+          },
+          {
+            "val_macro_f1": 0.37067327662268773,
+            "loss": 0.06169504387807792,
+            "epoch": 14
+          },
+          {
+            "val_macro_f1": 0.37083262690792146,
+            "loss": 0.05876619822281942,
+            "epoch": 15
+          },
+          {
+            "val_macro_f1": 0.368941747542749,
+            "loss": 0.05578516384355257,
+            "epoch": 16
+          }
+        ],
+        "tail_slope": 0.00016970513424426902,
+        "tail_mean_gain": -0.01136063343892213,
+        "rising_at_cap": false
+      },
+      "E5-FROZEN/42": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-FROZEN\\20261118T003103-9dd682e8d2",
+        "macro_f1": 0.28493149018970204,
+        "best_epoch": 21,
+        "epochs": 24,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.28284259441863907,
+            "loss": 0.11025911777744672,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.275068580656505,
+            "loss": 0.11004770739800052,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.2634953110982833,
+            "loss": 0.10928210328027008,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.27108670037041155,
+            "loss": 0.10877560654405129,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.28493149018970204,
+            "loss": 0.10852077053585893,
+            "epoch": 21
+          },
+          {
+            "val_macro_f1": 0.2763490557371326,
+            "loss": 0.10808822053773923,
+            "epoch": 22
+          },
+          {
+            "val_macro_f1": 0.2754788250186384,
+            "loss": 0.10757090976906922,
+            "epoch": 23
+          },
+          {
+            "val_macro_f1": 0.2735798732958966,
+            "loss": 0.10720819333474116,
+            "epoch": 24
+          }
+        ],
+        "tail_slope": -0.003492508139991046,
+        "tail_mean_gain": 0.00446151442438264,
+        "rising_at_cap": false
+      },
+      "E5-FROZEN/123": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-FROZEN\\20261118T003733-01dba5281a",
+        "macro_f1": 0.2776072850201637,
+        "best_epoch": 16,
+        "epochs": 22,
+        "stop_reason": "early_stopping",
+        "tail": [
+          {
+            "val_macro_f1": 0.27329242819920385,
+            "loss": 0.11156283583390225,
+            "epoch": 15
+          },
+          {
+            "val_macro_f1": 0.2776072850201637,
+            "loss": 0.1110202697229872,
+            "epoch": 16
+          },
+          {
+            "val_macro_f1": 0.27332868747736067,
+            "loss": 0.11020179323551874,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.26387351814083215,
+            "loss": 0.1098097986840735,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.26916581060061795,
+            "loss": 0.10933535984760825,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.26809403001631255,
+            "loss": 0.10907321278508365,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.26570809187339617,
+            "loss": 0.10851832975110504,
+            "epoch": 21
+          },
+          {
+            "val_macro_f1": 0.2677181434049679,
+            "loss": 0.10797343585473028,
+            "epoch": 22
+          }
+        ],
+        "tail_slope": -0.000672893972986649,
+        "tail_mean_gain": -0.004353960735566431,
+        "rising_at_cap": false
+      },
+      "E5-FROZEN/2026": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E5-FROZEN\\20261118T004602-67715e95f9",
+        "macro_f1": 0.27899921411180667,
+        "best_epoch": 11,
+        "epochs": 17,
+        "stop_reason": "early_stopping",
+        "tail": [
+          {
+            "val_macro_f1": 0.2733514084949885,
+            "loss": 0.11480213009997454,
+            "epoch": 10
+          },
+          {
+            "val_macro_f1": 0.27899921411180667,
+            "loss": 0.11410396396099952,
+            "epoch": 11
+          },
+          {
+            "val_macro_f1": 0.2768850128127199,
+            "loss": 0.1135021184203675,
+            "epoch": 12
+          },
+          {
+            "val_macro_f1": 0.2771890968684573,
+            "loss": 0.11256319598525259,
+            "epoch": 13
+          },
+          {
+            "val_macro_f1": 0.2725368261781858,
+            "loss": 0.11187609247717595,
+            "epoch": 14
+          },
+          {
+            "val_macro_f1": 0.27403908458032217,
+            "loss": 0.11143283014596977,
+            "epoch": 15
+          },
+          {
+            "val_macro_f1": 0.27059751504270496,
+            "loss": 0.11072168038809563,
+            "epoch": 16
+          },
+          {
+            "val_macro_f1": 0.2786400610858683,
+            "loss": 0.11023278894190715,
+            "epoch": 17
+          }
+        ],
+        "tail_slope": 0.0014868135185430286,
+        "tail_mean_gain": -0.0026528113502227724,
+        "rising_at_cap": false
+      }
+    },
+    "candidates": {
+      "E3-RNN": [
+        42,
+        123,
+        2026
+      ],
+      "E3-LSTM": [
+        42
+      ]
+    }
+  },
+  "runs": {
+    "E3-RNN/42": {
+      "s1": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T002613-434447052e",
+        "macro_f1": 0.2658143559482834,
+        "best_epoch": 23,
+        "epochs": 24,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.23299907642053969,
+            "loss": 0.1097880689198063,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.24570813234468206,
+            "loss": 0.10946442764139919,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.24135318447063384,
+            "loss": 0.10729159811376154,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.2551958132537254,
+            "loss": 0.10602142954774248,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.26192314161903546,
+            "loss": 0.10454034779917151,
+            "epoch": 21
+          },
+          {
+            "val_macro_f1": 0.26182568448363247,
+            "loss": 0.10245896860029853,
+            "epoch": 22
+          },
+          {
+            "val_macro_f1": 0.2658143559482834,
+            "loss": 0.10172856376269931,
+            "epoch": 23
+          },
+          {
+            "val_macro_f1": 0.2644393860939262,
+            "loss": 0.10120701552049825,
+            "epoch": 24
+          }
+        ],
+        "tail_slope": 0.0011537404889323144,
+        "tail_mean_gain": 0.019686590413824118,
+        "rising_at_cap": true
+      },
+      "s2": {
+        "run": "artifacts\\batch-a-s2\\runs\\goemotions\\E3-RNN\\20261118T005137-f28175c7cf",
+        "macro_f1": 0.28995930363613714,
+        "best_epoch": 36,
+        "epochs": 36,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.276013821136264,
+            "loss": 0.09720271603295458,
+            "epoch": 29
+          },
+          {
+            "val_macro_f1": 0.2764047415882906,
+            "loss": 0.09402005136315117,
+            "epoch": 30
+          },
+          {
+            "val_macro_f1": 0.2887349518692419,
+            "loss": 0.09335724835328389,
+            "epoch": 31
+          },
+          {
+            "val_macro_f1": 0.27464716613185586,
+            "loss": 0.09170713096057717,
+            "epoch": 32
+          },
+          {
+            "val_macro_f1": 0.2818527178866072,
+            "loss": 0.09164317901004664,
+            "epoch": 33
+          },
+          {
+            "val_macro_f1": 0.277830671641543,
+            "loss": 0.09106580346656523,
+            "epoch": 34
+          },
+          {
+            "val_macro_f1": 0.28622238541469047,
+            "loss": 0.08957435403275497,
+            "epoch": 35
+          },
+          {
+            "val_macro_f1": 0.28995930363613714,
+            "loss": 0.0881084763392134,
+            "epoch": 36
+          }
+        ],
+        "tail_slope": 0.0032711471021737272,
+        "tail_mean_gain": 0.005016099463331369,
+        "rising_at_cap": true
+      },
+      "gain": 0.024144947687853746,
+      "source": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T002613-434447052e",
+      "source_epoch": 24,
+      "source_checkpoint_sha256": "3eddad4910926aa45209eb32b6bc96ec3b746b74cb05877b407ea6337e616a5f",
+      "prefix_exact": true,
+      "recovery": "s1_checkpoint"
+    },
+    "E3-LSTM/42": {
+      "s1": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-LSTM\\20261118T002732-3f7f1b5aab",
+        "macro_f1": 0.35599252544392435,
+        "best_epoch": 24,
+        "epochs": 24,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.3362016097781083,
+            "loss": 0.0742820465546244,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.339871365621131,
+            "loss": 0.07165093143962185,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.339846638153748,
+            "loss": 0.06898268475655793,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.3488294956226766,
+            "loss": 0.06637192646439853,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.3501234375178541,
+            "loss": 0.06432226616739661,
+            "epoch": 21
+          },
+          {
+            "val_macro_f1": 0.3444352866762787,
+            "loss": 0.06168630903263926,
+            "epoch": 22
+          },
+          {
+            "val_macro_f1": 0.3484642877134473,
+            "loss": 0.059413226531221795,
+            "epoch": 23
+          },
+          {
+            "val_macro_f1": 0.35599252544392435,
+            "loss": 0.05737144228502291,
+            "epoch": 24
+          }
+        ],
+        "tail_slope": 0.002163626481537939,
+        "tail_mean_gain": 0.008566607043960173,
+        "rising_at_cap": true
+      },
+      "s2": {
+        "run": "artifacts\\batch-a-s2\\runs\\goemotions\\E3-LSTM\\20261118T005302-740df5aa59",
+        "macro_f1": 0.35599252544392435,
+        "best_epoch": 24,
+        "epochs": 30,
+        "stop_reason": "early_stopping",
+        "tail": [
+          {
+            "val_macro_f1": 0.3484642877134473,
+            "loss": 0.059413226531221795,
+            "epoch": 23
+          },
+          {
+            "val_macro_f1": 0.35599252544392435,
+            "loss": 0.05737144228502291,
+            "epoch": 24
+          },
+          {
+            "val_macro_f1": 0.3461243700036078,
+            "loss": 0.05559478828271447,
+            "epoch": 25
+          },
+          {
+            "val_macro_f1": 0.3443465119309249,
+            "loss": 0.053779172123779244,
+            "epoch": 26
+          },
+          {
+            "val_macro_f1": 0.3460099975593484,
+            "loss": 0.05200259157101201,
+            "epoch": 27
+          },
+          {
+            "val_macro_f1": 0.346875457553423,
+            "loss": 0.05041958445910764,
+            "epoch": 28
+          },
+          {
+            "val_macro_f1": 0.3470942848094277,
+            "loss": 0.04865155230294369,
+            "epoch": 29
+          },
+          {
+            "val_macro_f1": 0.34700746541601873,
+            "loss": 0.047373485086262754,
+            "epoch": 30
+          }
+        ],
+        "tail_slope": 0.00032112308260157096,
+        "tail_mean_gain": -0.0019851224384215826,
+        "rising_at_cap": false
+      },
+      "gain": 0.0,
+      "source": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-LSTM\\20261118T002732-3f7f1b5aab",
+      "source_epoch": 24,
+      "source_checkpoint_sha256": "0ad2d92a5e2ccd41fb2429f0777968fb50c0bcf2db1d8c77bbc8cf8f07c63337",
+      "prefix_exact": true,
+      "recovery": "s1_checkpoint"
+    },
+    "E3-RNN/123": {
+      "s1": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T003304-e63d577e1b",
+        "macro_f1": 0.27692540853377035,
+        "best_epoch": 24,
+        "epochs": 24,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.2497311528941781,
+            "loss": 0.1094649248382935,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.2505164444535736,
+            "loss": 0.1081897730034019,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.26325236571071103,
+            "loss": 0.10825505269563884,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.23911851618288965,
+            "loss": 0.10610708301271667,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.24706706237699308,
+            "loss": 0.10542873694993751,
+            "epoch": 21
+          },
+          {
+            "val_macro_f1": 0.25685614243504346,
+            "loss": 0.10372693368008146,
+            "epoch": 22
+          },
+          {
+            "val_macro_f1": 0.2738422852334817,
+            "loss": 0.10363488445505774,
+            "epoch": 23
+          },
+          {
+            "val_macro_f1": 0.27692540853377035,
+            "loss": 0.10109775650297378,
+            "epoch": 24
+          }
+        ],
+        "tail_slope": 0.010656118126877005,
+        "tail_mean_gain": 0.013018104834484068,
+        "rising_at_cap": true
+      },
+      "s2": {
+        "run": "artifacts\\batch-a-s2\\runs\\goemotions\\E3-RNN\\20261118T005345-47ffc74c53",
+        "macro_f1": 0.2862277695549023,
+        "best_epoch": 36,
+        "epochs": 36,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.2736890123207219,
+            "loss": 0.09825438916378353,
+            "epoch": 29
+          },
+          {
+            "val_macro_f1": 0.28517681791981003,
+            "loss": 0.09593503345140705,
+            "epoch": 30
+          },
+          {
+            "val_macro_f1": 0.26903499484254517,
+            "loss": 0.09574688962662864,
+            "epoch": 31
+          },
+          {
+            "val_macro_f1": 0.2793132028260195,
+            "loss": 0.09535661266445465,
+            "epoch": 32
+          },
+          {
+            "val_macro_f1": 0.2748081515565185,
+            "loss": 0.0943173412061599,
+            "epoch": 33
+          },
+          {
+            "val_macro_f1": 0.2794950917483007,
+            "loss": 0.09339056054520262,
+            "epoch": 34
+          },
+          {
+            "val_macro_f1": 0.2810779347975318,
+            "loss": 0.09409254606032029,
+            "epoch": 35
+          },
+          {
+            "val_macro_f1": 0.2862277695549023,
+            "loss": 0.09175146623364132,
+            "epoch": 36
+          }
+        ],
+        "tail_slope": 0.003584169704438256,
+        "tail_mean_gain": 0.0035987299370391357,
+        "rising_at_cap": true
+      },
+      "gain": 0.009302361021131966,
+      "source": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T003304-e63d577e1b",
+      "source_epoch": 24,
+      "source_checkpoint_sha256": "d8fb23669edc4be6f3562a5b176ee482e14f720940c21a3144c291e2169d2ff3",
+      "prefix_exact": true,
+      "recovery": "s1_checkpoint"
+    },
+    "E3-RNN/2026": {
+      "s1": {
+        "run": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T003909-9a8eb05797",
+        "macro_f1": 0.26400480315095626,
+        "best_epoch": 24,
+        "epochs": 24,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.2513161089756443,
+            "loss": 0.10936137228512416,
+            "epoch": 17
+          },
+          {
+            "val_macro_f1": 0.24050659417071987,
+            "loss": 0.10877353865696814,
+            "epoch": 18
+          },
+          {
+            "val_macro_f1": 0.24923742805315366,
+            "loss": 0.10703609540973363,
+            "epoch": 19
+          },
+          {
+            "val_macro_f1": 0.24421338250241637,
+            "loss": 0.10617476958991923,
+            "epoch": 20
+          },
+          {
+            "val_macro_f1": 0.251597966322076,
+            "loss": 0.1047841324763949,
+            "epoch": 21
+          },
+          {
+            "val_macro_f1": 0.2466320908461896,
+            "loss": 0.1042165031220349,
+            "epoch": 22
+          },
+          {
+            "val_macro_f1": 0.25701468595104016,
+            "loss": 0.10183919007168314,
+            "epoch": 23
+          },
+          {
+            "val_macro_f1": 0.26400480315095626,
+            "loss": 0.10099186486441532,
+            "epoch": 24
+          }
+        ],
+        "tail_slope": 0.004760310559149139,
+        "tail_mean_gain": 0.008494008142081955,
+        "rising_at_cap": true
+      },
+      "s2": {
+        "run": "artifacts\\batch-a-s2\\runs\\goemotions\\E3-RNN\\20261118T005521-3fda62b125",
+        "macro_f1": 0.28305149173529875,
+        "best_epoch": 35,
+        "epochs": 36,
+        "stop_reason": "epoch_cap",
+        "tail": [
+          {
+            "val_macro_f1": 0.26671616285161154,
+            "loss": 0.09600861859176482,
+            "epoch": 29
+          },
+          {
+            "val_macro_f1": 0.2703333926497618,
+            "loss": 0.09508043108959524,
+            "epoch": 30
+          },
+          {
+            "val_macro_f1": 0.2715383141305006,
+            "loss": 0.09423208323871526,
+            "epoch": 31
+          },
+          {
+            "val_macro_f1": 0.24894689880715562,
+            "loss": 0.0951292580846023,
+            "epoch": 32
+          },
+          {
+            "val_macro_f1": 0.26993042567624814,
+            "loss": 0.094374547098829,
+            "epoch": 33
+          },
+          {
+            "val_macro_f1": 0.27798273023263725,
+            "loss": 0.09257284680296973,
+            "epoch": 34
+          },
+          {
+            "val_macro_f1": 0.28305149173529875,
+            "loss": 0.09204508924955451,
+            "epoch": 35
+          },
+          {
+            "val_macro_f1": 0.2790773472304256,
+            "loss": 0.0916428061123759,
+            "epoch": 36
+          }
+        ],
+        "tail_slope": 0.003250952616519387,
+        "tail_mean_gain": 0.013126806608895036,
+        "rising_at_cap": true
+      },
+      "gain": 0.019046688584342497,
+      "source": "artifacts\\batch-a-s1\\runs\\goemotions\\E3-RNN\\20261118T003909-9a8eb05797",
+      "source_epoch": 24,
+      "source_checkpoint_sha256": "ceb7788d1aeff3027ab8d817cd57acb7dbfe0a11e11d2b3cde0cffa2450af2b4",
+      "prefix_exact": true,
+      "recovery": "s1_checkpoint"
+    }
+  },
+  "replicate": [
+    "E3-RNN"
+  ],
+  "recommend_more_budget": [
+    "E3-RNN"
+  ]
+}

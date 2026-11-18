@@ -30,6 +30,10 @@
 
 GoEmotions 六个神经配置使用原入选参数，在统一 24 轮上限与 patience 6 下比较验证表现。Seed 42 对照先复核原 12 轮轨迹和检查点，按固定规则触发 seed 123、2026 复验。见 [协议、结果与复现](../runbooks/batch-a-s1.md)。
 
+## Batch A Supplement S2
+
+从 S1 三种子验证轨迹筛选仍在上升的模型，按 36 轮上限和 patience 6 从完整训练状态续训。S2 用于检查入选模型的收敛边界，模型的统一预算比较见 S1。见 [筛选、续训与复现](../runbooks/batch-a-s2.md)。
+
 ## Batch B
 
 E4 Transformer 单独立项，英文候选参考 [现有配置目录](../../configs/batch_b/)；中文候选使用语言适配的预训练 Encoder。Batch B 的训练、参数空间、对照和验收另定。RQ3 显存极限、QLoRA 和复杂前端开发均在本轮范围之外。

@@ -11,6 +11,7 @@
 | Stage 4 | [独立审计与正式测试](../stage4-final-evaluation.md) 已通过。47 个 Run 冻结后全部评估。 |
 | Stage 5 | [报告交付](../stage5-delivery.md) 已验收。18 份输出重建逐字节一致。 |
 | Supplement S1 | [GoEmotions 延长训练](../runbooks/batch-a-s1.md) 已验收。6 个主对照和 12 个多种子复验通过，前 12 轮完整状态 6/6 精确重现。 |
+| Supplement S2 | [GoEmotions 收敛边界](../runbooks/batch-a-s2.md) 已验收。筛选 18 条 S1 轨迹，4 个续训通过。Vanilla RNN 在第 36 轮仍有改善，LSTM 在第 30 轮早停。 |
 
 查看批次进度的命令与证据路径见 [训练进度](../runbooks/batch-a-progress.md)。正式训练与审计状态以对应批次的进度文件及原始日志为准。
 

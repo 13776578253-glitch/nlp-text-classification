@@ -4,4 +4,6 @@ Batch A 已完成训练、独立审计、正式测试和报告交付。查阅 [S
 
 Batch A Supplement S1 已完成统一预算对照和多种子复验，见 [S1 收敛记录](runbooks/batch-a-s1.md)。
 
+Batch A Supplement S2 已完成定向收敛诊断，见 [S2 边界记录](runbooks/batch-a-s2.md)。Batch B 按 [E4 独立矩阵](contracts/EXPERIMENT_MATRIX.md#batch-b) 立项。
+
 [当前状态](current-task/ACTIVE.md) · [执行计划](plans/2026-11-17-batch-a-execution.md)
