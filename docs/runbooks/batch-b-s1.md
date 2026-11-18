@@ -38,3 +38,9 @@
 B3 首先从微批 8 和梯度检查点开始。Windows 内存映射重载触发访问异常，恢复优化器时也记录了分配失败。修复后以流式权重加载逐张量恢复 CUDA 状态，继续保留 6 GiB 系统内存暂停线。随后通过微批 16、关闭梯度检查点的吞吐预检，有效批次仍为 32。完整状态恢复探针复核模型、AdamW、scheduler 和 RNG，保存的恢复状态、逐轮历史、阈值与验证预测逐字节一致。
 
 正式门禁为 `artifacts/batch-b-s1/preflight-runs/f82a3adc9179/gate.json`，SHA-256 为 `932c5646caa4cfc230912350574b17d779b555ec9fe7eabfeadce9c5dd2f342a`。恢复探针见 `artifacts/batch-b-s1/b3-resume-probe/audit.json`。首次故障与最终验收的终端日志分别保留于 `smoke-terminal.log`、`smoke-verified-terminal.log` 和 `smoke-final-terminal.log`。29 项 pytest 与 Ruff 通过。
+
+## 正式 S1 交付验收
+
+2026-11-18，四个基础槽位和四个候选槽位均通过。入选 Run 的验证 Macro-F1 为 B1 0.4958、B2 0.5305、B3 0.5285、B4 0.9076。验证审计逐 Run 复核原始预测、阈值候选、最佳轮次、早停、输出头及运行设置。四张对照曲线、Markdown 与 JSON 从已有产物重新生成并进行指纹核对。
+
+训练引用代码提交 `6ea3f2c`。原始队列与审计位于 `artifacts/batch-b-s1/formal/queue.json` 和 `formal/audit.json`，交付复核为 `artifacts/batch-b-s1/delivery-audit.json`。Batch A 冻结清单、47 份正式测试、原报告与两轮补充报告均通过指纹核对。 [S1 报告与曲线](../../reports/batch-b-s1/report.md) · [S2 评估入口](../plans/batch-b/s2-followups.md)

@@ -1,6 +1,6 @@
-# 当前任务状态 · Batch B S1
+# 当前任务状态 · Batch B S2 评估入口
 
-Batch B S1 已完成计划、四组资源核验、Tokenization 审计、训练器实现和 CUDA 预检。B3 完整恢复探针通过。当前入口为四组基础训练和有限搜索。见 [S1 契约](../plans/batch-b/s1-encoders.md) 与 [运行和验收](../runbooks/batch-b-s1.md)。
+Batch B S1 已完成。四组资源核验、Tokenization 审计、训练器与 CUDA 门禁通过。RTX 4070 Ti SUPER 串行完成 4 个基础配置和 4 个学习率候选，8/8 Run 通过验证审计。正式测试待独立冻结，S2 实际训练矩阵待评审，S3 保持规划状态。 [S1 验证报告](../../reports/batch-b-s1/report.md) · [运行与验收](../runbooks/batch-b-s1.md) · [S2 评估入口](../plans/batch-b/s2-followups.md)
 
 Batch A Stage 0–5、Supplement S1 和 S2 均已完成。见 [统一研究总结](../finish-task/batch-a/summary.md) 与 [模型结果索引](../finish-task/batch-a/model-index.json)。
 

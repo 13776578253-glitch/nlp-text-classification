@@ -11,7 +11,7 @@
 | `artifacts/` | 本地 Run 与批次产物 |
 | `docs/` | 架构、契约及执行报告 |
 
-Batch A 已完成正式测试及两轮验证补充实验。Batch B S1 比较预训练 Encoder 的完整微调结果。两批复用冻结数据版本和验证 Macro-F1。
+Batch A 已完成正式测试及两轮验证补充实验。Batch B S1 已完成四组预训练 Encoder 的完整微调和有限学习率比较。两批复用冻结数据版本和验证 Macro-F1。
 
 ```powershell
 python -m pip install -e ".[dev]"
@@ -21,4 +21,4 @@ nlp-text-classification audit-data --dataset movie_reviews_zh
 
 中文审计需要老师提供的三个分区文件及 `wiki_word2vec_50.bin`，默认路径为 `data/raw/movie_reviews_zh/`。官方 GoEmotions 的下载与审计入口，以及正式执行顺序见执行报告。
 
-[文档索引](docs/INDEX.md) · [Batch A 研究归档](docs/finish-task/batch-a/summary.md) · [当前状态](docs/current-task/ACTIVE.md)
+[文档索引](docs/INDEX.md) · [Batch A 研究归档](docs/finish-task/batch-a/summary.md) · [Batch B S1 验证报告](reports/batch-b-s1/report.md) · [当前状态](docs/current-task/ACTIVE.md)
