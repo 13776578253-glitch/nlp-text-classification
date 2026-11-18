@@ -1,4 +1,6 @@
-# 当前任务状态 · Batch A V2
+# 当前任务状态 · Batch A 已归档
+
+Batch A Stage 0–5、Supplement S1 和 S2 均已完成。见 [统一研究总结](../finish-task/batch-a/summary.md) 与 [模型结果索引](../finish-task/batch-a/model-index.json)。
 
 | 项目 | 状态与证据 |
 | --- | --- |

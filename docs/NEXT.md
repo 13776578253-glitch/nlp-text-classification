@@ -1,9 +1,7 @@
 # 下一步
 
-Batch A 已完成训练、独立审计、正式测试和报告交付。查阅 [Stage 5 交付记录](stage5-delivery.md)，或按 [复现手册](runbooks/batch-a-progress.md) 从冻结预测重建报告。
+Batch A Stage 0–5 和 Supplement S1、S2 已收束。研究结论及原始证据见 [Batch A 归档](finish-task/batch-a/summary.md)。
 
-Batch A Supplement S1 已完成统一预算对照和多种子复验，见 [S1 收敛记录](runbooks/batch-a-s1.md)。
-
-Batch A Supplement S2 已完成定向收敛诊断，见 [S2 边界记录](runbooks/batch-a-s2.md)。Batch B 按 [E4 独立矩阵](contracts/EXPERIMENT_MATRIX.md#batch-b) 立项。
+Batch B 按 [E4 独立矩阵](contracts/EXPERIMENT_MATRIX.md#batch-b) 立项。S1 先完成官方 Encoder 的资源准备、预检、训练与验证。
 
 [当前状态](current-task/ACTIVE.md) · [执行计划](plans/2026-11-17-batch-a-execution.md)

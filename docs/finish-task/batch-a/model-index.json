@@ -1,0 +1,679 @@
+{
+  "audited_at_git": "05e277ec2580685c483d6a448624ed836ded38d0",
+  "dataset_configs": {
+    "goemotions": "configs/datasets/goemotions.yaml",
+    "movie_reviews_zh": "configs/datasets/movie_reviews_zh.yaml"
+  },
+  "dataset_manifest_sha256": {
+    "goemotions": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+    "movie_reviews_zh": "fb00047e210b51b1188f91081aa7fae4eaa7ec11b672362d13f28ca854a9e2c8"
+  },
+  "formal": {
+    "freeze": "artifacts/batch-a/final_runs.yaml",
+    "sha256": "255a9bfe53eea86f1339b2de4da46b96bfd9ab1594b723de5da11acf678c3289",
+    "config": "configs/experiment_suites/batch_a.yaml",
+    "report": "reports/batch-a/255a9bfe53ee/report.md",
+    "runs": [
+      {
+        "role": "main",
+        "key": "goemotions/E1",
+        "seed": 42,
+        "run": "artifacts/runs/goemotions/E1/20261117T160722-868a07d380",
+        "config": "artifacts/runs/goemotions/E1/20261117T160722-868a07d380/resolved_config.yaml",
+        "validation_macro_f1": 0.4777589828018816,
+        "test_macro_f1": 0.46161506998698076,
+        "test_manifest": "artifacts/runs/goemotions/E1/20261117T160722-868a07d380/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "goemotions/E2",
+        "seed": 42,
+        "run": "artifacts/runs/goemotions/E2/20261117T162113-b964b3038d",
+        "config": "artifacts/runs/goemotions/E2/20261117T162113-b964b3038d/resolved_config.yaml",
+        "validation_macro_f1": 0.39379631873874654,
+        "test_macro_f1": 0.3846519398684793,
+        "test_manifest": "artifacts/runs/goemotions/E2/20261117T162113-b964b3038d/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "goemotions/E3-RNN",
+        "seed": 42,
+        "run": "artifacts/runs/goemotions/E3-RNN/20261117T155932-5a7fabb41f",
+        "config": "artifacts/runs/goemotions/E3-RNN/20261117T155932-5a7fabb41f/resolved_config.yaml",
+        "validation_macro_f1": 0.19761251292753523,
+        "test_macro_f1": 0.20714795526750093,
+        "test_manifest": "artifacts/runs/goemotions/E3-RNN/20261117T155932-5a7fabb41f/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "goemotions/E3-LSTM",
+        "seed": 42,
+        "run": "artifacts/runs/goemotions/E3-LSTM/20261117T160026-136beb5c60",
+        "config": "artifacts/runs/goemotions/E3-LSTM/20261117T160026-136beb5c60/resolved_config.yaml",
+        "validation_macro_f1": 0.31800512012920457,
+        "test_macro_f1": 0.3116378850113436,
+        "test_manifest": "artifacts/runs/goemotions/E3-LSTM/20261117T160026-136beb5c60/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "goemotions/E3-BiLSTM",
+        "seed": 42,
+        "run": "artifacts/runs/goemotions/E3-BiLSTM/20261117T160116-8e04380378",
+        "config": "artifacts/runs/goemotions/E3-BiLSTM/20261117T160116-8e04380378/resolved_config.yaml",
+        "validation_macro_f1": 0.38815817921297185,
+        "test_macro_f1": 0.3814728701027868,
+        "test_manifest": "artifacts/runs/goemotions/E3-BiLSTM/20261117T160116-8e04380378/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "goemotions/E5-TUNE",
+        "seed": 42,
+        "run": "artifacts/runs/goemotions/E5-TUNE/20261117T163246-bd54996e97",
+        "config": "artifacts/runs/goemotions/E5-TUNE/20261117T163246-bd54996e97/resolved_config.yaml",
+        "validation_macro_f1": 0.3948772143852612,
+        "test_macro_f1": 0.3841173918125955,
+        "test_manifest": "artifacts/runs/goemotions/E5-TUNE/20261117T163246-bd54996e97/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "goemotions/E5-FROZEN",
+        "seed": 42,
+        "run": "artifacts/runs/goemotions/E5-FROZEN/20261117T163326-c4703be677",
+        "config": "artifacts/runs/goemotions/E5-FROZEN/20261117T163326-c4703be677/resolved_config.yaml",
+        "validation_macro_f1": 0.2697833238323266,
+        "test_macro_f1": 0.2569229450031258,
+        "test_manifest": "artifacts/runs/goemotions/E5-FROZEN/20261117T163326-c4703be677/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "movie_reviews_zh/E1",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E1/20261117T163440-c6504c2d90",
+        "config": "artifacts/runs/movie_reviews_zh/E1/20261117T163440-c6504c2d90/resolved_config.yaml",
+        "validation_macro_f1": 0.8580547012408711,
+        "test_macro_f1": 0.8371292372881356,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E1/20261117T163440-c6504c2d90/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "movie_reviews_zh/E2",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E2/20261117T163624-36ca4b1c73",
+        "config": "artifacts/runs/movie_reviews_zh/E2/20261117T163624-36ca4b1c73/resolved_config.yaml",
+        "validation_macro_f1": 0.8293731405415865,
+        "test_macro_f1": 0.8074975936280742,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E2/20261117T163624-36ca4b1c73/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "movie_reviews_zh/E3-RNN",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E3-RNN/20261117T163840-cdd3c0141e",
+        "config": "artifacts/runs/movie_reviews_zh/E3-RNN/20261117T163840-cdd3c0141e/resolved_config.yaml",
+        "validation_macro_f1": 0.8281107122223996,
+        "test_macro_f1": 0.8201754385964912,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E3-RNN/20261117T163840-cdd3c0141e/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "movie_reviews_zh/E3-LSTM",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E3-LSTM/20261117T164106-18b651db68",
+        "config": "artifacts/runs/movie_reviews_zh/E3-LSTM/20261117T164106-18b651db68/resolved_config.yaml",
+        "validation_macro_f1": 0.8347835225680373,
+        "test_macro_f1": 0.8453057772220792,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E3-LSTM/20261117T164106-18b651db68/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "movie_reviews_zh/E3-BiLSTM",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E3-BiLSTM/20261117T164353-1b486fe355",
+        "config": "artifacts/runs/movie_reviews_zh/E3-BiLSTM/20261117T164353-1b486fe355/resolved_config.yaml",
+        "validation_macro_f1": 0.8345583821406614,
+        "test_macro_f1": 0.8313229916243954,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E3-BiLSTM/20261117T164353-1b486fe355/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "movie_reviews_zh/E5-TUNE",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E5-TUNE/20261117T164438-8338345ac2",
+        "config": "artifacts/runs/movie_reviews_zh/E5-TUNE/20261117T164438-8338345ac2/resolved_config.yaml",
+        "validation_macro_f1": 0.8349430518065424,
+        "test_macro_f1": 0.8428080380750926,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E5-TUNE/20261117T164438-8338345ac2/test/evaluation_manifest.json"
+      },
+      {
+        "role": "main",
+        "key": "movie_reviews_zh/E5-FROZEN",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E5-FROZEN/20261117T164453-951f19e435",
+        "config": "artifacts/runs/movie_reviews_zh/E5-FROZEN/20261117T164453-951f19e435/resolved_config.yaml",
+        "validation_macro_f1": 0.7879416509290149,
+        "test_macro_f1": 0.7739454552164446,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E5-FROZEN/20261117T164453-951f19e435/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E1/42",
+        "seed": 42,
+        "run": "artifacts/runs/goemotions/E1/20261117T164504-131750885e",
+        "config": "artifacts/runs/goemotions/E1/20261117T164504-131750885e/resolved_config.yaml",
+        "validation_macro_f1": 0.47777162917595023,
+        "test_macro_f1": 0.46162817230032527,
+        "test_manifest": "artifacts/runs/goemotions/E1/20261117T164504-131750885e/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E1/123",
+        "seed": 123,
+        "run": "artifacts/runs/goemotions/E1/20261117T164508-1a8d82c21e",
+        "config": "artifacts/runs/goemotions/E1/20261117T164508-1a8d82c21e/resolved_config.yaml",
+        "validation_macro_f1": 0.47777162917595023,
+        "test_macro_f1": 0.46162817230032527,
+        "test_manifest": "artifacts/runs/goemotions/E1/20261117T164508-1a8d82c21e/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E1/2026",
+        "seed": 2026,
+        "run": "artifacts/runs/goemotions/E1/20261117T164512-db6235a928",
+        "config": "artifacts/runs/goemotions/E1/20261117T164512-db6235a928/resolved_config.yaml",
+        "validation_macro_f1": 0.47777162917595023,
+        "test_macro_f1": 0.46162817230032527,
+        "test_manifest": "artifacts/runs/goemotions/E1/20261117T164512-db6235a928/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E2/42",
+        "seed": 42,
+        "run": "artifacts/runs/goemotions/E2/20261117T164515-ec29930c1e",
+        "config": "artifacts/runs/goemotions/E2/20261117T164515-ec29930c1e/resolved_config.yaml",
+        "validation_macro_f1": 0.39379631873874654,
+        "test_macro_f1": 0.3846519398684793,
+        "test_manifest": "artifacts/runs/goemotions/E2/20261117T164515-ec29930c1e/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E2/123",
+        "seed": 123,
+        "run": "artifacts/runs/goemotions/E2/20261117T164558-05f8938ab3",
+        "config": "artifacts/runs/goemotions/E2/20261117T164558-05f8938ab3/resolved_config.yaml",
+        "validation_macro_f1": 0.39055710682174144,
+        "test_macro_f1": 0.3831853629443199,
+        "test_manifest": "artifacts/runs/goemotions/E2/20261117T164558-05f8938ab3/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E2/2026",
+        "seed": 2026,
+        "run": "artifacts/runs/goemotions/E2/20261117T164638-93ebae30b8",
+        "config": "artifacts/runs/goemotions/E2/20261117T164638-93ebae30b8/resolved_config.yaml",
+        "validation_macro_f1": 0.39319417390341144,
+        "test_macro_f1": 0.38332688752440325,
+        "test_manifest": "artifacts/runs/goemotions/E2/20261117T164638-93ebae30b8/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E5-TUNE/42",
+        "seed": 42,
+        "run": "artifacts/runs/goemotions/E5-TUNE/20261117T164719-a0e911416d",
+        "config": "artifacts/runs/goemotions/E5-TUNE/20261117T164719-a0e911416d/resolved_config.yaml",
+        "validation_macro_f1": 0.3948772143852612,
+        "test_macro_f1": 0.3841173918125955,
+        "test_manifest": "artifacts/runs/goemotions/E5-TUNE/20261117T164719-a0e911416d/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E5-TUNE/123",
+        "seed": 123,
+        "run": "artifacts/runs/goemotions/E5-TUNE/20261117T164800-a343fa3886",
+        "config": "artifacts/runs/goemotions/E5-TUNE/20261117T164800-a343fa3886/resolved_config.yaml",
+        "validation_macro_f1": 0.3738173123103653,
+        "test_macro_f1": 0.3690298729211756,
+        "test_manifest": "artifacts/runs/goemotions/E5-TUNE/20261117T164800-a343fa3886/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E5-TUNE/2026",
+        "seed": 2026,
+        "run": "artifacts/runs/goemotions/E5-TUNE/20261117T164840-f4acf75cdb",
+        "config": "artifacts/runs/goemotions/E5-TUNE/20261117T164840-f4acf75cdb/resolved_config.yaml",
+        "validation_macro_f1": 0.3862551906848946,
+        "test_macro_f1": 0.37563810534388326,
+        "test_manifest": "artifacts/runs/goemotions/E5-TUNE/20261117T164840-f4acf75cdb/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E5-FROZEN/42",
+        "seed": 42,
+        "run": "artifacts/runs/goemotions/E5-FROZEN/20261117T164920-6456f3b390",
+        "config": "artifacts/runs/goemotions/E5-FROZEN/20261117T164920-6456f3b390/resolved_config.yaml",
+        "validation_macro_f1": 0.2697833238323266,
+        "test_macro_f1": 0.2569229450031258,
+        "test_manifest": "artifacts/runs/goemotions/E5-FROZEN/20261117T164920-6456f3b390/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E5-FROZEN/123",
+        "seed": 123,
+        "run": "artifacts/runs/goemotions/E5-FROZEN/20261117T164958-601ea3fad4",
+        "config": "artifacts/runs/goemotions/E5-FROZEN/20261117T164958-601ea3fad4/resolved_config.yaml",
+        "validation_macro_f1": 0.27242593928208436,
+        "test_macro_f1": 0.26420784587706536,
+        "test_manifest": "artifacts/runs/goemotions/E5-FROZEN/20261117T164958-601ea3fad4/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E5-FROZEN/2026",
+        "seed": 2026,
+        "run": "artifacts/runs/goemotions/E5-FROZEN/20261117T165038-2e9ee93eb5",
+        "config": "artifacts/runs/goemotions/E5-FROZEN/20261117T165038-2e9ee93eb5/resolved_config.yaml",
+        "validation_macro_f1": 0.27899921411180667,
+        "test_macro_f1": 0.2728275485670358,
+        "test_manifest": "artifacts/runs/goemotions/E5-FROZEN/20261117T165038-2e9ee93eb5/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E3-BiLSTM/42",
+        "seed": 42,
+        "run": "artifacts/runs/goemotions/E3-BiLSTM/20261117T165117-45002d8f17",
+        "config": "artifacts/runs/goemotions/E3-BiLSTM/20261117T165117-45002d8f17/resolved_config.yaml",
+        "validation_macro_f1": 0.38815817921297185,
+        "test_macro_f1": 0.3814728701027868,
+        "test_manifest": "artifacts/runs/goemotions/E3-BiLSTM/20261117T165117-45002d8f17/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E3-BiLSTM/123",
+        "seed": 123,
+        "run": "artifacts/runs/goemotions/E3-BiLSTM/20261117T165211-8e11267535",
+        "config": "artifacts/runs/goemotions/E3-BiLSTM/20261117T165211-8e11267535/resolved_config.yaml",
+        "validation_macro_f1": 0.40225869706215356,
+        "test_macro_f1": 0.3749826787275578,
+        "test_manifest": "artifacts/runs/goemotions/E3-BiLSTM/20261117T165211-8e11267535/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "goemotions/E3-BiLSTM/2026",
+        "seed": 2026,
+        "run": "artifacts/runs/goemotions/E3-BiLSTM/20261117T165307-5e3ea48a5b",
+        "config": "artifacts/runs/goemotions/E3-BiLSTM/20261117T165307-5e3ea48a5b/resolved_config.yaml",
+        "validation_macro_f1": 0.37780717483279924,
+        "test_macro_f1": 0.3540369291051765,
+        "test_manifest": "artifacts/runs/goemotions/E3-BiLSTM/20261117T165307-5e3ea48a5b/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E1/42",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E1/20261117T165404-fa4723dfd9",
+        "config": "artifacts/runs/movie_reviews_zh/E1/20261117T165404-fa4723dfd9/resolved_config.yaml",
+        "validation_macro_f1": 0.8580547012408711,
+        "test_macro_f1": 0.8371292372881356,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E1/20261117T165404-fa4723dfd9/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E1/123",
+        "seed": 123,
+        "run": "artifacts/runs/movie_reviews_zh/E1/20261117T165408-2545be61ee",
+        "config": "artifacts/runs/movie_reviews_zh/E1/20261117T165408-2545be61ee/resolved_config.yaml",
+        "validation_macro_f1": 0.8580547012408711,
+        "test_macro_f1": 0.8371292372881356,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E1/20261117T165408-2545be61ee/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E1/2026",
+        "seed": 2026,
+        "run": "artifacts/runs/movie_reviews_zh/E1/20261117T165412-ad520f7520",
+        "config": "artifacts/runs/movie_reviews_zh/E1/20261117T165412-ad520f7520/resolved_config.yaml",
+        "validation_macro_f1": 0.8580547012408711,
+        "test_macro_f1": 0.8371292372881356,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E1/20261117T165412-ad520f7520/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E2/42",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E2/20261117T165416-9798056c55",
+        "config": "artifacts/runs/movie_reviews_zh/E2/20261117T165416-9798056c55/resolved_config.yaml",
+        "validation_macro_f1": 0.8293731405415865,
+        "test_macro_f1": 0.8074975936280742,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E2/20261117T165416-9798056c55/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E2/123",
+        "seed": 123,
+        "run": "artifacts/runs/movie_reviews_zh/E2/20261117T165433-352a6234fb",
+        "config": "artifacts/runs/movie_reviews_zh/E2/20261117T165433-352a6234fb/resolved_config.yaml",
+        "validation_macro_f1": 0.8231210546818315,
+        "test_macro_f1": 0.8449774095830539,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E2/20261117T165433-352a6234fb/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E2/2026",
+        "seed": 2026,
+        "run": "artifacts/runs/movie_reviews_zh/E2/20261117T165449-4a96db4c1b",
+        "config": "artifacts/runs/movie_reviews_zh/E2/20261117T165449-4a96db4c1b/resolved_config.yaml",
+        "validation_macro_f1": 0.8283531592457862,
+        "test_macro_f1": 0.8427248677248678,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E2/20261117T165449-4a96db4c1b/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E5-TUNE/42",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E5-TUNE/20261117T165507-41527641d7",
+        "config": "artifacts/runs/movie_reviews_zh/E5-TUNE/20261117T165507-41527641d7/resolved_config.yaml",
+        "validation_macro_f1": 0.8349430518065424,
+        "test_macro_f1": 0.8428080380750926,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E5-TUNE/20261117T165507-41527641d7/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E5-TUNE/123",
+        "seed": 123,
+        "run": "artifacts/runs/movie_reviews_zh/E5-TUNE/20261117T165520-a91ea4956e",
+        "config": "artifacts/runs/movie_reviews_zh/E5-TUNE/20261117T165520-a91ea4956e/resolved_config.yaml",
+        "validation_macro_f1": 0.8368675289409422,
+        "test_macro_f1": 0.8453057772220792,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E5-TUNE/20261117T165520-a91ea4956e/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E5-TUNE/2026",
+        "seed": 2026,
+        "run": "artifacts/runs/movie_reviews_zh/E5-TUNE/20261117T165533-cb406d253f",
+        "config": "artifacts/runs/movie_reviews_zh/E5-TUNE/20261117T165533-cb406d253f/resolved_config.yaml",
+        "validation_macro_f1": 0.8430671265654706,
+        "test_macro_f1": 0.8399391252564018,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E5-TUNE/20261117T165533-cb406d253f/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E5-FROZEN/42",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E5-FROZEN/20261117T165544-674badcae0",
+        "config": "artifacts/runs/movie_reviews_zh/E5-FROZEN/20261117T165544-674badcae0/resolved_config.yaml",
+        "validation_macro_f1": 0.7879416509290149,
+        "test_macro_f1": 0.7739454552164446,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E5-FROZEN/20261117T165544-674badcae0/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E5-FROZEN/123",
+        "seed": 123,
+        "run": "artifacts/runs/movie_reviews_zh/E5-FROZEN/20261117T165555-cdc76cf09e",
+        "config": "artifacts/runs/movie_reviews_zh/E5-FROZEN/20261117T165555-cdc76cf09e/resolved_config.yaml",
+        "validation_macro_f1": 0.783789344548546,
+        "test_macro_f1": 0.7993857999294698,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E5-FROZEN/20261117T165555-cdc76cf09e/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E5-FROZEN/2026",
+        "seed": 2026,
+        "run": "artifacts/runs/movie_reviews_zh/E5-FROZEN/20261117T165608-a805b32625",
+        "config": "artifacts/runs/movie_reviews_zh/E5-FROZEN/20261117T165608-a805b32625/resolved_config.yaml",
+        "validation_macro_f1": 0.7953447505358915,
+        "test_macro_f1": 0.8020226222062163,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E5-FROZEN/20261117T165608-a805b32625/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E3-LSTM/42",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E3-LSTM/20261117T165619-fe548c8fb8",
+        "config": "artifacts/runs/movie_reviews_zh/E3-LSTM/20261117T165619-fe548c8fb8/resolved_config.yaml",
+        "validation_macro_f1": 0.8347835225680373,
+        "test_macro_f1": 0.8453057772220792,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E3-LSTM/20261117T165619-fe548c8fb8/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E3-LSTM/123",
+        "seed": 123,
+        "run": "artifacts/runs/movie_reviews_zh/E3-LSTM/20261117T165637-cfb45567f1",
+        "config": "artifacts/runs/movie_reviews_zh/E3-LSTM/20261117T165637-cfb45567f1/resolved_config.yaml",
+        "validation_macro_f1": 0.8314057111765433,
+        "test_macro_f1": 0.8264550264550264,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E3-LSTM/20261117T165637-cfb45567f1/test/evaluation_manifest.json"
+      },
+      {
+        "role": "replications",
+        "key": "movie_reviews_zh/E3-LSTM/2026",
+        "seed": 2026,
+        "run": "artifacts/runs/movie_reviews_zh/E3-LSTM/20261117T165654-448afa8f49",
+        "config": "artifacts/runs/movie_reviews_zh/E3-LSTM/20261117T165654-448afa8f49/resolved_config.yaml",
+        "validation_macro_f1": 0.8305181598979965,
+        "test_macro_f1": 0.8317002118644068,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E3-LSTM/20261117T165654-448afa8f49/test/evaluation_manifest.json"
+      },
+      {
+        "role": "optional_replications",
+        "key": "movie_reviews_zh/E3-BiLSTM/42",
+        "seed": 42,
+        "run": "artifacts/runs/movie_reviews_zh/E3-BiLSTM/20261117T165716-66fc569677",
+        "config": "artifacts/runs/movie_reviews_zh/E3-BiLSTM/20261117T165716-66fc569677/resolved_config.yaml",
+        "validation_macro_f1": 0.8345583821406614,
+        "test_macro_f1": 0.8313229916243954,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E3-BiLSTM/20261117T165716-66fc569677/test/evaluation_manifest.json"
+      },
+      {
+        "role": "optional_replications",
+        "key": "movie_reviews_zh/E3-BiLSTM/123",
+        "seed": 123,
+        "run": "artifacts/runs/movie_reviews_zh/E3-BiLSTM/20261117T165739-89262b24b0",
+        "config": "artifacts/runs/movie_reviews_zh/E3-BiLSTM/20261117T165739-89262b24b0/resolved_config.yaml",
+        "validation_macro_f1": 0.8372675297315013,
+        "test_macro_f1": 0.8400661157024794,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E3-BiLSTM/20261117T165739-89262b24b0/test/evaluation_manifest.json"
+      },
+      {
+        "role": "optional_replications",
+        "key": "movie_reviews_zh/E3-BiLSTM/2026",
+        "seed": 2026,
+        "run": "artifacts/runs/movie_reviews_zh/E3-BiLSTM/20261117T165803-4f35577931",
+        "config": "artifacts/runs/movie_reviews_zh/E3-BiLSTM/20261117T165803-4f35577931/resolved_config.yaml",
+        "validation_macro_f1": 0.8309099428925562,
+        "test_macro_f1": 0.8230999004314636,
+        "test_manifest": "artifacts/runs/movie_reviews_zh/E3-BiLSTM/20261117T165803-4f35577931/test/evaluation_manifest.json"
+      }
+    ]
+  },
+  "supplements": [
+    {
+      "stage": "s1",
+      "split": "validation",
+      "config": "configs/experiment_suites/batch_a_s1.yaml",
+      "report": "reports/batch-a-s1/report.md",
+      "results": "reports/batch-a-s1/results.json",
+      "audit": "artifacts/batch-a-s1/delivery_audit.json",
+      "runs": {
+        "replay/E2/42": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E2/20261118T002438-348a7afa31",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E2/20261118T002438-348a7afa31/resolved_config.yaml",
+          "best_epoch": 11,
+          "validation_macro_f1": 0.39379631873874654
+        },
+        "primary/E2/42": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E2/20261118T002517-3718e90449",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E2/20261118T002517-3718e90449/resolved_config.yaml",
+          "best_epoch": 11,
+          "validation_macro_f1": 0.39379631873874654
+        },
+        "replay/E3-RNN/42": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E3-RNN/20261118T002535-d12651b74e",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E3-RNN/20261118T002535-d12651b74e/resolved_config.yaml",
+          "best_epoch": 11,
+          "validation_macro_f1": 0.19761251292753523
+        },
+        "primary/E3-RNN/42": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E3-RNN/20261118T002613-434447052e",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E3-RNN/20261118T002613-434447052e/resolved_config.yaml",
+          "best_epoch": 23,
+          "validation_macro_f1": 0.2658143559482834
+        },
+        "replay/E3-LSTM/42": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E3-LSTM/20261118T002654-d83deb310f",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E3-LSTM/20261118T002654-d83deb310f/resolved_config.yaml",
+          "best_epoch": 12,
+          "validation_macro_f1": 0.31800512012920457
+        },
+        "primary/E3-LSTM/42": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E3-LSTM/20261118T002732-3f7f1b5aab",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E3-LSTM/20261118T002732-3f7f1b5aab/resolved_config.yaml",
+          "best_epoch": 24,
+          "validation_macro_f1": 0.35599252544392435
+        },
+        "replay/E3-BiLSTM/42": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E3-BiLSTM/20261118T002812-1ec99969b7",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E3-BiLSTM/20261118T002812-1ec99969b7/resolved_config.yaml",
+          "best_epoch": 12,
+          "validation_macro_f1": 0.38815817921297185
+        },
+        "primary/E3-BiLSTM/42": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E3-BiLSTM/20261118T002902-ad016f51dd",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E3-BiLSTM/20261118T002902-ad016f51dd/resolved_config.yaml",
+          "best_epoch": 14,
+          "validation_macro_f1": 0.4025113532856093
+        },
+        "replay/E5-TUNE/42": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E5-TUNE/20261118T002942-f7081be926",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E5-TUNE/20261118T002942-f7081be926/resolved_config.yaml",
+          "best_epoch": 10,
+          "validation_macro_f1": 0.3948772143852612
+        },
+        "primary/E5-TUNE/42": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E5-TUNE/20261118T003017-2207e9dbfd",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E5-TUNE/20261118T003017-2207e9dbfd/resolved_config.yaml",
+          "best_epoch": 10,
+          "validation_macro_f1": 0.3948772143852612
+        },
+        "replay/E5-FROZEN/42": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E5-FROZEN/20261118T003031-b15f6659fe",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E5-FROZEN/20261118T003031-b15f6659fe/resolved_config.yaml",
+          "best_epoch": 10,
+          "validation_macro_f1": 0.2697833238323266
+        },
+        "primary/E5-FROZEN/42": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E5-FROZEN/20261118T003103-9dd682e8d2",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E5-FROZEN/20261118T003103-9dd682e8d2/resolved_config.yaml",
+          "best_epoch": 21,
+          "validation_macro_f1": 0.28493149018970204
+        },
+        "replication/E2/123": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E2/20261118T003208-e566fe735e",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E2/20261118T003208-e566fe735e/resolved_config.yaml",
+          "best_epoch": 15,
+          "validation_macro_f1": 0.395668641321191
+        },
+        "replication/E3-RNN/123": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E3-RNN/20261118T003304-e63d577e1b",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E3-RNN/20261118T003304-e63d577e1b/resolved_config.yaml",
+          "best_epoch": 24,
+          "validation_macro_f1": 0.27692540853377035
+        },
+        "replication/E3-LSTM/123": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E3-LSTM/20261118T003413-7773c3d614",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E3-LSTM/20261118T003413-7773c3d614/resolved_config.yaml",
+          "best_epoch": 21,
+          "validation_macro_f1": 0.3644858998845118
+        },
+        "replication/E3-BiLSTM/123": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E3-BiLSTM/20261118T003532-17eea18717",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E3-BiLSTM/20261118T003532-17eea18717/resolved_config.yaml",
+          "best_epoch": 13,
+          "validation_macro_f1": 0.403875722496546
+        },
+        "replication/E5-TUNE/123": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E5-TUNE/20261118T003654-beb6946d87",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E5-TUNE/20261118T003654-beb6946d87/resolved_config.yaml",
+          "best_epoch": 9,
+          "validation_macro_f1": 0.3738173123103653
+        },
+        "replication/E5-FROZEN/123": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E5-FROZEN/20261118T003733-01dba5281a",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E5-FROZEN/20261118T003733-01dba5281a/resolved_config.yaml",
+          "best_epoch": 16,
+          "validation_macro_f1": 0.2776072850201637
+        },
+        "replication/E2/2026": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E2/20261118T003826-90443055d3",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E2/20261118T003826-90443055d3/resolved_config.yaml",
+          "best_epoch": 10,
+          "validation_macro_f1": 0.39319417390341144
+        },
+        "replication/E3-RNN/2026": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E3-RNN/20261118T003909-9a8eb05797",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E3-RNN/20261118T003909-9a8eb05797/resolved_config.yaml",
+          "best_epoch": 24,
+          "validation_macro_f1": 0.26400480315095626
+        },
+        "replication/E3-LSTM/2026": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E3-LSTM/20261118T004110-4bb15ed1a2",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E3-LSTM/20261118T004110-4bb15ed1a2/resolved_config.yaml",
+          "best_epoch": 20,
+          "validation_macro_f1": 0.344176799246631
+        },
+        "replication/E3-BiLSTM/2026": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E3-BiLSTM/20261118T004343-a1acc22b91",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E3-BiLSTM/20261118T004343-a1acc22b91/resolved_config.yaml",
+          "best_epoch": 15,
+          "validation_macro_f1": 0.389101138680271
+        },
+        "replication/E5-TUNE/2026": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E5-TUNE/20261118T004517-965267fe2d",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E5-TUNE/20261118T004517-965267fe2d/resolved_config.yaml",
+          "best_epoch": 10,
+          "validation_macro_f1": 0.3862551906848946
+        },
+        "replication/E5-FROZEN/2026": {
+          "run": "artifacts/batch-a-s1/runs/goemotions/E5-FROZEN/20261118T004602-67715e95f9",
+          "config": "artifacts/batch-a-s1/runs/goemotions/E5-FROZEN/20261118T004602-67715e95f9/resolved_config.yaml",
+          "best_epoch": 11,
+          "validation_macro_f1": 0.27899921411180667
+        }
+      }
+    },
+    {
+      "stage": "s2",
+      "split": "validation",
+      "config": "configs/experiment_suites/batch_a_s2.yaml",
+      "report": "reports/batch-a-s2/report.md",
+      "results": "reports/batch-a-s2/results.json",
+      "audit": "artifacts/batch-a-s2/delivery_audit.json",
+      "runs": {
+        "extension/E3-RNN/42": {
+          "run": "artifacts/batch-a-s2/runs/goemotions/E3-RNN/20261118T005137-f28175c7cf",
+          "config": "artifacts/batch-a-s2/runs/goemotions/E3-RNN/20261118T005137-f28175c7cf/resolved_config.yaml",
+          "best_epoch": 36,
+          "validation_macro_f1": 0.28995930363613714
+        },
+        "extension/E3-LSTM/42": {
+          "run": "artifacts/batch-a-s2/runs/goemotions/E3-LSTM/20261118T005302-740df5aa59",
+          "config": "artifacts/batch-a-s2/runs/goemotions/E3-LSTM/20261118T005302-740df5aa59/resolved_config.yaml",
+          "best_epoch": 24,
+          "validation_macro_f1": 0.35599252544392435
+        },
+        "extension/E3-RNN/123": {
+          "run": "artifacts/batch-a-s2/runs/goemotions/E3-RNN/20261118T005345-47ffc74c53",
+          "config": "artifacts/batch-a-s2/runs/goemotions/E3-RNN/20261118T005345-47ffc74c53/resolved_config.yaml",
+          "best_epoch": 36,
+          "validation_macro_f1": 0.2862277695549023
+        },
+        "extension/E3-RNN/2026": {
+          "run": "artifacts/batch-a-s2/runs/goemotions/E3-RNN/20261118T005521-3fda62b125",
+          "config": "artifacts/batch-a-s2/runs/goemotions/E3-RNN/20261118T005521-3fda62b125/resolved_config.yaml",
+          "best_epoch": 35,
+          "validation_macro_f1": 0.28305149173529875
+        }
+      }
+    }
+  ]
+}
