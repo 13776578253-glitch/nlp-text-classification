@@ -1,0 +1,14 @@
+id: batch-a-s1
+base_suite: configs/experiment_suites/batch_a.yaml
+base_freeze: artifacts/batch-a/final_runs.yaml
+base_freeze_sha256: 255a9bfe53eea86f1339b2de4da46b96bfd9ab1594b723de5da11acf678c3289
+dataset: goemotions
+experiments: [E2, E3-RNN, E3-LSTM, E3-BiLSTM, E5-TUNE, E5-FROZEN]
+primary_seed: 42
+replication_seeds: [123, 2026]
+reference_epoch_cap: 12
+epoch_cap: 24
+patience: 6
+replication_trigger:
+  minimum_gain: 0.02
+  first_near_cap_epoch: 22

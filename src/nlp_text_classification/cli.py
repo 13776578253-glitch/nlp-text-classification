@@ -41,6 +41,8 @@ def main() -> None:
     batch.add_argument("--suite", type=Path, default=Path("configs/experiment_suites/batch_a.yaml"))
     batch.add_argument("--output", type=Path, default=Path("artifacts/batch-a"))
     batch.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
+    s1 = command.add_parser("batch-a-s1", help="Run the GoEmotions convergence supplement")
+    s1.add_argument("mode", choices=("primary", "replicate", "report"))
     args = parser.parse_args()
     if args.command == "download":
         from nlp_text_classification.data.download import download_official
@@ -90,6 +92,21 @@ def main() -> None:
             from nlp_text_classification.experiments.batch_cli import batch_command
 
             result = batch_command(args.mode, args.suite, args.output, args.device)
+    elif args.command == "batch-a-s1":
+        from nlp_text_classification.training.resources import (
+            configure_compute_threads,
+            require_headroom,
+        )
+
+        if args.mode != "report":
+            try:
+                require_headroom()
+            except RuntimeError as exc:
+                parser.exit(status=75, message=f"{exc}\n")
+        configure_compute_threads()
+        from nlp_text_classification.experiments.batch_a_s1 import execute
+
+        result = execute(args.mode)
     else:
         from nlp_text_classification.experiments.e1_svm import predict
         result = predict(args.run_dir, [args.text])[0]
