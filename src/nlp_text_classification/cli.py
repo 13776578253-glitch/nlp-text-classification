@@ -47,6 +47,8 @@ def main() -> None:
     s2.add_argument("mode", choices=("screen", "run", "report"))
     encoders = command.add_parser("batch-b-s1", help="Run the Batch B encoder experiments")
     encoders.add_argument("mode", choices=("data-audit", "smoke", "run", "report", "status"))
+    replications = command.add_parser("batch-b-s2", help="Run Batch B seed replications")
+    replications.add_argument("mode", choices=("audit", "run", "report", "status"))
     args = parser.parse_args()
     if args.command == "download":
         from nlp_text_classification.data.download import download_official
@@ -114,7 +116,7 @@ def main() -> None:
             from nlp_text_classification.experiments.batch_a_s2 import execute
 
         result = execute(args.mode)
-    elif args.command == "batch-b-s1":
+    elif args.command in {"batch-b-s1", "batch-b-s2"}:
         from nlp_text_classification.training.resources import (
             configure_compute_threads,
             require_headroom,
@@ -127,7 +129,7 @@ def main() -> None:
                 parser.exit(status=75, message=f"{exc}\n")
         configure_compute_threads()
         if args.mode == "status":
-            path = Path("artifacts/batch-b-s1/progress.md")
+            path = Path("artifacts") / args.command / "progress.md"
             result = {"progress": str(path), "text": path.read_text(encoding="utf-8")}
         else:
             if args.mode in {"smoke", "run"}:
@@ -135,7 +137,10 @@ def main() -> None:
 
                 # Bind the library's persistent handler before per-Run stdio redirection.
                 transformer_logging.get_logger("transformers")
-            from nlp_text_classification.experiments.batch_b_s1 import execute
+            if args.command == "batch-b-s1":
+                from nlp_text_classification.experiments.batch_b_s1 import execute
+            else:
+                from nlp_text_classification.experiments.batch_b_s2 import execute
 
             result = execute(args.mode)
     else:

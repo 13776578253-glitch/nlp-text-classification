@@ -1,0 +1,12 @@
+suite_id: batch-b-s2
+revision: 1
+s1_results: reports/batch-b-s1/results.json
+s1_results_sha256: 2fb0f94617c42f44b1ccbf2af0b1615d6229f9ee6379256a759c60672f53a172
+s1_delivery_audit: artifacts/batch-b-s1/delivery-audit.json
+s1_delivery_audit_sha256: 8c734c551c75dbbdf185d55d797f19c01fbe315486557d4736bd2cbcf2376f25
+seeds: [42, 123, 2026]
+b1_budget:
+  epochs: 12
+  patience: 3
+  minimum_macro_f1_gain: 0.01
+rare_label_count: 5
