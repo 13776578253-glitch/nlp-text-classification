@@ -101,8 +101,16 @@ def _atomic_checkpoint(path, data):
     temp.replace(path)
 
 
-def load_checkpoint(path):
-    return torch.load(path, map_location="cpu", weights_only=True, mmap=True)
+def load_checkpoint(path, device="cpu"):
+    device = torch.device(device)
+    if device.type == "cpu":
+        return torch.load(path, map_location="cpu", weights_only=True)
+
+    def place(storage, location):
+        # Restore GPU state as storages are read, leaving CPU and RNG tensors on CPU.
+        return storage.cuda(device.index) if location.startswith("cuda") else storage
+
+    return torch.load(path, map_location=place, weights_only=True)
 
 
 def _train_epoch(model, partition, device, settings, optimizer, scheduler, generator,
@@ -213,7 +221,7 @@ def train_transformer(attempt, data, rows, encoded, resolved, device, resume=Non
     epoch_offset, best_epoch, best, stop = 0, 0, -1.0, "epoch_cap"
     saved_scores = None
     if resume is not None:
-        state = load_checkpoint(resume / "checkpoint/resume.pt")
+        state = load_checkpoint(resume / "checkpoint/resume.pt", device)
         model.load_state_dict(state["model"])
         optimizer.load_state_dict(state["optimizer"])
         scheduler.load_state_dict(state["scheduler"])
@@ -290,9 +298,16 @@ def train_transformer(attempt, data, rows, encoded, resolved, device, resume=Non
                 break
     if torch.equal(backbone, initial_backbone) or torch.equal(head, initial_head):
         raise ValueError("Backbone or task head did not update during fine-tuning")
+    latest = checkpoint / "resume.pt"
+    if resume is not None and not latest.exists():
+        temporary = latest.with_suffix(".pending")
+        shutil.copyfile(resume / "checkpoint/resume.pt", temporary)
+        temporary.replace(latest)
     del optimizer, scheduler, initial_backbone, initial_head
     model.zero_grad(set_to_none=True)
-    model.load_state_dict(load_checkpoint(best_file))
+    if device.type == "cuda":
+        torch.cuda.empty_cache()
+    model.load_state_dict(load_checkpoint(best_file, device))
     attempt.event("RELOAD", f"verifying selected checkpoint epoch {best_epoch}")
     replay, val_seconds = _score(model, partitions["validation"], device, settings,
                                  binary=binary, multiple=multiple)

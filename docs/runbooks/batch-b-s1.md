@@ -23,3 +23,18 @@
 ```
 
 `artifacts/batch-b-s1/progress.md` 为实时快照，`progress.jsonl` 追加记录槽位、epoch、更新计数、验证和预测进度。Run 的完整状态每轮原子保存。使用同一协议重新执行 `run` 可以复用已验证结果，恢复中断的槽位。CUDA OOM 触发一次微批调整，报告保留原失败尝试。正式 S1 只通过训练与验证入口运行。
+
+## CUDA 预检验收
+
+2026-11-18，RTX 4070 Ti SUPER 上的四组 BF16 小样本训练、反传、最优权重重载和验证分数独立复算通过。实际资源配置如下。
+
+| 模型 | 微批次 | 梯度累积 | 有效批次 | 峰值 allocated GiB | 峰值 reserved GiB |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| B1 | 32 | 1 | 32 | 1.29 | 1.42 |
+| B2 | 16 | 2 | 32 | 3.14 | 3.42 |
+| B3 | 16 | 2 | 32 | 7.87 | 8.60 |
+| B4 | 16 | 2 | 32 | 2.57 | 2.71 |
+
+B3 首先从微批 8 和梯度检查点开始。Windows 内存映射重载触发访问异常，恢复优化器时也记录了分配失败。修复后以流式权重加载逐张量恢复 CUDA 状态，继续保留 6 GiB 系统内存暂停线。随后通过微批 16、关闭梯度检查点的吞吐预检，有效批次仍为 32。完整状态恢复探针复核模型、AdamW、scheduler 和 RNG，保存的恢复状态、逐轮历史、阈值与验证预测逐字节一致。
+
+正式门禁为 `artifacts/batch-b-s1/preflight-runs/f82a3adc9179/gate.json`，SHA-256 为 `932c5646caa4cfc230912350574b17d779b555ec9fe7eabfeadce9c5dd2f342a`。恢复探针见 `artifacts/batch-b-s1/b3-resume-probe/audit.json`。首次故障与最终验收的终端日志分别保留于 `smoke-terminal.log`、`smoke-verified-terminal.log` 和 `smoke-final-terminal.log`。29 项 pytest 与 Ruff 通过。

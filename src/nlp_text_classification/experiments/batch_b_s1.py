@@ -34,7 +34,6 @@ from nlp_text_classification.training.progress import Progress, write_atomic_jso
 from nlp_text_classification.training.resources import CPU_THREADS, GIB, protect
 
 DATA_AUDIT = Path("configs/batch_b/tokenization_lock.json")
-GATE = OUTPUT / "preflight.json"
 FORMAL = OUTPUT / "formal"
 SOURCES = [
     "experiments/batch_b_s1.py", "experiments/batch_b_resources.py",
@@ -160,9 +159,12 @@ class Matrix:
         self.suite, self.resources, self.audit, self.progress = suite, resources, audit, progress
         self.data = {key: load_training_data(item) for key, item in datasets.items()}
         self.smoke = smoke
-        self.output = OUTPUT / "smoke" if smoke else FORMAL
-        self.output.mkdir(exist_ok=True)
         self.identity = _identity(suite, datasets)
+        version = digest_json(self.identity)[:12]
+        preflight = OUTPUT / "preflight-runs" / version
+        self.output = preflight if smoke else FORMAL
+        self.gate_path = preflight / "gate.json"
+        self.output.mkdir(parents=True, exist_ok=True)
         self.hardware = {"gpu": torch.cuda.get_device_name(), "torch_cuda": torch.version.cuda,
                          "precision": "bf16" if torch.cuda.is_bf16_supported() else "fp32"}
         self.queue_path = self.output / "queue.json"
@@ -212,10 +214,16 @@ class Matrix:
             if load_yaml(previous / "resolved_config.yaml") == resolved:
                 if saved["status"] == "PASS":
                     return previous
-                if saved["status"] == "INCOMPLETE" and (previous / "checkpoint/resume.pt").is_file():
-                    resume = previous
+                if saved["status"] == "INCOMPLETE":
+                    for item in reversed(paths):
+                        candidate = Path(item)
+                        if (candidate / "checkpoint/resume.pt").is_file() and (
+                            load_yaml(candidate / "resolved_config.yaml") == resolved
+                        ):
+                            resume = candidate
+                            break
         self.progress.context = {"slot": slot, "accepted_slots": len(self.queue["accepted"]),
-                                 "total_slots": 4 if self.smoke else 8}
+                                 "total_slots": 5 if self.smoke else 8}
         attempt = Attempt(self.output / "runs", data, resolved, slot, self.suite["seed"],
                           self.progress, previous=str(previous) if previous else None, provenance={
                               "model_id": experiment["model_id"],
@@ -294,11 +302,28 @@ class Matrix:
             config = self._resolve(key, self.suite["training"]["baseline_lr"],
                                    model["micro_batch_size"], model["gradient_checkpointing"])
             entry = self._accept(f"smoke/{key}", config, allow_resource_retry=True)
+            candidate = model.get("preflight_micro_batch_candidate")
+            if candidate and entry["result"]["peak_reserved_bytes"] <= 8 * GIB:
+                trial_config = self._resolve(key, self.suite["training"]["baseline_lr"],
+                                             candidate, False)
+                trial_slot = f"smoke/{key}-throughput"
+                try:
+                    trial = self._accept(trial_slot, trial_config, allow_resource_retry=False)
+                except RuntimeError:
+                    last = Path(self.queue["attempts"][trial_slot][-1])
+                    if read_json(last / "result.json").get("error_type") != "OutOfMemoryError":
+                        raise
+                    self.progress.emit("PREFLIGHT", f"{key} keeps the verified small micro-batch")
+                else:
+                    if trial["result"]["peak_reserved_bytes"] <= 10 * GIB:
+                        entry = trial
             settings = load_yaml(Path(entry["run"]) / "resolved_config.yaml")["settings"]
             rows[key] = {"micro_batch_size": settings["micro_batch_size"],
                          "gradient_checkpointing": settings["gradient_checkpointing"], **entry}
         gate = {"identity": self.identity, "hardware": self.hardware, "models": rows}
-        _record(GATE, gate)
+        _record(self.gate_path, gate)
+        self.progress.context = {}
+        self.progress.emit("PREFLIGHT_COMPLETE", "4/4 encoder models accepted", gate=self.gate_path)
         return gate
 
     def train(self, gate):
@@ -343,12 +368,12 @@ def execute(mode):
             if mode == "report":
                 return publish(suite, datasets, audit["models"], read_json(FORMAL / "queue.json"),
                                progress)
-            with protect(progress, process_limit=10 * GIB):
+            with protect(progress, process_limit=14 * GIB):
                 matrix = Matrix(suite, datasets, resources, audit["models"], progress,
                                 smoke=mode == "smoke")
                 if mode == "smoke":
                     return matrix.preflight()
-                queue = matrix.train(read_json(GATE))
+                queue = matrix.train(read_json(matrix.gate_path))
                 report = publish(suite, datasets, audit["models"], queue, progress)
                 progress.context = {}
                 progress.emit("COMPLETE", "8/8 formal slots audited", **report)

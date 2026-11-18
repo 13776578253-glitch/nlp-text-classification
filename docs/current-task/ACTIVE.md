@@ -1,6 +1,6 @@
 # 当前任务状态 · Batch B S1
 
-Batch B S1 已完成计划、四组资源核验、Tokenization 审计和训练器实现。当前入口为四组 CUDA 预检。见 [S1 契约](../plans/batch-b/s1-encoders.md) 与 [运行和验收](../runbooks/batch-b-s1.md)。
+Batch B S1 已完成计划、四组资源核验、Tokenization 审计、训练器实现和 CUDA 预检。B3 完整恢复探针通过。当前入口为四组基础训练和有限搜索。见 [S1 契约](../plans/batch-b/s1-encoders.md) 与 [运行和验收](../runbooks/batch-b-s1.md)。
 
 Batch A Stage 0–5、Supplement S1 和 S2 均已完成。见 [统一研究总结](../finish-task/batch-a/summary.md) 与 [模型结果索引](../finish-task/batch-a/model-index.json)。
 

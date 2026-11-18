@@ -6,3 +6,4 @@ weight_format: safetensors
 alternate_lr: 0.00001
 micro_batch_size: 8
 gradient_checkpointing: true
+preflight_micro_batch_candidate: 16

@@ -130,6 +130,11 @@ def main() -> None:
             path = Path("artifacts/batch-b-s1/progress.md")
             result = {"progress": str(path), "text": path.read_text(encoding="utf-8")}
         else:
+            if args.mode in {"smoke", "run"}:
+                from transformers.utils import logging as transformer_logging
+
+                # Bind the library's persistent handler before per-Run stdio redirection.
+                transformer_logging.get_logger("transformers")
             from nlp_text_classification.experiments.batch_b_s1 import execute
 
             result = execute(args.mode)
