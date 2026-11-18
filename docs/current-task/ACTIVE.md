@@ -1,6 +1,6 @@
 # 当前任务状态 · Batch B S1
 
-Batch B S1 计划与矩阵已冻结。当前入口为官方模型资源准备。见 [Batch B 总览](../plans/batch-b/overview.md) 与 [S1 契约](../plans/batch-b/s1-encoders.md)。
+Batch B S1 计划与矩阵已冻结，四组官方权重和 Tokenizer 已完成离线加载验收。当前推进 Tokenization 审计与训练器实现。见 [Batch B 总览](../plans/batch-b/overview.md)、[S1 契约](../plans/batch-b/s1-encoders.md) 与 [模型资源验收](../plans/batch-b/model-resources.md)。
 
 Batch A Stage 0–5、Supplement S1 和 S2 均已完成。见 [统一研究总结](../finish-task/batch-a/summary.md) 与 [模型结果索引](../finish-task/batch-a/model-index.json)。
 

@@ -9,3 +9,5 @@ Batch B 对应实验矩阵 E4，沿用 Batch A 的两个 v1 数据集、标签�
 | [S3 Qwen 提案](s3-qwen-proposal.md) | 独立的 LLM 分类器研究 | 后续另定训练、预算和验收协议 |
 
 当前执行范围止于 S1 的验证报告与 S2 评估入口。Batch A 正式产物归档于 [研究总结与模型索引](../../finish-task/batch-a/summary.md)。
+
+[四组模型资源验收](model-resources.md)

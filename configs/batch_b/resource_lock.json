@@ -1,0 +1,285 @@
+{
+  "environment": {
+    "torch": "2.9.1+cu128",
+    "transformers": "4.57.6",
+    "huggingface-hub": "0.36.2",
+    "tokenizers": "0.22.2",
+    "safetensors": "0.8.0",
+    "accelerate": "1.16.0"
+  },
+  "models": {
+    "B1": {
+      "model_id": "distilbert/distilbert-base-uncased",
+      "revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+      "license": "apache-2.0",
+      "weight_format": "safetensors",
+      "weight_file": "model.safetensors",
+      "files": {
+        "LICENSE": {
+          "bytes": 11356,
+          "git_blob": "f49a4e16e68b128803cc2dcea614603632b04eac",
+          "sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1"
+        },
+        "README.md": {
+          "bytes": 8577,
+          "git_blob": "1db487d688fd5ddc3c6714a4a3a3fe5f679cbf04",
+          "sha256": "b925a22d8efd7a29608a0e10d3f2fb33d5d80df7de4ac6e34093853cd8e0274e"
+        },
+        "config.json": {
+          "bytes": 483,
+          "git_blob": "150367d8744161cd17b3f6462a14f3a9648752da",
+          "sha256": "69c94b0222d5d1f4b0ad027ca7416cdafb98378cbbb8305d0bf47c9365c60c83"
+        },
+        "model.safetensors": {
+          "bytes": 267954768,
+          "lfs_sha256": "5e3f1108e3cb34ee048634875d8482665b65ac713291a7e32396fb18f6ff0063",
+          "sha256": "5e3f1108e3cb34ee048634875d8482665b65ac713291a7e32396fb18f6ff0063"
+        },
+        "tokenizer.json": {
+          "bytes": 466062,
+          "git_blob": "949a6f013d67eb8a5b4b5b46026217b888021b88",
+          "sha256": "ce64fce797c24f68df90b40a3f74f579b336a493db14bd583fd520ea0d8c9a98"
+        },
+        "tokenizer_config.json": {
+          "bytes": 48,
+          "git_blob": "e5c73d8a50df1f56fb5b0b8002d7cf4010afdccb",
+          "sha256": "a025160ef0431f1a392f6f050c1310f4c5d9fb6f275932dbccba73c4d214bf10"
+        },
+        "vocab.txt": {
+          "bytes": 231508,
+          "git_blob": "fb140275c155a9c7c5a3b3e0e77a9e839594a938",
+          "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+        }
+      },
+      "cache": "artifacts/batch-b-s1/hf-cache/B1/12040accade4e8a0f71eabdb258fecc2e7e948be",
+      "parameters": 66975004,
+      "offline_load": {
+        "status": "PASS",
+        "shape": [
+          2,
+          28
+        ],
+        "model_class": "DistilBertForSequenceClassification",
+        "tokenizer_class": "DistilBertTokenizerFast",
+        "loading": {
+          "missing_keys": [
+            "classifier.bias",
+            "classifier.weight",
+            "pre_classifier.bias",
+            "pre_classifier.weight"
+          ],
+          "unexpected_keys": [
+            "vocab_layer_norm.bias",
+            "vocab_layer_norm.weight",
+            "vocab_projector.bias",
+            "vocab_transform.bias",
+            "vocab_transform.weight"
+          ],
+          "mismatched_keys": [],
+          "error_msgs": []
+        }
+      }
+    },
+    "B2": {
+      "model_id": "answerdotai/ModernBERT-base",
+      "revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+      "license": "apache-2.0",
+      "weight_format": "safetensors",
+      "weight_file": "model.safetensors",
+      "files": {
+        "README.md": {
+          "bytes": 8427,
+          "git_blob": "8b9d77d5a470f7ef31f7495da1593826849b6fd6",
+          "sha256": "40539466fa1117be4693b8f1fdfdac81fac3c5db472ff57bc05d013d48eafa82"
+        },
+        "config.json": {
+          "bytes": 1193,
+          "git_blob": "42dbe7f4826f9479e2f2965806dd206d07a57495",
+          "sha256": "1609d59e627c33eaed524b4f01e546d42e84190a079a5a5ded84b212c41c324f"
+        },
+        "model.safetensors": {
+          "bytes": 598635032,
+          "lfs_sha256": "340ac08b74eef0d7bdec2d7981a6a3d4249bf0e6aab60634b72ad02c2b8023a9",
+          "sha256": "340ac08b74eef0d7bdec2d7981a6a3d4249bf0e6aab60634b72ad02c2b8023a9"
+        },
+        "special_tokens_map.json": {
+          "bytes": 694,
+          "git_blob": "6bf65ea14185a88eef7e24b41c86a953a58dcbad",
+          "sha256": "ea97ecdbcc73713039d8d64dbb05e3689495c96657fbd9a18f5bed381be81049"
+        },
+        "tokenizer.json": {
+          "bytes": 2132967,
+          "git_blob": "de3f3e316b66f3885df49ab2c0fff3e477ff1680",
+          "sha256": "9fd55248d51d33976b324fc11592e28071da7d41e0e9401dfb7082e30574b7b1"
+        },
+        "tokenizer_config.json": {
+          "bytes": 20810,
+          "git_blob": "d78aa50c890c167d8700301e5580164466e51fa5",
+          "sha256": "3cd2017ff46d0a527e5d39cae39272eccfa1f19bb9f89b05d166aab2e38354e2"
+        }
+      },
+      "cache": "artifacts/batch-b-s1/hf-cache/B2/8949b909ec900327062f0ebf497f51aef5e6f0c8",
+      "parameters": 149626396,
+      "offline_load": {
+        "status": "PASS",
+        "shape": [
+          2,
+          28
+        ],
+        "model_class": "ModernBertForSequenceClassification",
+        "tokenizer_class": "PreTrainedTokenizerFast",
+        "loading": {
+          "missing_keys": [
+            "classifier.bias",
+            "classifier.weight"
+          ],
+          "unexpected_keys": [
+            "decoder.bias"
+          ],
+          "mismatched_keys": [],
+          "error_msgs": []
+        }
+      }
+    },
+    "B3": {
+      "model_id": "answerdotai/ModernBERT-large",
+      "revision": "45bb4654a4d5aaff24dd11d4781fa46d39bf8c13",
+      "license": "apache-2.0",
+      "weight_format": "safetensors",
+      "weight_file": "model.safetensors",
+      "files": {
+        "README.md": {
+          "bytes": 8427,
+          "git_blob": "8b9d77d5a470f7ef31f7495da1593826849b6fd6",
+          "sha256": "40539466fa1117be4693b8f1fdfdac81fac3c5db472ff57bc05d013d48eafa82"
+        },
+        "config.json": {
+          "bytes": 1194,
+          "git_blob": "f58291adedf9dc2fe5a5d80f8e2221bd1f135a23",
+          "sha256": "55dca68059e98f0debf8eb63ab355c451c65b1f5d90fdca4754113fdaadd2cca"
+        },
+        "model.safetensors": {
+          "bytes": 1583544840,
+          "lfs_sha256": "44510fec5d3a81a1877f225637b869495f18e55f6f23a09abb9be0acc030295f",
+          "sha256": "44510fec5d3a81a1877f225637b869495f18e55f6f23a09abb9be0acc030295f"
+        },
+        "special_tokens_map.json": {
+          "bytes": 694,
+          "git_blob": "6bf65ea14185a88eef7e24b41c86a953a58dcbad",
+          "sha256": "ea97ecdbcc73713039d8d64dbb05e3689495c96657fbd9a18f5bed381be81049"
+        },
+        "tokenizer.json": {
+          "bytes": 2132967,
+          "git_blob": "de3f3e316b66f3885df49ab2c0fff3e477ff1680",
+          "sha256": "9fd55248d51d33976b324fc11592e28071da7d41e0e9401dfb7082e30574b7b1"
+        },
+        "tokenizer_config.json": {
+          "bytes": 20810,
+          "git_blob": "d78aa50c890c167d8700301e5580164466e51fa5",
+          "sha256": "3cd2017ff46d0a527e5d39cae39272eccfa1f19bb9f89b05d166aab2e38354e2"
+        }
+      },
+      "cache": "artifacts/batch-b-s1/hf-cache/B3/45bb4654a4d5aaff24dd11d4781fa46d39bf8c13",
+      "parameters": 395859996,
+      "offline_load": {
+        "status": "PASS",
+        "shape": [
+          2,
+          28
+        ],
+        "model_class": "ModernBertForSequenceClassification",
+        "tokenizer_class": "PreTrainedTokenizerFast",
+        "loading": {
+          "missing_keys": [
+            "classifier.bias",
+            "classifier.weight"
+          ],
+          "unexpected_keys": [
+            "decoder.bias"
+          ],
+          "mismatched_keys": [],
+          "error_msgs": []
+        }
+      }
+    },
+    "B4": {
+      "model_id": "hfl/chinese-macbert-base",
+      "revision": "a986e004d2a7f2a1c2f5a3edef4e20604a974ed1",
+      "license": "apache-2.0",
+      "weight_format": "pytorch_bin",
+      "weight_file": "pytorch_model.bin",
+      "files": {
+        "README.md": {
+          "bytes": 3842,
+          "git_blob": "d10b1c18175003bc740e01b86433673801ccc783",
+          "sha256": "1516e1e24fff28dfeaed65f714bc676e4739d4c70e6c9f356fbf41d2712251e5"
+        },
+        "added_tokens.json": {
+          "bytes": 2,
+          "git_blob": "9e26dfeeb6e641a33dae4961196235bdb965b21b",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        "config.json": {
+          "bytes": 659,
+          "git_blob": "18c37980ba95eed529b58cffc23bcce90dc0108e",
+          "sha256": "648c8a2b51c12551f94bae19a66c21a59c9bd8aa0ebb99f2a0af7236cdb99daa"
+        },
+        "pytorch_model.bin": {
+          "bytes": 411582858,
+          "lfs_sha256": "db0506d985574b80c33eec1cf13bd4c130585568753175871095ca13dbad9e23",
+          "sha256": "db0506d985574b80c33eec1cf13bd4c130585568753175871095ca13dbad9e23"
+        },
+        "special_tokens_map.json": {
+          "bytes": 112,
+          "git_blob": "e7b0375001f109a6b8873d756ad4f7bbb15fbaa5",
+          "sha256": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3"
+        },
+        "tokenizer.json": {
+          "bytes": 268961,
+          "git_blob": "eba64ab600f7bb029b38ac391b35651e3b55f185",
+          "sha256": "53ff61207898738bbdc000f38abebef01041c8d23b6270c11855fc692d0a3ad6"
+        },
+        "tokenizer_config.json": {
+          "bytes": 19,
+          "git_blob": "66051e65c65b3ec5e0b437496d1e545c5d8934b4",
+          "sha256": "61785aeaba176fba6d6489f27dccfd2ddee6aee2af0e590451cab7d8b57e0874"
+        },
+        "vocab.txt": {
+          "bytes": 109540,
+          "git_blob": "ca4f9781030019ab9b253c6dcb8c7878b6dc87a5",
+          "sha256": "45bbac6b341c319adc98a532532882e91a9cefc0329aa57bac9ae761c27b291c"
+        }
+      },
+      "cache": "artifacts/batch-b-s1/hf-cache/B4/a986e004d2a7f2a1c2f5a3edef4e20604a974ed1",
+      "parameters": 102269186,
+      "offline_load": {
+        "status": "PASS",
+        "shape": [
+          2,
+          2
+        ],
+        "model_class": "BertForSequenceClassification",
+        "tokenizer_class": "BertTokenizerFast",
+        "loading": {
+          "missing_keys": [
+            "classifier.bias",
+            "classifier.weight"
+          ],
+          "unexpected_keys": [
+            "cls.predictions.bias",
+            "cls.predictions.decoder.bias",
+            "cls.predictions.decoder.weight",
+            "cls.predictions.transform.LayerNorm.bias",
+            "cls.predictions.transform.LayerNorm.weight",
+            "cls.predictions.transform.dense.bias",
+            "cls.predictions.transform.dense.weight",
+            "cls.seq_relationship.bias",
+            "cls.seq_relationship.weight"
+          ],
+          "mismatched_keys": [],
+          "error_msgs": []
+        }
+      }
+    }
+  }
+}
