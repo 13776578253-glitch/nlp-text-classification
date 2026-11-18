@@ -1,6 +1,6 @@
-# 当前任务状态 · Batch B 待冻结审计
+# 当前任务状态 · Batch B Encoder 正式测试已验收
 
-Batch B S1 和 S2 均已验收。S2 的九个新增 Run 通过，B1 采用六轮预算，B1–B4 的 12 项验证结果和逐标签分析已归档。下一入口为拟冻结清单的独立审计。S3 保持规划状态。 [S1 验证报告](../../reports/batch-b-s1/report.md) · [S2 验收](../finish-task/batch-b-s2.md) · [拟冻结清单](../../reports/batch-b-s2/proposed-freeze.json)
+Batch B S1 和 S2 均已验收。独立审计精确复现 12 个 Run 的验证分数，随后 12/12 项正式测试通过。B1 保留六轮预算。S3 保持规划状态。 [S1 验证报告](../../reports/batch-b-s1/report.md) · [S2 验收](../finish-task/batch-b-s2.md) · [正式测试验收](../finish-task/batch-b-final.md)
 
 Batch A Stage 0–5、Supplement S1 和 S2 均已完成。见 [统一研究总结](../finish-task/batch-a/summary.md) 与 [模型结果索引](../finish-task/batch-a/model-index.json)。
 

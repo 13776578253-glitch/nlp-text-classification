@@ -18,6 +18,7 @@
 | [Batch B S1 验证报告](../reports/batch-b-s1/report.md) · [结果索引](../reports/batch-b-s1/results.json) | 八个训练槽位、选模、训练曲线与 S2 评估入口 |
 | [Batch B S2 运行手册](runbooks/batch-b-s2.md) | 三种子复验、B1 预算对照与拟冻结结果 |
 | [Batch B S2 验收](finish-task/batch-b-s2.md) · [研究报告](../reports/batch-b-s2/report.md) | 三种子统计、低支持标签分析与拟冻结清单 |
+| [Batch B 正式测试验收](finish-task/batch-b-final.md) · [测试报告](../reports/batch-b-final/2605f6766085/report.md) | 12 个冻结 Run、逐样本复算、配对比较与中文评价 |
 | [当前状态](current-task/ACTIVE.md) · [下一步](NEXT.md) | 阶段与证据引用、当前工作入口 |
 | [待议与研究局限](BACKLOG.md) | 后续工作与研究边界 |
 

@@ -1,0 +1,2 @@
+# Preserve the exact bytes recorded by the Batch B formal acceptance manifest.
+/reports/batch-b-final/** -text
