@@ -1,0 +1,158 @@
+{
+  "s3_wsl_baseline": {
+    "1_seed_5_epochs": {
+      "seeds": 1,
+      "epochs": 5,
+      "train_hours_neutral": 51.79767109257545,
+      "validation_hours_neutral": 1.569418241920367,
+      "overhead_hours": 0.010277777777777778,
+      "scenarios_hours": {
+        "optimistic": 50.7090126455488,
+        "neutral": 53.377367112273596,
+        "conservative": 61.38243051244796
+      }
+    },
+    "3_seeds_2_epochs": {
+      "seeds": 3,
+      "epochs": 2,
+      "train_hours_neutral": 62.157205311090536,
+      "validation_hours_neutral": 1.8833018903044405,
+      "overhead_hours": 0.018333333333333333,
+      "scenarios_hours": {
+        "optimistic": 60.85681517465855,
+        "neutral": 64.0588405347283,
+        "conservative": 73.66491661493754
+      }
+    },
+    "3_seeds_3_epochs": {
+      "seeds": 3,
+      "epochs": 3,
+      "train_hours_neutral": 93.2358079666358,
+      "validation_hours_neutral": 2.8249528354566604,
+      "overhead_hours": 0.0225,
+      "scenarios_hours": {
+        "optimistic": 91.28022276198783,
+        "neutral": 96.08326080209245,
+        "conservative": 110.49237492240631
+      }
+    },
+    "3_seeds_5_epochs": {
+      "seeds": 3,
+      "epochs": 5,
+      "train_hours_neutral": 155.39301327772637,
+      "validation_hours_neutral": 4.7082547257611,
+      "overhead_hours": 0.030833333333333334,
+      "scenarios_hours": {
+        "optimistic": 152.12703793664642,
+        "neutral": 160.1321013368208,
+        "conservative": 184.1472915373439
+      }
+    }
+  },
+  "s4_winner_category_a": {
+    "exp_id": "A_winner_foreach_evalfast",
+    "train_samples_per_second": 21.885247800944125,
+    "validation_samples_per_second": 130.95076695130714,
+    "1_seed_5_epochs": {
+      "seeds": 1,
+      "epochs": 5,
+      "train_hours_neutral": 2.7422708814468497,
+      "validation_hours_neutral": 0.057443132234722166,
+      "overhead_hours": 0.010277777777777778,
+      "scenarios_hours": {
+        "optimistic": 2.6700060907752707,
+        "neutral": 2.8099917914593493,
+        "conservative": 3.229948893511585
+      }
+    },
+    "3_seeds_2_epochs": {
+      "seeds": 3,
+      "epochs": 2,
+      "train_hours_neutral": 3.29072505773622,
+      "validation_hours_neutral": 0.06893175868166661,
+      "overhead_hours": 0.018333333333333333,
+      "scenarios_hours": {
+        "optimistic": 3.2100073089303254,
+        "neutral": 3.37799014975122,
+        "conservative": 3.8819386722139027
+      }
+    },
+    "3_seeds_3_epochs": {
+      "seeds": 3,
+      "epochs": 3,
+      "train_hours_neutral": 4.93608758660433,
+      "validation_hours_neutral": 0.1033976380224999,
+      "overhead_hours": 0.0225,
+      "scenarios_hours": {
+        "optimistic": 4.810010963395488,
+        "neutral": 5.06198522462683,
+        "conservative": 5.817908008320854
+      }
+    },
+    "3_seeds_5_epochs": {
+      "seeds": 3,
+      "epochs": 5,
+      "train_hours_neutral": 8.22681264434055,
+      "validation_hours_neutral": 0.1723293967041665,
+      "overhead_hours": 0.030833333333333334,
+      "scenarios_hours": {
+        "optimistic": 8.010018272325812,
+        "neutral": 8.42997537437805,
+        "conservative": 9.689846680534755
+      }
+    }
+  },
+  "s4_b1_nf4_bf16_stream": {
+    "exp_id": "B1_nf4_bf16_stream",
+    "train_samples_per_second": 21.332078025869382,
+    "validation_samples_per_second": 130.95076695130714,
+    "1_seed_5_epochs": {
+      "seeds": 1,
+      "epochs": 5,
+      "train_hours_neutral": 2.8133816923507093,
+      "validation_hours_neutral": 0.057443132234722166,
+      "overhead_hours": 0.010277777777777778,
+      "scenarios_hours": {
+        "optimistic": 2.7375613611339373,
+        "neutral": 2.881102602363209,
+        "conservative": 3.3117263260510232
+      }
+    },
+    "3_seeds_2_epochs": {
+      "seeds": 3,
+      "epochs": 2,
+      "train_hours_neutral": 3.376058030820851,
+      "validation_hours_neutral": 0.06893175868166661,
+      "overhead_hours": 0.018333333333333333,
+      "scenarios_hours": {
+        "optimistic": 3.291073633360725,
+        "neutral": 3.463323122835851,
+        "conservative": 3.9800715912612286
+      }
+    },
+    "3_seeds_3_epochs": {
+      "seeds": 3,
+      "epochs": 3,
+      "train_hours_neutral": 5.064087046231276,
+      "validation_hours_neutral": 0.1033976380224999,
+      "overhead_hours": 0.0225,
+      "scenarios_hours": {
+        "optimistic": 4.931610450041087,
+        "neutral": 5.189984684253776,
+        "conservative": 5.965107386891842
+      }
+    },
+    "3_seeds_5_epochs": {
+      "seeds": 3,
+      "epochs": 5,
+      "train_hours_neutral": 8.440145077052128,
+      "validation_hours_neutral": 0.1723293967041665,
+      "overhead_hours": 0.030833333333333334,
+      "scenarios_hours": {
+        "optimistic": 8.212684083401813,
+        "neutral": 8.643307807089627,
+        "conservative": 9.93517897815307
+      }
+    }
+  }
+}

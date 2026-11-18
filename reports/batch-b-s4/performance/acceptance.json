@@ -1,0 +1,105 @@
+{
+  "status": "PASS",
+  "formal_training_started": false,
+  "test_set_accessed": false,
+  "s3_frozen_evidence_intact": true,
+  "active_gpu_seconds_used": 1965.812,
+  "s3_frozen_report_sha256": {
+    "comparison.json": "14c0596d9ed561a366410c1af21e0d537faddf0999ce369d63e14c21deb6042d",
+    "model-resources.json": "0df132ac8af94b906c52269613c4610aa53cbdae4b1a76a410dbb5c5f73ce47c",
+    "recommended-training.json": "d87c49399c2c4d769e1b9ae2a1ecb86c9ec7dd7820ebce04cb2377b4c9505474",
+    "report.md": "060ba737d2593edacef99be07503c5cf1865b1010ab3a3bec037a12d8531b79e",
+    "tokenization.json": "7f1b04c67d9d4706b713487ae66cc5d9a41a3835823bfd662eb8ab9b7cf89229",
+    "wsl-load-audit.json": "18a1d761a5cef0cecdfafcae0f647376c3bda5b1bc3b3b1bea5b5310a24de881",
+    "wsl-lora-audit.json": "7e716bbc04d744f8129ec0236097522f05725f9c4893051bd30c86ef12c6cbeb"
+  },
+  "model_and_data_fingerprints": {
+    "model_id": "Qwen/Qwen3.5-4B-Base",
+    "model_revision": "1001bb4d826a52d1f399e183466143f4da7b741b",
+    "training_suite_sha256": "e969b607c0626574860bf03dde67204f751d6bb1bdbbb3e469e882e15d372a75",
+    "package_lock_sha256": "1494504c576a287f16bc8d69c505832daa73e152602cc96bd6af7da40beb9011",
+    "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+    "train_encoded_sha256": "963af4d3c30af78e6d42e53316d4e0c931537a2c198a3741eeceda63e04ac392",
+    "validation_encoded_sha256": "25fcb761bc71fcc85033da3c2b05899feaac80faf06425d283671636c543423d",
+    "tokenization_sha256": "7f1b04c67d9d4706b713487ae66cc5d9a41a3835823bfd662eb8ab9b7cf89229"
+  },
+  "loss_and_gradient_gate": {
+    "all_finite_losses_and_grad_norms": true,
+    "winner_step6_grad_detail": {
+      "lora_a": {
+        "tensors": 248,
+        "nonzero_tensors": 248,
+        "max_norm": 0.008300400339066982
+      },
+      "lora_b": {
+        "tensors": 248,
+        "nonzero_tensors": 248,
+        "max_norm": 1.1071419715881348
+      },
+      "head": {
+        "tensors": 1,
+        "nonzero_tensors": 1,
+        "max_norm": 11.123187065124512
+      }
+    },
+    "winner_post13_diff_vs_s3": {
+      "shape": [
+        48,
+        28
+      ],
+      "prob_mean_abs": 0.0021517838246858274,
+      "prob_p95_abs": 0.008141682296991344,
+      "prob_max_abs": 0.018695533275604248,
+      "logit_mean_abs": 0.018210474004306854,
+      "logit_p95_abs": 0.04687526318555501,
+      "logit_max_abs": 0.12499996455326468,
+      "threshold_0_5_flips": 5,
+      "threshold_0_5_total": 1344,
+      "borderline_count": 78,
+      "borderline_flips": 5
+    }
+  },
+  "quality_checks": {
+    "ruff_check": "PASS",
+    "pytest_unit_suite": "PASS (47 passed)"
+  },
+  "baseline_replay": {
+    "s3_sps": 1.1586481884584232,
+    "s4_sps": 1.0987174393483734,
+    "deviation_pct": -5.172471653348669
+  },
+  "winner_category_a": {
+    "exp_id": "A_winner_foreach_evalfast",
+    "train_samples_per_second": 21.885247800944125,
+    "speedup_vs_s3": 18.888604857754416,
+    "validation_samples_per_second": 130.95076695130714,
+    "min_free_vram_mib": 4167,
+    "recovery": {
+      "status": "PASS",
+      "exp_id": "A_winner_foreach_evalfast",
+      "original_pid": 548,
+      "recovery_pid": 747,
+      "validated_rows": 48,
+      "resume_cursor": 13,
+      "next_update": 14,
+      "validation_seconds": 1.4757332500000189,
+      "recovery_seconds": 78.32314842300002,
+      "max_abs_score_error": 0.0,
+      "exact_score_match": true,
+      "exact_next_update": true,
+      "exact_rng_probe": true,
+      "memory": {
+        "gpu_free_bytes": 6955204608,
+        "gpu_total_bytes": 17170956288,
+        "gpu_peak_allocated_bytes": 8290826752,
+        "gpu_peak_reserved_bytes": 8738832384,
+        "rss_bytes": 3202838528,
+        "peak_rss_bytes": 3202838528,
+        "process_commit_bytes": null,
+        "peak_process_commit_bytes": null,
+        "host_free_physical_bytes": 20971970560,
+        "host_free_commit_bytes": 38151839744
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+compile_id,mode,status,t0_uncompiled_s,t1_compiled_s,net_speedup_steady,cold_compile_s,break_even_updates,train_samples_per_second,prob_max_abs_vs_ref,flips_0_5,device_min_free_mib,error
+compile_submodules_default,submodules_default,FAIL_COMPILE_ERROR,0.0,0.0,0.0,0.0,,0.0,,,3151,"InductorError: InvalidCxxCompiler: No working C++ compiler found in torch._inductor.config.cpp.cxx: (None, 'g++')
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=""+dynamo""
+"
+compile_full_default_dynamic,full_default_dynamic,FAIL_COMPILE_ERROR,0.0,0.0,0.0,0.0,,0.0,,,3066,"InductorError: InvalidCxxCompiler: No working C++ compiler found in torch._inductor.config.cpp.cxx: (None, 'g++')
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=""+dynamo""
+"
