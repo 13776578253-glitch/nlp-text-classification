@@ -33,7 +33,7 @@ def _restore_history(previous, attempt, through_epoch):
             attempt.path / "history.csv"
         ).open("x", newline="", encoding="utf-8") as target:
             reader = csv.DictReader(stream)
-            writer = csv.DictWriter(target, fieldnames=reader.fieldnames)
+            writer = csv.DictWriter(target, fieldnames=reader.fieldnames or ())
             writer.writeheader()
             writer.writerows(row for row in reader if int(row["epoch"]) <= through_epoch)
 
@@ -229,8 +229,10 @@ def fit(data, resolved, attempt, seed, device, word2vec, pruning, resume):
     best_embedding = _fingerprint(restored.state_dict(), embedding=True)
     frozen = experiment["embedding"] == "word2vec_frozen"
     if frozen and (initial_embedding != actual_embedding or best_embedding != initial_embedding
-                   or model.embedding.weight.grad is not None):
+                   or model.get_parameter("embedding.weight").grad is not None):
         raise ValueError("Frozen embedding changed or received a gradient")
+    if best is None:
+        raise ValueError("No validation checkpoint was selected")
     reloaded = _collect(restored, validation, minimum, device)
     trained = best["validation_scores"].cpu().numpy()
     train_scores = _collect(restored, train, minimum, device)

@@ -39,6 +39,7 @@ def evaluate(y_true: np.ndarray, scores: np.ndarray, threshold: float) -> dict:
     if y_true.shape != scores.shape or y_true.ndim != 2:
         raise ValueError("Labels and score shape mismatch")
     predicted = as_predictions(scores, threshold)
+    per_label_f1 = np.asarray(f1_score(y_true, predicted, average=None, zero_division=0))
     return {
         "micro_f1": float(f1_score(y_true, predicted, average="micro", zero_division=0)),
         "macro_f1": float(f1_score(y_true, predicted, average="macro", zero_division=0)),
@@ -48,6 +49,6 @@ def evaluate(y_true: np.ndarray, scores: np.ndarray, threshold: float) -> dict:
         "hamming_loss": float(hamming_loss(y_true, predicted)),
         "subset_accuracy": float(np.mean(np.all(predicted == y_true, axis=1))),
         "support_per_label": [int(x) for x in y_true.sum(axis=0)],
-        "f1_per_label": [float(x) for x in f1_score(y_true, predicted, average=None, zero_division=0)],
+        "f1_per_label": [float(x) for x in per_label_f1],
         "threshold": float(threshold),
     }

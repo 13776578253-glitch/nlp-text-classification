@@ -23,7 +23,7 @@ def compare_runs(experiments, originals, extended, anchor, trigger, tolerance):
         before[experiment] = originals[experiment]["macro_f1"]
         after[experiment] = extended[experiment]["macro_f1"]
     # Stable sorting retains the matrix order for a tied score.
-    ranked = [sorted(order, key=scores.get, reverse=True) for scores in (before, after)]
+    ranked = [sorted(order, key=scores.__getitem__, reverse=True) for scores in (before, after)]
     flips = [
         [a, b] for a, b in combinations(order, 2)
         if (before[a] - before[b]) * (after[a] - after[b]) < 0

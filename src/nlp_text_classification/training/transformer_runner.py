@@ -101,7 +101,7 @@ def _atomic_checkpoint(path, data):
     temp.replace(path)
 
 
-def load_checkpoint(path, device="cpu"):
+def load_checkpoint(path, device: str | torch.device = "cpu"):
     device = torch.device(device)
     if device.type == "cpu":
         return torch.load(path, map_location="cpu", weights_only=True)
@@ -183,7 +183,7 @@ def _restore_history(source, target, epoch):
         target / "history.csv"
     ).open("x", newline="", encoding="utf-8") as outgoing:
         rows = csv.DictReader(incoming)
-        writer = csv.DictWriter(outgoing, fieldnames=rows.fieldnames)
+        writer = csv.DictWriter(outgoing, fieldnames=rows.fieldnames or ())
         writer.writeheader()
         writer.writerows(row for row in rows if int(row["epoch"]) <= epoch)
 
@@ -284,6 +284,8 @@ def train_transformer(attempt, data, rows, encoded, resolved, device, resume=Non
                           learning_rate=scheduler.get_last_lr()[0], optimizer_steps=steps,
                           val_seconds=val_seconds, peak_allocated_bytes=allocated,
                           peak_reserved_bytes=reserved, elapsed_seconds=time.perf_counter()-started)
+            if saved_scores is None:
+                raise ValueError("No validation checkpoint was selected")
             attempt.event("CHECKPOINT", f"saving full state after epoch {epoch}", epoch=epoch)
             _atomic_checkpoint(checkpoint / "resume.pt", {
                 "model": model.state_dict(), "optimizer": optimizer.state_dict(),
@@ -296,6 +298,8 @@ def train_transformer(attempt, data, rows, encoded, resolved, device, resume=Non
             if epoch - best_epoch >= settings["patience"]:
                 stop = "early_stopping"
                 break
+    if saved_scores is None:
+        raise ValueError("No validation checkpoint was selected")
     if torch.equal(backbone, initial_backbone) or torch.equal(head, initial_head):
         raise ValueError("Backbone or task head did not update during fine-tuning")
     latest = checkpoint / "resume.pt"
