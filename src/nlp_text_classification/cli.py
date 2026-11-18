@@ -43,6 +43,8 @@ def main() -> None:
     batch.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
     s1 = command.add_parser("batch-a-s1", help="Run the GoEmotions convergence supplement")
     s1.add_argument("mode", choices=("primary", "replicate", "report"))
+    s2 = command.add_parser("batch-a-s2", help="Run the GoEmotions convergence boundary supplement")
+    s2.add_argument("mode", choices=("screen", "run", "report"))
     args = parser.parse_args()
     if args.command == "download":
         from nlp_text_classification.data.download import download_official
@@ -92,19 +94,22 @@ def main() -> None:
             from nlp_text_classification.experiments.batch_cli import batch_command
 
             result = batch_command(args.mode, args.suite, args.output, args.device)
-    elif args.command == "batch-a-s1":
+    elif args.command in {"batch-a-s1", "batch-a-s2"}:
         from nlp_text_classification.training.resources import (
             configure_compute_threads,
             require_headroom,
         )
 
-        if args.mode != "report":
+        if args.mode in {"primary", "replicate", "run"}:
             try:
                 require_headroom()
             except RuntimeError as exc:
                 parser.exit(status=75, message=f"{exc}\n")
         configure_compute_threads()
-        from nlp_text_classification.experiments.batch_a_s1 import execute
+        if args.command == "batch-a-s1":
+            from nlp_text_classification.experiments.batch_a_s1 import execute
+        else:
+            from nlp_text_classification.experiments.batch_a_s2 import execute
 
         result = execute(args.mode)
     else:

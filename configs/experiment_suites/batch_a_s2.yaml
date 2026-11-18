@@ -1,0 +1,9 @@
+id: batch-a-s2
+s1_results: reports/batch-a-s1/results.json
+s1_results_sha256: 3a757aff5e75834a1d5475d98b384d3e81f0d56de4d30562ccdaae0c75a88617
+s1_delivery_audit: artifacts/batch-a-s1/delivery_audit.json
+s1_delivery_audit_sha256: c72327fa7910c962c1042b087fad61cfaac4337f637f5d1c39ef96b1366e6aed
+epoch_cap: 36
+patience: 6
+tail_window: 4
+minimum_primary_gain: 0.01
