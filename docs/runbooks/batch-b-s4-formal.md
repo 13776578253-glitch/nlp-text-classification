@@ -1,5 +1,7 @@
 # Batch B S4 正式训练 Runbook
 
+三个 Seed 已完成训练和验证冻结。下文的训练命令是已执行协议的记录。正式测试与产物复核见本页末尾。 [验证冻结报告](../../reports/batch-b-s4/formal/report-s4.md)
+
 正式入口以 `a55c761` 的 `A_winner_foreach_evalfast` 为基线，使用现有 WSL2 Ubuntu 22.04 的隔离环境 `~/.cache/emotionlab-s4-perf/venv`。入口在离线模式下校验模型 Revision、官方文件指纹、加速包、训练数据和 Tokenizer 指纹。正式 Run 只读取 GoEmotions 冻结的 train 和 validation 分区，测试留待独立冻结流程。 [S4 推荐配置](../../reports/batch-b-s4/performance/recommended-training.json)
 
 ## 训练协议
@@ -22,9 +24,9 @@
 人工审阅通过后，从仓库根目录在 PowerShell 中分三晚串行执行。每条命令的 `--preflight` 指向已经验收的预检目录，入口校验预检签收与当前运行绑定。每晚等上一个进程退出后再执行下一条。
 
 ```powershell
-wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_formal.sh train --seed 42 --preflight prelaunch-v5
-wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_formal.sh train --seed 123 --preflight prelaunch-v5
-wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_formal.sh train --seed 2026 --preflight prelaunch-v5
+wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_formal.sh train --seed 42 --preflight prelaunch-v6
+wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_formal.sh train --seed 123 --preflight prelaunch-v6
+wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_formal.sh train --seed 2026 --preflight prelaunch-v6
 ```
 
 为保留 WSL、Python 和 CUDA 的完整控制台输出，可把当晚的启动命令通过 `2>&1 | Tee-Object -FilePath artifacts/batch-b-s4/formal/seed-42-terminal.log -Append` 保存，并在其他两晚替换文件名中的 seed。结束时以训练退出码和 `COMPLETE` 事件共同确认成功。
@@ -36,6 +38,16 @@ Get-Content artifacts/batch-b-s4/formal/runs/seed-42/progress.jsonl -Tail 12 -Wa
 Get-Content artifacts/batch-b-s4/formal/runs/seed-42/watchdog.jsonl -Tail 12 -Wait
 wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_formal.sh status --seed 42
 ```
+
+### 实时监控面板
+
+只读面板不接触训练进程、不创建 CUDA 上下文，也不写入 Run 目录：
+
+```powershell
+.venv\Scripts\python.exe apps\monitor\s4_monitor.py --seed 42 --open
+```
+
+面板默认监听 `127.0.0.1:8765`，展示总进度、轮次、loss、梯度范数、学习率、吞吐、显存、每轮 Macro-F1、每轮耗时、有效 token 比例、逐标签指标、事件流和看门狗状态。`--digest` 输出一次文本摘要；服务每 300 秒把 `digest.json` 和 `digest.txt` 写入 `artifacts/batch-b-s4/formal/monitor/seed-<seed>/`。切换 Seed 时替换 `--seed`，省略时自动跟随最新的 `runs/seed-*`。
 
 `progress.md` 是可实时查看的状态快照。`progress.jsonl` 追加每 25 步的更新、已用学习率、训练 Loss、验证行数、Checkpoint、退出原因和资源异常。`watchdog.jsonl` 记录子进程 PID、终止原因、资源释放和重试决定。`status` 读取最后完整 Checkpoint 的已持久化状态，进程活跃时用 `progress.jsonl` 看实时位置。`EPOCH` 事件包含验证阈值、Macro-F1、历史最佳轮次和本轮验证耗时。
 
@@ -53,10 +65,10 @@ wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_formal.sh status --se
 | Checkpoint、模型、训练数据或环境指纹不符 | 保存 `HALTED` 记录，查明差异并找回匹配版本。`.pending-*` 目录为中断时的暂存目录，恢复时只扫描已提交的 `step-*`。 |
 
 ```powershell
-wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_formal.sh resume --seed 42 --preflight prelaunch-v5
+wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_formal.sh resume --seed 42 --preflight prelaunch-v6
 ```
 
-启动前签收涵盖 `16×64` 完整训练更新、真尾批、AdamW 驻留时两次全量验证、文件指纹、跨进程 RNG 和下一真实批次重放。运行中逐步检查 Loss、梯度范数和显存。每轮完成后校验导出的规范样本 ID、28 维目标、原始分数、阈值和预测，并逐个复算阈值网格的 Macro-F1。每个 Seed 的完成条件为 `COMPLETE`、可定位的最佳检查点、逐轮完整验证证据和可审计的早停状态。三个 Seed 完成后再进行独立选模冻结审计。 [正式入口验收](../../reports/batch-b-s4/formal/report.md)
+启动前签收涵盖 `16×64` 完整训练更新、真尾批、AdamW 驻留时两次全量验证、文件指纹、跨进程 RNG 和下一真实批次重放。当前入口签收为 `prelaunch-v6`；v6 仅向 `TRAIN` 事件追加 `gradient_norm`、`valid_tokens` 和 `padded_tokens`，训练数值与 v5 逐字节一致（除 `adapter_config.json` 的 `target_modules` 集合顺序）。运行中逐步检查 Loss、梯度范数和显存。每轮完成后校验导出的规范样本 ID、28 维目标、原始分数、阈值和预测，并逐个复算阈值网格的 Macro-F1。每个 Seed 的完成条件为 `COMPLETE`、可定位的最佳检查点、逐轮完整验证证据和可审计的早停状态。三个 Seed 完成后再进行独立选模冻结审计。 [正式入口验收](../../reports/batch-b-s4/formal/report.md)
 
 ## 时间和存储预算
 
@@ -68,3 +80,15 @@ S4 短测在匹配批次下测得 21.885 samples/s，完整验证约 41.36 秒�
 wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_formal.sh preflight --attempt prelaunch-recheck
 wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_formal.sh verify-preflight --attempt prelaunch-recheck
 ```
+
+## 冻结后的独立测试与复核
+
+独立入口绑定 `97ce29261f3844e715731f62f7859df2397db2e7381744bc8a0db86cff4e5d15`。`audit` 复算验证证据及核对分区清单。`test` 校验 WSL2 与模型文件后读取一次源测试分区，将校验过的副本留在本地版本目录，三个 Seed 共用此副本。`replay` 读取副本和已发布预测，重新核对各项指标，无需 CUDA 推理。成功的 Seed 目录禁止覆盖。有故障时用原命令只补齐缺失 Seed。
+
+```powershell
+wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_test.sh audit
+wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_test.sh test
+wsl.exe -d Ubuntu-22.04 --exec bash scripts/batch_b_s4_wsl_test.sh replay
+```
+
+测试本地版本目录为 `artifacts/batch-b-s4/formal/test/<freeze_sha256>/`。`progress.md`、`progress.jsonl` 记录阶段和进度，`seed-*/` 保存逐样本分数、指标及文件指纹。`contract.json`、`pretest-audit.json`、`tokenization.json` 和 `acceptance.json` 记录选择边界、输入及复算验收。原逐样本证据和缓存保留在本地。 [正式测试报告](../../reports/batch-b-s4/formal/final-test.md)

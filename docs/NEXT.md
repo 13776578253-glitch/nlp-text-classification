@@ -6,6 +6,6 @@ Batch B S1 的资源、CUDA 预检、基础训练、有限搜索和独立验证�
 
 Batch B Encoder 的 S2 验证、独立冻结及 12 个 Run 的正式测试均已验收。 [S2 验收](finish-task/batch-b-s2.md) · [正式测试验收](finish-task/batch-b-final.md)
 
-Qwen 的下一步是人工审阅 S4 正式入口及启动验收。审阅通过后按 42、123、2026 分三晚串行训练。 [S4 性能报告](../reports/batch-b-s4/performance/report.md) · [正式训练 Runbook](runbooks/batch-b-s4-formal.md)
+Qwen S4 的三种子训练、验证冻结、独立正式测试和报告已完成。下一阶段等研究问题、范围和验收方案讨论确定后启动。 [S4 归档](finish-task/batch-b-s4.md) · [正式测试报告](../reports/batch-b-s4/formal/final-test.md)
 
 [当前状态](current-task/ACTIVE.md) · [执行计划](plans/2026-11-17-batch-a-execution.md)

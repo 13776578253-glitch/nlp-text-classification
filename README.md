@@ -13,6 +13,8 @@
 
 Batch A 已完成正式测试及两轮验证补充实验。Batch B 四组预训练 Encoder 已完成 S1 微调比较、S2 三种子验证及 12 个 Run 的独立冻结审计与正式测试。两批复用冻结数据版本和验证 Macro-F1。
 
+Batch B S4 已完成 Qwen3.5-4B-Base QLoRA 在 GoEmotions 上的三种子训练、验证冻结和独立正式测试。 [S4 完成归档](docs/finish-task/batch-b-s4.md)
+
 ```powershell
 python -m pip install -e ".[dev]"
 python -m pytest -q
@@ -21,4 +23,4 @@ nlp-text-classification audit-data --dataset movie_reviews_zh
 
 中文审计需要老师提供的三个分区文件及 `wiki_word2vec_50.bin`，默认路径为 `data/raw/movie_reviews_zh/`。官方 GoEmotions 的下载与审计入口，以及正式执行顺序见执行报告。
 
-[文档索引](docs/INDEX.md) · [Batch A 研究归档](docs/finish-task/batch-a/summary.md) · [Batch B 正式测试报告](reports/batch-b-final/2605f6766085/report.md) · [当前状态](docs/current-task/ACTIVE.md)
+[文档索引](docs/INDEX.md) · [Batch A 研究归档](docs/finish-task/batch-a/summary.md) · [Batch B Encoder 测试](reports/batch-b-final/2605f6766085/report.md) · [Batch B S4 Qwen 测试](reports/batch-b-s4/formal/final-test.md) · [当前状态](docs/current-task/ACTIVE.md)

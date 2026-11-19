@@ -1,0 +1,98 @@
+{
+  "encoder_comparison": {
+    "B1": {
+      "hamming_loss": {
+        "mean": 0.03890819272245474,
+        "sample_std": 0.0022472655269527896
+      },
+      "macro_f1": {
+        "mean": 0.4906730958016226,
+        "sample_std": 0.0018725806673648279
+      },
+      "micro_f1": {
+        "mean": 0.584683889064903,
+        "sample_std": 0.005475249907546637
+      },
+      "pr_auc": {
+        "mean": 0.48922741188025776,
+        "sample_std": 0.0009615639367024494
+      },
+      "samples_f1": {
+        "mean": 0.6007037124781734,
+        "sample_std": 0.00451175592375851
+      },
+      "subset_accuracy": {
+        "mean": 0.3873840673177323,
+        "sample_std": 0.025744460379710288
+      }
+    },
+    "B2": {
+      "hamming_loss": {
+        "mean": 0.037241043459948935,
+        "sample_std": 0.0023481473463156407
+      },
+      "macro_f1": {
+        "mean": 0.515888333033508,
+        "sample_std": 0.01360119050660496
+      },
+      "micro_f1": {
+        "mean": 0.6029924887549071,
+        "sample_std": 0.007037392567234791
+      },
+      "pr_auc": {
+        "mean": 0.5192701027600535,
+        "sample_std": 0.012678403791465597
+      },
+      "samples_f1": {
+        "mean": 0.6185117914250031,
+        "sample_std": 0.0033005452848690908
+      },
+      "subset_accuracy": {
+        "mean": 0.39696578834223945,
+        "sample_std": 0.030506291420015288
+      }
+    },
+    "B3": {
+      "hamming_loss": {
+        "mean": 0.036106943237954846,
+        "sample_std": 0.0033616648863634023
+      },
+      "macro_f1": {
+        "mean": 0.5378499483726816,
+        "sample_std": 0.009324138160963936
+      },
+      "micro_f1": {
+        "mean": 0.6136071497421038,
+        "sample_std": 0.007837793305959179
+      },
+      "pr_auc": {
+        "mean": 0.5426335257530337,
+        "sample_std": 0.00444138642323366
+      },
+      "samples_f1": {
+        "mean": 0.6278033699813689,
+        "sample_std": 0.007913995774597912
+      },
+      "subset_accuracy": {
+        "mean": 0.40243228302929795,
+        "sample_std": 0.043724149739623394
+      }
+    }
+  },
+  "evaluator_sha256": "1b0f7ab9c5deb1c2afb7d9a71965b2c68fa71caca66d516bd48c4bfa958607e0",
+  "freeze_sha256": "97ce29261f3844e715731f62f7859df2397db2e7381744bc8a0db86cff4e5d15",
+  "inference": {
+    "batch_size": 32,
+    "length": 64,
+    "length_sorted": true,
+    "multiple": 8,
+    "score_dtype": "float32"
+  },
+  "launcher_sha256": "70dc7604fb3e4574cc6fdcf481aaf97ceaa20bcd1b1463e5f81988c9cba80d15",
+  "pretest_audit_sha256": "65c29a9a266bbfbb069e10445ab3ef7328aba51d1876195bf9363124d7c48c61",
+  "test_partition": {
+    "count": 5427,
+    "file": "test.jsonl",
+    "sha256": "351ddec3f36c40b5a7391cf191312db900ee1723cc9469123f05a2a37c46dbba"
+  }
+}

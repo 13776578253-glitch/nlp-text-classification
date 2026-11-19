@@ -21,6 +21,8 @@
 | [Batch B 正式测试验收](finish-task/batch-b-final.md) · [测试报告](../reports/batch-b-final/2605f6766085/report.md) | 12 个冻结 Run、逐样本复算、配对比较与中文评价 |
 | [Batch B S3 性能对照](../reports/batch-b-s3/performance/report.md) · [预检运行手册](runbooks/batch-b-s3-preflight.md) | Qwen3.5 QLoRA 的 Windows/WSL2 计时、CUDA 内核与恢复验证 |
 | [Batch B S4 性能报告](../reports/batch-b-s4/performance/report.md) · [正式入口验收](../reports/batch-b-s4/formal/report.md) · [Runbook](runbooks/batch-b-s4-formal.md) | Qwen3.5 QLoRA 启动签收、三晚串行运行与恢复 |
+| [Batch B S4 训练与冻结报告](../reports/batch-b-s4/formal/report-s4.md) · [冻结审计](../reports/batch-b-s4/formal/freeze-audit.json) | 三种子正式训练、验证证据冻结、选模规则与一次性测试交接 |
+| [Batch B S4 完成归档](finish-task/batch-b-s4.md) · [正式测试报告](../reports/batch-b-s4/formal/final-test.md) | 3/3 冻结测试、逐样本复算、三种子指标与课程报告表格 |
 | [当前状态](current-task/ACTIVE.md) · [下一步](NEXT.md) | 阶段与证据引用、当前工作入口 |
 | [待议与研究局限](BACKLOG.md) | 后续工作与研究边界 |
 

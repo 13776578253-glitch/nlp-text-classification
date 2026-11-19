@@ -1,0 +1,23 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\begin{document}
+\section*{Batch B S4: Qwen3.5-4B-Base on GoEmotions}
+Three NF4 QLoRA runs were selected and frozen using validation Macro-F1.
+The official test uses 5,427 rows and a validation-selected threshold per seed.
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrr}
+\toprule
+Seed & Best epoch & Threshold & Validation Macro-F1 & Test Macro-F1 & Test Micro-F1 \\
+\midrule
+42 & 2 & 0.20 & 0.540334 & 0.539418 & 0.598720 \\
+123 & 2 & 0.30 & 0.541193 & 0.530895 & 0.608177 \\
+2026 & 1 & 0.15 & 0.544786 & 0.536950 & 0.589895 \\
+\midrule
+ & & & $0.542104 \pm 0.002361$ & $0.535754 \pm 0.004386$ & $0.598930 \pm 0.009143$ \\
+\bottomrule
+\end{tabular}
+\caption{Per-seed results and mean with sample standard deviation.}
+\end{table}
+\end{document}

@@ -36,7 +36,7 @@ GoEmotions 六个神经配置使用原入选参数，在统一 24 轮上限与 p
 
 ## Batch B
 
-E4 对应 Batch B。S1 执行四个 Encoder 的完整微调，S2 根据 S1 的运行证据制定补充矩阵，S3 为 Qwen3.5-4B 与 QLoRA 的独立提案。
+E4 对应 Batch B。S1 执行四个 Encoder 的完整微调，S2 根据 S1 的运行证据执行补充矩阵。S3 为 Qwen3.5-4B 与 QLoRA 的独立预研，S4 在 GoEmotions 上执行三种子训练和独立冻结评估。 [S4 归档](../finish-task/batch-b-s4.md)
 
 | ID | 模型 | 数据集 |
 | --- | --- | --- |
