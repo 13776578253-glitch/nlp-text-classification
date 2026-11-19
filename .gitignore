@@ -23,3 +23,5 @@ apps/web/dist/
 *.csv
 *.log
 .DS_Store
+
+.commandcode

@@ -2,7 +2,15 @@
 /reports/batch-b-final/** -text
 /reports/batch-b-s3/performance/** -text
 /reports/batch-b-s4/performance/** -text
+/reports/batch-b-s4/formal/** -text
 /scripts/batch_b_s3_wsl_*.sh text eol=lf
 /scripts/batch_b_s4_wsl_*.sh text eol=lf
 /configs/experiment_suites/batch_b_s3.yaml text eol=lf
 /configs/batch_b/s3-wsl-runtime.lock.txt text eol=lf
+# Keep the exact formal source digests stable across Windows/WSL checkouts.
+/src/nlp_text_classification/experiments/batch_b_s4_*.py text eol=lf
+/src/nlp_text_classification/experiments/batch_b_s3.py text eol=lf
+/src/nlp_text_classification/training/qwen_s3*.py text eol=lf
+/src/nlp_text_classification/training/transformer_runner.py text eol=lf
+/src/nlp_text_classification/data/qwen_s3_inputs.py text eol=lf
+/src/nlp_text_classification/evaluation/batch_metrics.py text eol=lf

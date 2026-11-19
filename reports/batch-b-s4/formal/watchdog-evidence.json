@@ -1,0 +1,98 @@
+{
+  "status": "PASS",
+  "platform": "WSL2 Ubuntu 22.04",
+  "workload": "Synthetic children with real process-group signals and a POSIX fixture lock",
+  "free_memory_readings": "Injected to exercise the critical and released VRAM paths",
+  "watchdog_sha256": "61d57d3eeb8d292d1d59d90371975db8656e3ac9843a6803b1ecab8e4471f524",
+  "fixture_lock_released": true,
+  "resumed": {
+    "pid": 1732,
+    "global_step": 500
+  },
+  "events": {
+    "hung-worker": [
+      {
+        "time": "2026-11-18T23:12:51+08:00",
+        "event": "WORKER_STARTED",
+        "pid": 1032
+      },
+      {
+        "time": "2026-11-18T23:12:51+08:00",
+        "event": "STOPPING_WORKER",
+        "pid": 1032,
+        "reason": "no_progress",
+        "phase": "VALIDATION_ROWS",
+        "last_progress_age_seconds": 0.33,
+        "free_mib": null
+      },
+      {
+        "time": "2026-11-18T23:12:52+08:00",
+        "event": "WORKER_RELEASED",
+        "pid": 1032,
+        "returncode": -9
+      }
+    ],
+    "critical-vram": [
+      {
+        "time": "2026-11-18T23:12:52+08:00",
+        "event": "WORKER_STARTED",
+        "pid": 1037
+      },
+      {
+        "time": "2026-11-18T23:12:52+08:00",
+        "event": "STOPPING_WORKER",
+        "pid": 1037,
+        "reason": "sustained_critical_vram",
+        "phase": "VALIDATION_ROWS",
+        "last_progress_age_seconds": 0.33,
+        "free_mib": 900
+      },
+      {
+        "time": "2026-11-18T23:12:52+08:00",
+        "event": "WORKER_RELEASED",
+        "pid": 1037,
+        "returncode": -9
+      }
+    ],
+    "safe-retry": [
+      {
+        "time": "2026-11-18T23:14:28+08:00",
+        "event": "WORKER_STARTED",
+        "pid": 1725
+      },
+      {
+        "time": "2026-11-18T23:14:29+08:00",
+        "event": "STOPPING_WORKER",
+        "pid": 1725,
+        "reason": "no_progress",
+        "phase": "TRAIN",
+        "last_progress_age_seconds": 0.37,
+        "free_mib": 12000
+      },
+      {
+        "time": "2026-11-18T23:14:29+08:00",
+        "event": "WORKER_RELEASED",
+        "pid": 1725,
+        "returncode": -9
+      },
+      {
+        "time": "2026-11-18T23:14:29+08:00",
+        "event": "RETRY",
+        "mode": "resume",
+        "free_mib": 12000,
+        "previous_returncode": 124
+      },
+      {
+        "time": "2026-11-18T23:14:29+08:00",
+        "event": "WORKER_STARTED",
+        "pid": 1732
+      },
+      {
+        "time": "2026-11-18T23:14:29+08:00",
+        "event": "WORKER_EXITED",
+        "pid": 1732,
+        "returncode": 0
+      }
+    ]
+  }
+}

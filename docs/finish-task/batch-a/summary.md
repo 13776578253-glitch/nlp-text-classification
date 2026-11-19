@@ -1,6 +1,6 @@
 # Batch A · 研究总结与归档
 
-Batch A 已完成数据冻结、训练实现、冒烟、正式训练、独立审计、冻结测试、报告和两轮验证补充实验。统一索引列出 14 个主实验与全部 47 个正式测试 Run，同时标记 S1、S2 的验证 Run、配置和证据目录。归档以 Git `05e277e` 为审阅起点，复核了原冻结文件、47 份测试清单、18 份原报告文件和补充 Run 的指纹。 [模型结果索引](model-index.json) · [阶段验收](../../stage5-delivery.md)
+Batch A 已完成数据冻结、训练实现、冒烟、正式训练、独立审计、冻结测试、报告和两轮验证补充实验。统一索引列出 14 个主实验与全部 47 个正式测试 Run，同时标记 S1、S2 的验证 Run、配置和证据目录。归档以 Git `05e277e` 为审阅起点，复核了原冻结文件、47 份测试清单、18 份原报告文件和补充 Run 的指纹。 [模型结果索引](model-index.json) · [阶段验收](../../archive/stages/stage5-delivery.md)
 
 ## 冻结测试集结论
 
@@ -10,7 +10,7 @@ Batch A 已完成数据冻结、训练实现、冒烟、正式训练、独立审
 
 ## 验证集补充结论
 
-- S1 为六个英文神经模型统一放宽到 24 轮上限和 patience 6。前 12 轮完整状态重现。Vanilla RNN 与 LSTM 在三个种子上的验证增益均至少 0.02。BiLSTM 超过 E5-TUNE 的排名变化出现在 seed 42 和 2026。原 12 轮的训练预算会影响该组神经模型的验证比较。 [S1 报告](../../../reports/batch-a-s1/report.md) · [S1 协议与验收](../../runbooks/batch-a-s1.md)
-- S2 定向续训 Vanilla RNN 与 LSTM。RNN 在三个种子的最佳点为第 36、36、35 轮，验证仍改善。LSTM 的 seed 42 在第 30 轮早停，最佳依然是第 24 轮。RNN 的最终平台期超出本次预算，Batch A 在 36 轮证据处收束。 [S2 报告](../../../reports/batch-a-s2/report.md) · [S2 协议与验收](../../runbooks/batch-a-s2.md)
+- S1 为六个英文神经模型统一放宽到 24 轮上限和 patience 6。前 12 轮完整状态重现。Vanilla RNN 与 LSTM 在三个种子上的验证增益均至少 0.02。BiLSTM 超过 E5-TUNE 的排名变化出现在 seed 42 和 2026。原 12 轮的训练预算会影响该组神经模型的验证比较。 [S1 报告](../../../reports/batch-a-s1/report.md) · [S1 协议与验收](../../archive/runbooks/batch-a-s1.md)
+- S2 定向续训 Vanilla RNN 与 LSTM。RNN 在三个种子的最佳点为第 36、36、35 轮，验证仍改善。LSTM 的 seed 42 在第 30 轮早停，最佳依然是第 24 轮。RNN 的最终平台期超出本次预算，Batch A 在 36 轮证据处收束。 [S2 报告](../../../reports/batch-a-s2/report.md) · [S2 协议与验收](../../archive/runbooks/batch-a-s2.md)
 
 Batch B S1 沿用双数据集 v1、标签顺序和验证 Macro-F1。初步跨批比较引用 Batch A 原验证成绩。正式测试如另行立项，按独立冻结清单选定模型、阈值和评估器。
