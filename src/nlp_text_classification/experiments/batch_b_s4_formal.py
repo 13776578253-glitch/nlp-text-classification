@@ -304,7 +304,9 @@ def _train(root, recipe, prepared, seed, identity, gate, progress, *, resume):
                          loss_rows=state["loss_rows"] + len(indices))
             if batch == 0 or (batch + 1) % 25 == 0 or batch + 1 == updates:
                 progress.emit("TRAIN", f"Epoch {epoch + 1}, update {batch + 1}/{updates}",
-                              global_step=step, loss=row["loss"], learning_rates=row["used_lrs"],
+                              global_step=step, loss=row["loss"],
+                              gradient_norm=row["gradient_norm"], learning_rates=row["used_lrs"],
+                              valid_tokens=row["valid_tokens"], padded_tokens=row["padded_tokens"],
                               gradient_checkpointing=row["gradient_checkpointing"],
                               device_min_free_mib=gate.min_free_mib)
             if step % CHECKPOINT_INTERVAL == 0 and batch + 1 < updates:

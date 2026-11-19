@@ -40,7 +40,7 @@
       "validation": "25fcb761bc71fcc85033da3c2b05899feaac80faf06425d283671636c543423d"
     },
     "source_sha256": {
-      "batch_b_s4_formal.py": "eb8ae85e42e7b27c5a9218454a103b26a9f7a25a95aa86828c2f8f6a38f6ed2f",
+      "batch_b_s4_formal.py": "690e417d1936b6a8686a0f8da6206a976ac5586f6b19f396e04ff16012f28e79",
       "batch_b_s4_formal_state.py": "a45fc4e7f0de473d5905ae05f7a7a8e4384de7f871cfe9d4fbec1d61ecb8702f",
       "batch_b_s4_formal_preflight.py": "18415021f678355386b00ca00df2da47bdbf081560e3035067727162178275d1",
       "batch_b_s4_formal_watchdog.py": "61d57d3eeb8d292d1d59d90371975db8656e3ac9843a6803b1ecab8e4471f524",
@@ -73,7 +73,7 @@
   },
   "pid": 362,
   "checkpoint": "step-00000004",
-  "checkpoint_sha256": "f8c6d95dd0519002e1d9c51df5921f57d95535425127559ea08330bc398311d1",
+  "checkpoint_sha256": "959327adccde4af4275d61ba639cfa5c2902bf0be1a13bbeb86a7ca5012d2cc1",
   "warm_start_updates": [
     {
       "loss": 1.1626018285751343,
@@ -172,12 +172,12 @@
     },
     "gradient_checkpointing": "full",
     "memory": {
-      "device_min_free_mib": 3948,
+      "device_min_free_mib": 2821,
       "phase_allocator_bound_mib": 6411,
       "peak_allocated_mib": 5788.830078125,
       "peak_reserved_mib": 8556
     },
-    "seconds": 1.2499091039999826
+    "seconds": 1.2113513809999858
   },
   "tail_update": {
     "loss": 1.0439256429672241,
@@ -347,12 +347,12 @@
       "auc_undefined_score_columns": []
     },
     "memory": {
-      "device_min_free_mib": 3948,
+      "device_min_free_mib": 2821,
       "phase_allocator_bound_mib": 9193,
       "peak_allocated_mib": 5585.8642578125,
       "peak_reserved_mib": 5774
     },
-    "duration_seconds": 43.676917914,
+    "duration_seconds": 49.25324593099958,
     "timing": {
       "rows": 5416,
       "batch_size": 32,
@@ -360,10 +360,10 @@
       "sort_by_length": true,
       "valid_tokens": 89553,
       "padded_tokens": 109312,
-      "samples_per_second": 124.00142360466282
+      "samples_per_second": 109.96229583705903
     }
   },
-  "save_seconds": 11.109144016000016,
+  "save_seconds": 11.491704994999964,
   "cursor": {
     "epoch": 0,
     "next_batch": 2,
@@ -440,5 +440,5 @@
       "optimizer_sha256": "fb0e192a5384bf4a4eb59d5047e8c6977ff084d2a9b369ab5f10043d885f5f10"
     }
   },
-  "device_min_free_mib": 3948
+  "device_min_free_mib": 2821
 }

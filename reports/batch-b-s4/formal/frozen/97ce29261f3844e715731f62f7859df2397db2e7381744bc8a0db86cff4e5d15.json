@@ -1,0 +1,578 @@
+{
+  "accelerator_packages": {
+    "causal-conv1d": "1.7.0",
+    "fla-core": "0.5.1",
+    "flash-linear-attention": "0.5.1",
+    "triton": "3.5.1",
+    "triton-windows": null
+  },
+  "cuda_allocator_settings": "expandable_segments:True",
+  "dataset": {
+    "dataset_manifest": {
+      "dataset": "goemotions",
+      "derived_summary": {
+        "counts": {
+          "test": 5427,
+          "train": 43211,
+          "validation": 5416
+        },
+        "cross_split": {
+          "train:test": {
+            "shared_texts": 0,
+            "texts_with_conflicting_label_sets": 0
+          },
+          "train:validation": {
+            "shared_texts": 0,
+            "texts_with_conflicting_label_sets": 0
+          },
+          "validation:test": {
+            "shared_texts": 0,
+            "texts_with_conflicting_label_sets": 0
+          }
+        },
+        "label_counts": {
+          "test": {
+            "0": 504,
+            "1": 264,
+            "10": 267,
+            "11": 123,
+            "12": 37,
+            "13": 103,
+            "14": 78,
+            "15": 352,
+            "16": 6,
+            "17": 161,
+            "18": 238,
+            "19": 23,
+            "2": 198,
+            "20": 186,
+            "21": 16,
+            "22": 145,
+            "23": 11,
+            "24": 56,
+            "25": 156,
+            "26": 141,
+            "27": 1787,
+            "3": 320,
+            "4": 351,
+            "5": 135,
+            "6": 153,
+            "7": 284,
+            "8": 83,
+            "9": 151
+          },
+          "train": {
+            "0": 4115,
+            "1": 2325,
+            "10": 2021,
+            "11": 790,
+            "12": 302,
+            "13": 847,
+            "14": 594,
+            "15": 2606,
+            "16": 77,
+            "17": 1443,
+            "18": 2057,
+            "19": 164,
+            "2": 1564,
+            "20": 1577,
+            "21": 111,
+            "22": 1109,
+            "23": 153,
+            "24": 544,
+            "25": 1322,
+            "26": 1057,
+            "27": 14176,
+            "3": 2466,
+            "4": 2934,
+            "5": 1081,
+            "6": 1363,
+            "7": 2184,
+            "8": 641,
+            "9": 1266
+          },
+          "validation": {
+            "0": 488,
+            "1": 303,
+            "10": 292,
+            "11": 97,
+            "12": 35,
+            "13": 96,
+            "14": 90,
+            "15": 353,
+            "16": 13,
+            "17": 172,
+            "18": 251,
+            "19": 21,
+            "2": 195,
+            "20": 209,
+            "21": 15,
+            "22": 127,
+            "23": 18,
+            "24": 68,
+            "25": 143,
+            "26": 129,
+            "27": 1765,
+            "3": 303,
+            "4": 396,
+            "5": 153,
+            "6": 151,
+            "7": 247,
+            "8": 77,
+            "9": 163
+          }
+        },
+        "text_comparison": "exact match after whitespace normalization",
+        "within_split": {
+          "test": {
+            "extra_duplicate_rows": 6,
+            "texts_with_conflicting_label_sets": 1
+          },
+          "train": {
+            "extra_duplicate_rows": 52,
+            "texts_with_conflicting_label_sets": 47
+          },
+          "validation": {
+            "extra_duplicate_rows": 3,
+            "texts_with_conflicting_label_sets": 1
+          }
+        }
+      },
+      "exclusions_sha256": "08d8a057d89efdbb080a583e106d85f079db6f312900e72d275723ea764b0fa8",
+      "label_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27
+      ],
+      "label_names": [
+        "admiration",
+        "amusement",
+        "anger",
+        "annoyance",
+        "approval",
+        "caring",
+        "confusion",
+        "curiosity",
+        "desire",
+        "disappointment",
+        "disapproval",
+        "disgust",
+        "embarrassment",
+        "excitement",
+        "fear",
+        "gratitude",
+        "grief",
+        "joy",
+        "love",
+        "nervousness",
+        "optimism",
+        "pride",
+        "realization",
+        "relief",
+        "remorse",
+        "sadness",
+        "surprise",
+        "neutral"
+      ],
+      "revision": "v1",
+      "source_audit_sha256": "12a91f3b588b114a0b16cc3020436e4d308d8b4c59481ce343669b48864cab6f",
+      "splits": {
+        "test": {
+          "count": 5427,
+          "file": "test.jsonl",
+          "sha256": "351ddec3f36c40b5a7391cf191312db900ee1723cc9469123f05a2a37c46dbba"
+        },
+        "train": {
+          "count": 43211,
+          "file": "train.jsonl",
+          "sha256": "31b27182fbdcbcf285a2188db81e717540fec674819a4fe1e4a9b2b904695eab"
+        },
+        "validation": {
+          "count": 5416,
+          "file": "validation.jsonl",
+          "sha256": "017da8aa06bda221e7d836da8891def2e45c3d437e15cd9cf78cb136bf197ce7"
+        }
+      },
+      "task_type": "multilabel",
+      "training_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c"
+    },
+    "dataset_manifest_sha256": "f9f503dc3da817d8ff58c9ce525e746ae7c86efffcb5fe754977ae7ef19c725d",
+    "label_order": [
+      "admiration",
+      "amusement",
+      "anger",
+      "annoyance",
+      "approval",
+      "caring",
+      "confusion",
+      "curiosity",
+      "desire",
+      "disappointment",
+      "disapproval",
+      "disgust",
+      "embarrassment",
+      "excitement",
+      "fear",
+      "gratitude",
+      "grief",
+      "joy",
+      "love",
+      "nervousness",
+      "optimism",
+      "pride",
+      "realization",
+      "relief",
+      "remorse",
+      "sadness",
+      "surprise",
+      "neutral"
+    ],
+    "root": "data/processed/goemotions/v1",
+    "train_rows": 43211,
+    "train_support": [
+      4115,
+      2325,
+      1564,
+      2466,
+      2934,
+      1081,
+      1363,
+      2184,
+      641,
+      1266,
+      2021,
+      790,
+      302,
+      847,
+      594,
+      2606,
+      77,
+      1443,
+      2057,
+      164,
+      1577,
+      111,
+      1109,
+      153,
+      544,
+      1322,
+      1057,
+      14176
+    ],
+    "training_manifest_sha256": "fbd69186f3c8981dbd1f051093bfc0c6770db877ee4dcfb20525c0f59552c98c",
+    "validation_rows": 5416,
+    "validation_support": [
+      488,
+      303,
+      195,
+      303,
+      396,
+      153,
+      151,
+      247,
+      77,
+      163,
+      292,
+      97,
+      35,
+      96,
+      90,
+      353,
+      13,
+      172,
+      251,
+      21,
+      209,
+      15,
+      127,
+      18,
+      68,
+      143,
+      129,
+      1765
+    ]
+  },
+  "environment": {
+    "bf16": true,
+    "capability": [
+      8,
+      9
+    ],
+    "causal_conv_backend": "causal_conv1d",
+    "cuda": "12.8",
+    "delta_net_backend": "fla",
+    "delta_net_fast_path": true,
+    "device": "NVIDIA GeForce RTX 4070 Ti SUPER",
+    "packages": {
+      "accelerate": "1.16.0",
+      "bitsandbytes": "0.49.2",
+      "huggingface-hub": "1.33.0",
+      "numpy": "2.5.5",
+      "peft": "0.19.0",
+      "psutil": "7.2.2",
+      "safetensors": "0.8.0",
+      "tokenizers": "0.22.2",
+      "torch": "2.9.1+cu128",
+      "transformers": "5.10.2"
+    },
+    "python": "3.12.14"
+  },
+  "label_order": [
+    "admiration",
+    "amusement",
+    "anger",
+    "annoyance",
+    "approval",
+    "caring",
+    "confusion",
+    "curiosity",
+    "desire",
+    "disappointment",
+    "disapproval",
+    "disgust",
+    "embarrassment",
+    "excitement",
+    "fear",
+    "gratitude",
+    "grief",
+    "joy",
+    "love",
+    "nervousness",
+    "optimism",
+    "pride",
+    "realization",
+    "relief",
+    "remorse",
+    "sadness",
+    "surprise",
+    "neutral"
+  ],
+  "preflight": {
+    "acceptance_sha256": "cff310589acd34a7d4613c7ab5544a6ad77003e4b5dd3aa61735f2c80d98ae0f",
+    "attempt": "prelaunch-v6"
+  },
+  "recipe": {
+    "candidate_id": "A_winner_foreach_evalfast",
+    "lora": {
+      "alpha": 64,
+      "dropout": 0.05,
+      "expected_targets": 248,
+      "expected_trainable": 65001472,
+      "modules_to_save": [
+        "score"
+      ],
+      "rank": 32,
+      "targets": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "in_proj_qkv",
+        "in_proj_z",
+        "in_proj_a",
+        "in_proj_b",
+        "out_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ]
+    },
+    "max_length": 64,
+    "model_id": "Qwen/Qwen3.5-4B-Base",
+    "model_revision": "1001bb4d826a52d1f399e183466143f4da7b741b",
+    "path": "reports/batch-b-s4/performance/recommended-training.json",
+    "plan": null,
+    "quantization": {
+      "compute_dtype": "bfloat16",
+      "double_quant": true,
+      "loader": "streaming_official_safetensors",
+      "skip_modules": [
+        "score"
+      ],
+      "type": "nf4"
+    },
+    "selected_length": 64,
+    "selection": {
+      "metric": "validation_macro_f1",
+      "score_tie_atol": 1e-12,
+      "threshold_grids": {
+        "sigmoid": {
+          "default": 0.5,
+          "range_inclusive": [
+            0.05,
+            0.95
+          ],
+          "step": 0.05
+        }
+      }
+    },
+    "sha256": "7d43d2d62bf9a69bc4474198dc189f14da2f74bfda10b22caae9fdd86a19be66",
+    "training": {
+      "accumulation_steps": 1,
+      "adamw_foreach": true,
+      "epochs": 5,
+      "evaluation_micro_batch_size": 32,
+      "evaluation_sort_by_length": true,
+      "gradient_checkpointing": "partial_16",
+      "gradient_clip": 1.0,
+      "head_learning_rate": 0.0005,
+      "head_weight_decay": 0.0,
+      "intra_update_length_sort": false,
+      "micro_batch_size": 16,
+      "optimizer": "adamw",
+      "patience": 2,
+      "rank_learning_rate": 0.0001,
+      "rank_weight_decay": 0.01,
+      "scheduler": "linear",
+      "seeds": [
+        42,
+        123,
+        2026
+      ],
+      "use_cache": false,
+      "warmup_ratio": 0.06
+    }
+  },
+  "runs": [
+    {
+      "adapter_sha256": "16a7f48099145482ef564e193d8d3b8abde38f1c794bdb16dcf3894f43bf17f2",
+      "best_epoch": 2,
+      "checkpoint": "checkpoints/step-00005402",
+      "checkpoint_sha256": "c5fa5291688a6063b177a04eefaf255aa180157058720028d1391c53fcc89470",
+      "copies": {
+        "metrics_validation.json": "e44e8c5247520f94c3ee9a68f85bef41fc48c327a4612f1722a70a31949795cc",
+        "predictions_validation.jsonl": "63a825d56385f0de09de6a5b3510d0368dcfc1b4c1a4acc8716a09fed57f7ea8",
+        "thresholds.json": "4e0672451233d1571b7fe7bf565f0875a1786c7d98ea2e66b21189ae6431f375"
+      },
+      "epochs_run": 4,
+      "global_step": 5402,
+      "optimizer_step": 5402,
+      "parameter_states": 497,
+      "resume_sha256": "d29abbf6c2fcd8392b86d5dc8ff5363d1bca0946529ec1eafe45e542ea50857d",
+      "role": "formal",
+      "run": "artifacts/batch-b-s4/formal/runs/seed-42",
+      "score_kind": "sigmoid",
+      "seed": 42,
+      "stop_reason": "early_stopping",
+      "threshold": 0.2,
+      "train_loss": 0.07159003775508796,
+      "validation_macro_f1": 0.5403344006615589
+    },
+    {
+      "adapter_sha256": "97cdc25c86d4c2cdca1f8880d802d953dcd6ed3d1675eb59a5bb7400769e17be",
+      "best_epoch": 2,
+      "checkpoint": "checkpoints/step-00005402",
+      "checkpoint_sha256": "781f29184048db03a848402b7a6e8286902c426f38704bae611668c07293702a",
+      "copies": {
+        "metrics_validation.json": "d8c3d7ff8cdaedcd035622668072dbdbf3c061fd31e38d193c4163b892a9a47f",
+        "predictions_validation.jsonl": "0ae0e35c879755420443f1fdb4bd4daf6eac8dd9b7071a8953240bc160aef268",
+        "thresholds.json": "509baefbc6c2d2c32765b5aa69e26f2d3cf2022b2c6d7043418880bffb5bee23"
+      },
+      "epochs_run": 4,
+      "global_step": 5402,
+      "optimizer_step": 5402,
+      "parameter_states": 497,
+      "resume_sha256": "9434c2be93299aa007595d06f1f8a3fc2943306588b6df722de909a0c86fb5af",
+      "role": "formal",
+      "run": "artifacts/batch-b-s4/formal/runs/seed-123",
+      "score_kind": "sigmoid",
+      "seed": 123,
+      "stop_reason": "early_stopping",
+      "threshold": 0.3,
+      "train_loss": 0.07178947567706642,
+      "validation_macro_f1": 0.5411930340070857
+    },
+    {
+      "adapter_sha256": "c67d0d2fed1da6c67b0b559b2acf43e2b8b6268047bd839b87ca52db476d9898",
+      "best_epoch": 1,
+      "checkpoint": "checkpoints/step-00002701",
+      "checkpoint_sha256": "b0c096cec1862c262811d31d22bc30e49a3ce1ac0c1696019027f210577a3e3f",
+      "copies": {
+        "metrics_validation.json": "bf89197ce78092bb60bd5e24f0467b6ec5dae6d33cd27e1ee0c066fc7029412a",
+        "predictions_validation.jsonl": "75d10d3ee16bc30bacd85df8d0821a534ab601df9a2d39162f58e9c1f4e45f89",
+        "thresholds.json": "ac875779d97c4ee8a0639f08ac2e3ba396a2c6d4ced75936e7d75ce0e439beea"
+      },
+      "epochs_run": 3,
+      "global_step": 2701,
+      "optimizer_step": 2701,
+      "parameter_states": 497,
+      "resume_sha256": "e822271bd2ddfea50c93dd30ea9bea5643cb26507df4597dc04ede01afbd1f3c",
+      "role": "formal",
+      "run": "artifacts/batch-b-s4/formal/runs/seed-2026",
+      "score_kind": "sigmoid",
+      "seed": 2026,
+      "stop_reason": "early_stopping",
+      "threshold": 0.15,
+      "train_loss": 0.1132013444878608,
+      "validation_macro_f1": 0.5447857185629273
+    }
+  ],
+  "scope": "validation_only",
+  "selection_rule": {
+    "aggregation": "per-seed selected validation score; mean and sample std (ddof=1) across the three seeds",
+    "early_stopping": {
+      "max_epochs": 5,
+      "patience": 2
+    },
+    "epoch_rule": "maximum validation macro-F1; ties keep the earlier epoch",
+    "metric": "validation_macro_f1",
+    "threshold_application": "one global sigmoid threshold for all 28 labels; score >= threshold",
+    "threshold_grid": {
+      "default": 0.5,
+      "range_inclusive": [
+        0.05,
+        0.95
+      ],
+      "step": 0.05
+    },
+    "tie_atol": 1e-12
+  },
+  "source_sha256": {
+    "batch_b_s3.py": "9afb23c4eed08460310c201769d7a92d4a7eed1726ac4ea375c489b295b93e98",
+    "batch_b_s4_formal.py": "690e417d1936b6a8686a0f8da6206a976ac5586f6b19f396e04ff16012f28e79",
+    "batch_b_s4_formal_preflight.py": "18415021f678355386b00ca00df2da47bdbf081560e3035067727162178275d1",
+    "batch_b_s4_formal_state.py": "a45fc4e7f0de473d5905ae05f7a7a8e4384de7f871cfe9d4fbec1d61ecb8702f",
+    "batch_b_s4_formal_watchdog.py": "61d57d3eeb8d292d1d59d90371975db8656e3ac9843a6803b1ecab8e4471f524",
+    "batch_b_s4_freeze.py": "ddb57d094920c6c2b8971ec18e9f3da628da65865506071d7086a25c7b463e64",
+    "batch_b_s4_runner.py": "46ce75fcb016998b75a3dca81838866723b2f8391ebe3df535411c2446b72f96",
+    "batch_b_s4_telemetry.py": "b87b71dd365e65c2ed01f35c5e94c3eff93a86908d213fef4343db5a552d7792",
+    "batch_b_s4_wsl_formal.sh": "7aa109b6885d7a907cf360e427c299641cf4de86403b46f76f83cf7bb58567a3",
+    "batch_metrics.py": "258ce9db3cc4c7b3c4b9f105ecb1d846cfc89abcc8824013759a08e1c6e1af88",
+    "qwen_s3.py": "a0d32d9d16e212dc4422c07a12a152459ed6e17470483f65519a0d3baad0e4ba",
+    "qwen_s3_inputs.py": "aecef5bb7c21fa5d2587248e6fb511fff0613abd79388ec7bd71df6e5f7f0e34",
+    "qwen_s3_streaming.py": "472ac7333c96553de8d8e94d95d33b7184ee8a5522fe29447c51f9173febcddf",
+    "transformer_runner.py": "f093c60633b435a49ee21d147e4d457d9fde36c0a0e90416b19521bba5bf0849"
+  },
+  "status": "frozen",
+  "test_partition": {
+    "count": 5427,
+    "file": "test.jsonl",
+    "sha256": "351ddec3f36c40b5a7391cf191312db900ee1723cc9469123f05a2a37c46dbba"
+  },
+  "test_read": false
+}

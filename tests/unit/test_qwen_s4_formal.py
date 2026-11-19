@@ -140,6 +140,8 @@ def test_formal_epoch_checkpoints_and_patience(monkeypatch, tmp_path, scores, ex
         def update(self, indices):
             steps.append(indices.tolist())
             return {"loss": len(indices), "used_lrs": [1e-4, 5e-4],
+                    "gradient_norm": 0.5, "valid_tokens": len(indices),
+                    "padded_tokens": len(indices) * 8,
                     "gradient_checkpointing": "partial_16"}
 
         def validate(self):
@@ -196,6 +198,8 @@ def test_resume_runs_tail_without_repeating_saved_rows(monkeypatch, tmp_path):
         def update(self, indices):
             seen.extend(indices.tolist())
             return {"loss": 2., "used_lrs": [1e-4, 5e-4],
+                    "gradient_norm": 0.5, "valid_tokens": len(indices),
+                    "padded_tokens": len(indices) * 8,
                     "gradient_checkpointing": "partial_16"}
 
         def validate(self):

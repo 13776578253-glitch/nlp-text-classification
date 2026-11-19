@@ -1,0 +1,1317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Batch B S4 · Training Monitor</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #fcfcfb;
+    --surface: #ffffff;
+    --text: #1f2328;
+    --muted: #6b7280;
+    --faint: #9ca3af;
+    --line: #e5e7eb;
+    --line-strong: #d1d5db;
+    --grid: #eef0f2;
+    --blue: #1f77b4;
+    --orange: #ff7f0e;
+    --green: #2ca02c;
+    --red: #d62728;
+    --amber: #b45309;
+    --mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 13.5px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei",
+      "PingFang SC", "Hiragino Sans GB", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .muted { color: var(--muted); }
+  .faint { color: var(--faint); }
+
+  /* ---------- lightweight masthead ---------- */
+  .masthead { background: var(--surface); border-bottom: 1px solid var(--line); }
+  .masthead-inner {
+    max-width: 1440px; margin: 0 auto; padding: 16px 32px 14px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 20px; flex-wrap: wrap;
+  }
+  h1 {
+    margin: 0; font-family: Georgia, "Noto Serif SC", "Songti SC", SimSun, serif;
+    font-size: 21px; font-weight: 600; letter-spacing: .01em; line-height: 1.25;
+  }
+  .deck { margin: 4px 0 0; font-size: 11.5px; color: var(--muted); }
+  .masthead-meta {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 0;
+    font-size: 11.5px; color: #4b5563;
+  }
+  .masthead-meta > * { white-space: nowrap; }
+  .masthead-meta > * + * {
+    border-left: 1px solid var(--line); margin-left: 12px; padding-left: 12px;
+  }
+  .status { font-weight: 600; font-size: 12px; color: var(--muted); }
+  .status .dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--faint); margin-right: 6px; vertical-align: 1px;
+  }
+  .status[data-status="RUNNING"], .status[data-status="COMPLETE"] { color: #15803d; }
+  .status[data-status="RUNNING"] .dot, .status[data-status="COMPLETE"] .dot {
+    background: var(--green);
+  }
+  .status[data-status="STARTING"], .status[data-status="VALIDATING"] { color: #1d4ed8; }
+  .status[data-status="STARTING"] .dot, .status[data-status="VALIDATING"] .dot {
+    background: var(--blue);
+  }
+  .status[data-status="STALLED"], .status[data-status="RECOVERING"] { color: var(--amber); }
+  .status[data-status="STALLED"] .dot, .status[data-status="RECOVERING"] .dot {
+    background: #d97706;
+  }
+  .status[data-status="HALTED"], .status[data-status="STOPPING"] { color: #b91c1c; }
+  .status[data-status="HALTED"] .dot, .status[data-status="STOPPING"] .dot {
+    background: var(--red);
+  }
+  .status[data-status="NO_RUN"] .dot, .status[data-status="EXITED"] .dot { background: #9ca3af; }
+
+  .btn {
+    background: var(--surface); border: 1px solid var(--line-strong); color: #374151;
+    padding: 5px 10px; font-size: 11.5px; line-height: 1.3; border-radius: 3px;
+    cursor: pointer; transition: background .15s ease, border-color .15s ease;
+  }
+  .btn:hover { background: #f9fafb; border-color: #9ca3af; }
+  .btn[aria-pressed="true"] { background: #eff6ff; border-color: #93c5fd; color: #1d4ed8; }
+  .btn.small { padding: 4px 8px; font-size: 11px; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  .banner {
+    max-width: 1440px; margin: 12px auto 0; padding: 0 32px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .banner[hidden] { display: none; }
+  .alert {
+    border-left: 3px solid #d97706; background: #fffbeb; color: #92400e;
+    padding: 8px 12px; font-size: 12px;
+  }
+  .alert.critical { border-color: #b91c1c; background: #fef2f2; color: #991b1b; }
+  .alert.ok { border-color: #15803d; background: #f0fdf4; color: #166534; }
+
+  /* ---------- page ---------- */
+  .page { max-width: 1440px; margin: 0 auto; padding: 0 32px; }
+  .section { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 18px; }
+  .section:first-of-type { border-top: 0; margin-top: 0; padding-top: 18px; }
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 16px; margin-bottom: 12px; flex-wrap: wrap;
+  }
+  h2 {
+    margin: 0; font-size: 13.5px; font-weight: 650; letter-spacing: .01em;
+  }
+  .note { font-size: 10.5px; color: var(--muted); }
+  .actions { display: flex; gap: 8px; align-items: center; }
+  .subhead { margin: 0 0 6px; font-size: 11.5px; font-weight: 600; color: #374151; }
+  .subnote { margin: -2px 0 6px; font-size: 10.5px; color: var(--muted); }
+
+  /* ---------- facts grid ---------- */
+  .facts {
+    display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+    border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .fact {
+    padding: 8px 10px 9px; border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line); min-width: 0;
+  }
+  .fact-k {
+    display: block; font-size: 10px; color: var(--muted); letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+  .fact-v {
+    display: block; font-size: 15px; font-weight: 600; margin-top: 2px;
+    overflow-wrap: anywhere;
+  }
+  .fact-s {
+    display: block; font-size: 10.5px; color: var(--muted); margin-top: 2px;
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- progress ---------- */
+  .bars { margin-top: 14px; display: grid; gap: 10px; }
+  .bar-head {
+    display: flex; justify-content: space-between; gap: 12px;
+    font-size: 11.5px; color: #374151; margin-bottom: 4px;
+  }
+  .track {
+    position: relative; height: 6px; overflow: hidden;
+    background: #f3f4f6; border: 1px solid var(--line);
+  }
+  .track .fill {
+    position: absolute; inset: 0; transform-origin: left center; transform: scaleX(0);
+    background: var(--blue);
+  }
+  .track .fill.alt { background: var(--orange); }
+  .track .ticks i {
+    position: absolute; top: 0; bottom: 0; width: 1px; background: var(--line-strong);
+  }
+  .track .warmup {
+    position: absolute; top: 0; bottom: 0; width: 1px; background: #6b7280;
+  }
+
+  /* ---------- charts ---------- */
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 30px; }
+  .chart { margin: 0; min-width: 0; }
+  .chart figcaption {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; margin-bottom: 6px;
+  }
+  .chart-title { font-size: 12px; font-weight: 650; color: #111827; }
+  .chart-note {
+    font-size: 10px; color: var(--muted); font-family: var(--mono);
+    font-variant-numeric: tabular-nums; text-align: right;
+  }
+  .chart canvas { width: 100%; height: 212px; display: block; }
+  .legend-inline {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 10px; color: var(--muted); margin-left: 10px; font-weight: 400;
+  }
+  .legend-inline i { display: inline-block; width: 12px; height: 2px; background: currentColor; }
+
+  /* ---------- metric strip + tables ---------- */
+  .metrics-strip {
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+    background: var(--surface); margin-bottom: 14px;
+  }
+  .metrics-strip .fact { padding: 7px 10px 8px; }
+  .metrics-strip .fact-v { font-size: 13.5px; }
+
+  .table-grid { display: grid; grid-template-columns: .92fr 1.08fr; gap: 24px; }
+  .table-wrap {
+    max-height: 360px; overflow: auto; border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .table-wrap.tall { max-height: 430px; }
+  .table-wrap.short { max-height: 250px; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .data-table th {
+    position: sticky; top: 0; z-index: 1; background: #fafafa;
+    text-align: left; font-weight: 600; color: var(--muted);
+    font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+    padding: 6px 8px; border-bottom: 1px solid var(--line-strong);
+  }
+  .data-table td {
+    padding: 5px 8px; border-bottom: 1px solid #f1f3f4; vertical-align: top;
+  }
+  .data-table tr:last-child td { border-bottom: 0; }
+  .data-table .num, .data-table th.num {
+    text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums;
+  }
+  .data-table tr.best td { background: #fff7ed; }
+  .data-table tr.best td:first-child { font-weight: 650; }
+  .data-table td.msg { overflow-wrap: anywhere; }
+  .data-table td.detail {
+    color: var(--muted); font-family: var(--mono); font-size: 10.5px;
+  }
+  .empty { padding: 18px 12px; color: var(--faint); font-size: 11.5px; text-align: center; }
+
+  .phase { font-weight: 600; font-size: 10.5px; white-space: nowrap; }
+  .phase-TRAIN { color: #374151; }
+  .phase-EPOCH, .phase-PASS { color: var(--blue); }
+  .phase-CHECKPOINT, .phase-STRESS, .phase-TAIL_OK, .phase-REFERENCE_READY { color: #6b21a8; }
+  .phase-VALIDATE, .phase-VALIDATION_ROWS, .phase-LOAD_MODEL { color: #1d4ed8; }
+  .phase-VRAM_WARNING, .phase-RESUMED { color: var(--amber); }
+  .phase-HALTED { color: #b91c1c; }
+  .phase-COMPLETE, .phase-INPUTS_OK, .phase-VERIFY_INPUTS { color: #15803d; }
+  .phase-STARTING, .phase-RESOURCES { color: var(--muted); }
+
+  .mini-facts {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+    background: var(--surface); margin-bottom: 10px;
+  }
+  .mini-facts .fact { padding: 6px 8px; }
+  .mini-facts .fact-v { font-size: 12px; }
+
+  .foot {
+    max-width: 1440px; margin: 26px auto 0; padding: 12px 32px 30px;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    font-size: 10.5px; color: var(--muted);
+  }
+  .foot > span { overflow-wrap: anywhere; }
+
+  @media (max-width: 1180px) {
+    .facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .table-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 900px) {
+    .chart-grid { grid-template-columns: 1fr; }
+    .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .metrics-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .masthead-inner, .page, .banner, .foot { padding-left: 18px; padding-right: 18px; }
+    .masthead-meta > * + * { margin-left: 8px; padding-left: 8px; }
+  }
+  @media (max-width: 560px) {
+    .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .metrics-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .mini-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    h1 { font-size: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <div>
+      <h1>Batch B S4 Training Monitor</h1>
+      <p class="deck">Qwen3.5-4B-Base · NF4 QLoRA · GoEmotions 28 labels · WSL2 / RTX 4070 Ti SUPER</p>
+    </div>
+    <div class="masthead-meta">
+      <span class="status" id="status" data-status="NO_RUN"><i class="dot"></i><span id="statusText">Idle</span></span>
+      <span class="mono" id="seedMeta">seed —</span>
+      <span class="mono" id="elapsedMeta">—</span>
+      <span class="mono" id="lastEvent">—</span>
+      <button class="btn" id="pauseBtn" type="button" aria-pressed="false">Pause refresh</button>
+    </div>
+  </div>
+</header>
+
+<div class="banner" id="banner" role="status" aria-live="polite" hidden></div>
+
+<main class="page">
+  <section class="section" aria-labelledby="overviewTitle">
+    <div class="section-head">
+      <h2 id="overviewTitle">Overview</h2>
+      <span class="note mono" id="snapshotTime">—</span>
+    </div>
+    <div class="facts" id="facts"></div>
+    <div class="bars">
+      <div>
+        <div class="bar-head"><span>Overall progress</span><span class="mono" id="overallText">—</span></div>
+        <div class="track" id="overallBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="fill" id="overallFill"></div>
+          <div class="ticks" id="overallTicks"></div>
+          <div class="warmup" id="warmupTick"></div>
+        </div>
+      </div>
+      <div>
+        <div class="bar-head"><span id="epochLabel">Current epoch</span><span class="mono" id="epochText">—</span></div>
+        <div class="track" id="epochBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="fill alt" id="epochFill"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="chartsTitle">
+    <div class="section-head">
+      <h2 id="chartsTitle">Training curves</h2>
+      <div class="actions">
+        <button class="btn small" id="gradLogBtn" type="button" aria-pressed="false">Log gradient axis</button>
+      </div>
+    </div>
+    <div class="chart-grid">
+      <figure class="chart">
+        <figcaption><span class="chart-title">Training loss</span><span class="chart-note" id="lossCap">—</span></figcaption>
+        <canvas id="lossChart" role="img" aria-label="Training loss over global steps">Training loss chart</canvas>
+      </figure>
+      <figure class="chart">
+        <figcaption><span class="chart-title">Gradient norm (pre-clip)</span><span class="chart-note" id="gradCap">—</span></figcaption>
+        <canvas id="gradChart" role="img" aria-label="Gradient norm over global steps with clip threshold">Gradient norm chart</canvas>
+      </figure>
+      <figure class="chart">
+        <figcaption>
+          <span class="chart-title">Learning rate
+            <span class="legend-inline"><i style="color:#1f77b4"></i>rank
+              <i style="color:#ff7f0e;margin-left:6px"></i>head</span>
+          </span>
+          <span class="chart-note" id="lrCap">—</span>
+        </figcaption>
+        <canvas id="lrChart" role="img" aria-label="Rank and head learning rates over global steps">Learning rate chart</canvas>
+      </figure>
+      <figure class="chart">
+        <figcaption><span class="chart-title">Throughput</span><span class="chart-note" id="rateCap">—</span></figcaption>
+        <canvas id="rateChart" role="img" aria-label="Optimizer steps per second over global steps">Throughput chart</canvas>
+      </figure>
+      <figure class="chart">
+        <figcaption><span class="chart-title">Device VRAM free</span><span class="chart-note" id="vramCap">—</span></figcaption>
+        <canvas id="vramChart" role="img" aria-label="Device VRAM free with 2560 and 1024 MiB thresholds">VRAM chart</canvas>
+      </figure>
+      <figure class="chart">
+        <figcaption><span class="chart-title">Validation Macro-F1</span><span class="chart-note" id="f1Cap">—</span></figcaption>
+        <canvas id="f1Chart" role="img" aria-label="Validation Macro-F1 per epoch">Macro-F1 chart</canvas>
+      </figure>
+      <figure class="chart">
+        <figcaption><span class="chart-title">Epoch duration</span><span class="chart-note" id="epochTimeCap">—</span></figcaption>
+        <canvas id="epochTimeChart" role="img" aria-label="Training and validation duration per epoch">Epoch duration chart</canvas>
+      </figure>
+      <figure class="chart">
+        <figcaption><span class="chart-title">Valid token ratio</span><span class="chart-note" id="tokensCap">—</span></figcaption>
+        <canvas id="tokensChart" role="img" aria-label="Valid token ratio per update">Valid token ratio chart</canvas>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="validationTitle">
+    <div class="section-head">
+      <h2 id="validationTitle">Per-epoch validation</h2>
+      <span class="note mono" id="valHead">—</span>
+    </div>
+    <div class="metrics-strip" id="metricsStrip"></div>
+    <div class="table-grid">
+      <div>
+        <h3 class="subhead">Epoch summary</h3>
+        <div class="table-wrap">
+          <table class="data-table" id="epochTable">
+            <thead><tr>
+              <th>Epoch</th><th class="num">Step</th><th class="num">Train Loss</th>
+              <th class="num">Macro-F1</th><th class="num">Threshold</th>
+              <th class="num">Val (s)</th><th class="num">Epoch time</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 class="subhead">Per-label metrics (sorted by F1)</h3>
+        <div class="table-wrap">
+          <table class="data-table" id="labelTable">
+            <thead><tr>
+              <th>Label</th><th class="num">F1</th><th class="num">Precision</th>
+              <th class="num">Recall</th><th class="num">Support</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="eventsTitle">
+    <div class="section-head">
+      <h2 id="eventsTitle">Notable events &amp; supervision</h2>
+      <span class="note mono" id="eventsHead">—</span>
+    </div>
+    <div class="table-grid">
+      <div>
+        <h3 class="subhead">Notable events</h3>
+        <p class="subnote">Training updates and routine checkpoints are shown in the overview and charts; this list surfaces lifecycle, warning, and recovery events.</p>
+        <div class="table-wrap tall">
+          <table class="data-table" id="eventTable">
+            <thead><tr><th>Time</th><th>Phase</th><th>Event</th><th>Details</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 class="subhead">Watchdog</h3>
+        <div class="mini-facts" id="wdStrip"></div>
+        <div class="table-wrap short">
+          <table class="data-table" id="wdTable">
+            <thead><tr><th>Time</th><th>Event</th><th>Details</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span class="mono" id="runDir">run: —</span>
+    <span class="mono" id="footMeta">—</span>
+    <span class="mono">data sources progress.jsonl / watchdog.jsonl / nvidia-smi / checkpoints · read-only</span>
+  </footer>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const state = { paused: false, gradLog: false, snap: null, timer: null };
+  const STATUS = {
+    NO_RUN: 'Idle',
+    STARTING: 'Starting',
+    RUNNING: 'Training',
+    VALIDATING: 'Validating',
+    STALLED: 'No progress',
+    HALTED: 'Halted',
+    STOPPING: 'Stopping',
+    RECOVERING: 'Recovering',
+    EXITED: 'Exited',
+    COMPLETE: 'Complete',
+  };
+  const NOTABLE_HIDDEN = new Set([
+    'TRAIN', 'VALIDATE', 'VALIDATION_ROWS', 'EPOCH', 'CHECKPOINT',
+  ]);
+  const BLUE = '#1f77b4';
+  const ORANGE = '#ff7f0e';
+  const GREEN = '#2ca02c';
+  const RED = '#d62728';
+  const GRAY = '#7f7f7f';
+  const MONO = 'ui-monospace, "Cascadia Mono", Consolas, monospace';
+  const nf = new Intl.NumberFormat('en-US');
+
+  const isNum = (value) => value !== null && value !== undefined && Number.isFinite(Number(value));
+  const fmtInt = (value) => isNum(value) ? nf.format(Math.round(Number(value))) : '—';
+  const fmt = (value, digits = 2) => isNum(value) ? Number(value).toFixed(digits) : '—';
+  const fmtSci = (value) => isNum(value) ? Number(value).toExponential(2) : '—';
+  const fmtPct = (value) => isNum(value) ? (Number(value) * 100).toFixed(1) + '%' : '—';
+  const fmtGiB = (mib) => isNum(mib) ? (Number(mib) / 1024).toFixed(1) + ' GiB' : '—';
+  const clamp01 = (value) => Math.max(0, Math.min(1, isNum(value) ? Number(value) : 0));
+
+  function fmtDur(seconds) {
+    if (!isNum(seconds)) return '—';
+    let rest = Math.max(0, Math.round(Number(seconds)));
+    const hours = Math.floor(rest / 3600);
+    rest %= 3600;
+    const minutes = Math.floor(rest / 60);
+    rest %= 60;
+    if (hours) return hours + 'h ' + String(minutes).padStart(2, '0') + 'm';
+    if (minutes) return minutes + 'm ' + String(rest).padStart(2, '0') + 's';
+    return rest + 's';
+  }
+
+  function clock(iso) {
+    if (!iso) return '—';
+    const date = new Date(iso);
+    if (Number.isNaN(date.getTime())) return '—';
+    return date.toLocaleTimeString('en-GB', { hour12: false });
+  }
+
+  function el(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined && text !== null) node.textContent = text;
+    return node;
+  }
+
+  function setText(id, text) {
+    const node = $(id);
+    if (node) node.textContent = text;
+  }
+
+  // ---------------------------------------------------------------- header
+  function renderHeader(s) {
+    const label = STATUS[s.status] || s.status_label || s.status;
+    const box = $('status');
+    box.dataset.status = s.status;
+    $('statusText').textContent = label;
+    const run = s.run;
+    setText('seedMeta', run ? 'seed ' + run.seed : 'seed —');
+    setText('elapsedMeta', run ? 'uptime ' + fmtDur(run.elapsed_seconds) : '—');
+    const progress = s.progress;
+    setText('lastEvent', progress && isNum(progress.last_event_age_seconds)
+      ? 'last event ' + fmtDur(progress.last_event_age_seconds) + ' ago'
+      : 'waiting for events');
+    setText('snapshotTime', 'snapshot ' + clock(s.generated_at));
+  }
+
+  function renderBanner(s) {
+    const box = $('banner');
+    const alerts = (s.alerts || []).slice();
+    if (s.status === 'COMPLETE') {
+      const best = s.best || {};
+      alerts.push({
+        level: 'ok',
+        text: 'Training complete: best epoch ' + (best.epoch ?? '—') + ', Macro-F1 ' +
+          fmt(best.macro_f1, 4) + ', threshold ' + fmt(best.threshold, 2) + '.',
+      });
+    }
+    if (!alerts.length) {
+      box.hidden = true;
+      box.replaceChildren();
+      return;
+    }
+    box.hidden = false;
+    box.replaceChildren(...alerts.map((alert) =>
+      el('div', 'alert ' + (alert.level || 'warning'), alert.text)));
+  }
+
+  function showOffline(error) {
+    const box = $('status');
+    box.dataset.status = 'EXITED';
+    $('statusText').textContent = 'Monitor offline';
+    setText('lastEvent', String(error && error.message ? error.message : error));
+    const banner = $('banner');
+    banner.hidden = false;
+    banner.replaceChildren(el('div', 'alert critical',
+      'Cannot read monitor snapshot: ' + (error && error.message ? error.message : error)));
+  }
+
+  // ---------------------------------------------------------------- facts
+  function fact(label, value, sub) {
+    const box = el('div', 'fact');
+    box.append(el('span', 'fact-k', label), el('span', 'fact-v mono', value));
+    if (sub) box.append(el('span', 'fact-s mono', sub));
+    return box;
+  }
+
+  function renderFacts(s) {
+    const p = s.progress || {};
+    const plan = s.plan || {};
+    const eta = s.eta || {};
+    const best = s.best;
+    const vram = s.vram || {};
+    const current = vram.current || {};
+    const checkpoint = s.checkpoint || {};
+    const run = s.run || {};
+    const metrics = s.metrics;
+    const lrs = p.learning_rates || [];
+    const history = s.train_history || [];
+    const grads = history.map((point) => point.grad).filter(isNum);
+    const rate = p.rate_steps_per_second;
+    const box = $('facts');
+    box.replaceChildren(
+      fact('Progress', fmtPct(p.fraction),
+        fmtInt(p.global_step) + ' / ' + fmtInt(plan.total_updates) + ' steps'),
+      fact('Epoch', (p.epoch ?? '—') + ' / ' + (plan.epochs ?? '—'),
+        'batch ' + fmtInt(p.batch) + ' / ' + fmtInt(p.updates_per_epoch) +
+        ' · stale ' + (s.stale_epochs ?? 0)),
+      fact('Train loss', fmt(p.loss, 4),
+        isNum(p.loss_epoch_mean) ? 'epoch mean ' + fmt(p.loss_epoch_mean, 4) : 'epoch mean —'),
+      fact('Gradient norm', fmt(p.gradient_norm, 4),
+        grads.length ? 'window max ' + fmt(Math.max(...grads), 3) + ' · clip 1.0' : 'waiting for telemetry'),
+      fact('Learning rate', lrs.length ? fmtSci(lrs[0]) : '—',
+        lrs.length > 1 ? 'head ' + fmtSci(lrs[1]) : 'head —'),
+      fact('Best Macro-F1', best ? fmt(best.macro_f1, 4) : '—',
+        best ? 'E' + best.epoch + ' · threshold ' + fmt(best.threshold, 2) : 'no validation yet'),
+      fact('VRAM free', isNum(current.free) ? fmtGiB(current.free) : '—',
+        isNum(p.vram_train_min_mib) ? 'train min ' + fmtGiB(p.vram_train_min_mib) : 'train min —'),
+      fact('ETA', fmtDur(eta.seconds),
+        eta.confidence === 'coarse' ? 'coarse (before epoch 1)' :
+          eta.confidence === 'epoch' ? 'extrapolated from measured epoch' : 'waiting for steps'),
+      fact('Throughput', isNum(rate) ? fmt(rate, 2) + ' step/s' : '—',
+        isNum(rate) ? fmt(rate * (plan.effective_batch_size || 16), 1) + ' samples/s' : 'waiting for steps'),
+      fact('Last checkpoint', isNum(checkpoint.step)
+        ? 'step-' + String(Math.round(checkpoint.step)).padStart(8, '0') : '—',
+        isNum(checkpoint.age_seconds) ? fmtDur(checkpoint.age_seconds) + ' ago · interval ' +
+          fmtInt(plan.checkpoint_interval) + ' steps' : '—'),
+      fact('Validation', metrics ? 'micro-F1 ' + fmt(metrics.micro_f1, 4) : '—',
+        metrics ? 'PR-AUC ' + fmt(metrics.pr_auc, 4) + ' · Hamming ' + fmt(metrics.hamming_loss, 4) :
+          'no epoch-end metrics yet'),
+      fact('Runtime', fmtDur(run.elapsed_seconds),
+        run.mode ? 'mode ' + run.mode + ' · seed ' + run.seed : '—'),
+    );
+    setText('overallText', fmtPct(p.fraction) + ' · ' + fmtInt(p.global_step) + ' / ' +
+      fmtInt(plan.total_updates) + ' steps');
+    $('overallFill').style.transform = 'scaleX(' + clamp01(p.fraction) + ')';
+    $('overallBar').setAttribute('aria-valuenow', String(Math.round(clamp01(p.fraction) * 100)));
+    $('overallBar').setAttribute('aria-valuetext', fmtPct(p.fraction) + ', ' +
+      fmtInt(p.global_step) + ' / ' + fmtInt(plan.total_updates) + ' steps');
+    const warmup = isNum(plan.warmup_updates) && isNum(plan.total_updates) && plan.total_updates > 0
+      ? (plan.warmup_updates / plan.total_updates) * 100 : 0;
+    $('warmupTick').style.left = warmup + '%';
+    $('warmupTick').title = 'warmup ' + fmtInt(plan.warmup_updates) + ' steps';
+    renderTicks(plan.total_updates, plan.checkpoint_interval);
+
+    const validating = s.status === 'VALIDATING';
+    setText('epochLabel', 'Epoch ' + (p.epoch ?? '—') + ' / ' + (plan.epochs ?? '—') +
+      (validating ? ' · validating' : ''));
+    setText('epochText', fmtInt(p.batch) + ' / ' + fmtInt(p.updates_per_epoch) + ' steps');
+    $('epochFill').style.transform = 'scaleX(' + clamp01(p.epoch_fraction) + ')';
+    $('epochBar').setAttribute('aria-valuenow', String(Math.round(clamp01(p.epoch_fraction) * 100)));
+  }
+
+  function renderTicks(total, interval) {
+    const box = $('overallTicks');
+    if (!isNum(total) || !isNum(interval) || interval <= 0) {
+      box.replaceChildren();
+      return;
+    }
+    if (box.dataset.total === String(total) && box.dataset.interval === String(interval)) return;
+    box.replaceChildren();
+    for (let step = interval; step < total; step += interval) {
+      const tick = document.createElement('i');
+      tick.style.left = (step / total) * 100 + '%';
+      box.appendChild(tick);
+    }
+    box.dataset.total = String(total);
+    box.dataset.interval = String(interval);
+  }
+
+  // ---------------------------------------------------------------- charts
+  function validPoints(points, logY) {
+    return (points || []).filter((point) =>
+      point && Number.isFinite(Number(point.x)) && Number.isFinite(Number(point.y)) &&
+      (!logY || Number(point.y) > 0));
+  }
+
+  function drawChart(canvas, series, options) {
+    options = options || {};
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    const width = Math.max(1, rect.width);
+    const height = Math.max(1, rect.height);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, width, height);
+    ctx.font = '10px ' + MONO;
+    ctx.textBaseline = 'middle';
+
+    const pad = { left: 66, right: 14, top: 10, bottom: 34 };
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const logY = Boolean(options.logY);
+    const ty = (value) => logY ? Math.log10(Math.max(Number(value), 1e-12)) : Number(value);
+    const all = [];
+    series.forEach((item) => validPoints(item.points, logY).forEach((point) => all.push(point)));
+    if (!all.length) {
+      ctx.fillStyle = '#9ca3af';
+      ctx.textAlign = 'center';
+      ctx.fillText(options.empty || 'Waiting for data', width / 2, height / 2);
+      return;
+    }
+
+    let xMin = Math.min(...all.map((point) => Number(point.x)));
+    let xMax = Math.max(...all.map((point) => Number(point.x)));
+    if (xMin === xMax) { xMin -= 1; xMax += 1; }
+    const explicitMin = Number.isFinite(options.yMin);
+    const explicitMax = Number.isFinite(options.yMax);
+    let yMin = explicitMin ? ty(options.yMin) : Math.min(...all.map((point) => ty(point.y)));
+    let yMax = explicitMax ? ty(options.yMax) : Math.max(...all.map((point) => ty(point.y)));
+    if (yMin === yMax) { yMin -= 0.5; yMax += 0.5; }
+    if (!explicitMin || !explicitMax) {
+      const padY = (yMax - yMin) * 0.06;
+      if (!explicitMin) yMin -= padY;
+      if (!explicitMax) yMax += padY;
+    }
+    if (!explicitMin && !logY && yMin < 0) yMin = 0;
+    const X = (value) => pad.left + ((Number(value) - xMin) / (xMax - xMin)) * plotW;
+    const Y = (value) => pad.top + (1 - (ty(value) - yMin) / (yMax - yMin)) * plotH;
+
+    ctx.strokeStyle = '#eef0f2';
+    ctx.fillStyle = '#6b7280';
+    ctx.textAlign = 'right';
+    for (let index = 0; index <= 4; index += 1) {
+      const fraction = index / 4;
+      const y = pad.top + plotH * fraction;
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(width - pad.right, y);
+      ctx.stroke();
+      const raw = yMax - (yMax - yMin) * fraction;
+      const value = logY ? Math.pow(10, raw) : raw;
+      ctx.fillText(options.yFormat ? options.yFormat(value) : String(value), pad.left - 6, y);
+    }
+    const ticks = options.xTicks && options.xTicks.length
+      ? options.xTicks
+      : [0, 1, 2, 3].map((index) => xMin + (xMax - xMin) * index / 3);
+    ctx.textAlign = 'center';
+    ticks.forEach((value) => {
+      if (value < xMin || value > xMax) return;
+      ctx.fillText(options.xFormat ? options.xFormat(value) : String(value), X(value), height - 21);
+    });
+    ctx.strokeStyle = '#d1d5db';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(pad.left, pad.top, plotW, plotH);
+
+    ctx.fillStyle = '#6b7280';
+    if (options.xLabel) {
+      ctx.textAlign = 'center';
+      ctx.fillText(options.xLabel, pad.left + plotW / 2, height - 5);
+    }
+    if (options.yLabel) {
+      ctx.save();
+      ctx.translate(11, pad.top + plotH / 2);
+      ctx.rotate(-Math.PI / 2);
+      ctx.textAlign = 'center';
+      ctx.fillText(options.yLabel, 0, 0);
+      ctx.restore();
+    }
+
+    if (options.verticalLines) {
+      ctx.save();
+      ctx.setLineDash([2, 3]);
+      ctx.strokeStyle = '#9ca3af';
+      options.verticalLines.forEach((line) => {
+        if (!isNum(line.x) || line.x < xMin || line.x > xMax) return;
+        const x = X(line.x);
+        ctx.beginPath();
+        ctx.moveTo(x, pad.top);
+        ctx.lineTo(x, pad.top + plotH);
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+
+    if (options.thresholds) {
+      ctx.save();
+      ctx.setLineDash([4, 3]);
+      options.thresholds.forEach((line) => {
+        if (!isNum(line.value)) return;
+        const y = Y(line.value);
+        if (y < pad.top || y > pad.top + plotH) return;
+        ctx.strokeStyle = line.color;
+        ctx.beginPath();
+        ctx.moveTo(pad.left, y);
+        ctx.lineTo(width - pad.right, y);
+        ctx.stroke();
+        if (line.label) {
+          ctx.fillStyle = line.color;
+          ctx.textAlign = 'left';
+          ctx.fillText(line.label, pad.left + 4, y - 6);
+        }
+      });
+      ctx.restore();
+    }
+
+    series.forEach((item) => {
+      const points = validPoints(item.points, logY);
+      if (!points.length) return;
+      ctx.strokeStyle = item.color;
+      ctx.lineWidth = item.width || 1.5;
+      ctx.setLineDash(item.dash || []);
+      ctx.beginPath();
+      points.forEach((point, index) => {
+        const x = X(point.x);
+        const y = Y(point.y);
+        if (index === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      ctx.setLineDash([]);
+      if (item.markers) {
+        points.forEach((point) => {
+          ctx.fillStyle = item.markerFill || item.color;
+          ctx.beginPath();
+          ctx.arc(X(point.x), Y(point.y), 3, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+      if (item.annotateLast) {
+        const last = points[points.length - 1];
+        ctx.fillStyle = '#111827';
+        ctx.textAlign = 'right';
+        ctx.fillText(options.yFormat ? options.yFormat(last.y) : String(last.y),
+          width - pad.right - 2, Y(last.y) - 9);
+      }
+    });
+
+    if (options.bestPoint) {
+      const best = options.bestPoint;
+      const x = X(best.x);
+      const y = Y(best.y);
+      ctx.fillStyle = ORANGE;
+      ctx.beginPath();
+      for (let index = 0; index < 10; index += 1) {
+        const angle = -Math.PI / 2 + index * Math.PI / 5;
+        const radius = index % 2 === 0 ? 5.2 : 2.3;
+        const px = x + Math.cos(angle) * radius;
+        const py = y + Math.sin(angle) * radius;
+        if (index === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = '#9a3412';
+      ctx.textAlign = 'left';
+      ctx.fillText(best.label || 'best', x + 8, y - 8);
+    }
+  }
+
+  function drawBars(canvas, groups, options) {
+    options = options || {};
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    const width = Math.max(1, rect.width);
+    const height = Math.max(1, rect.height);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, width, height);
+    ctx.font = '10px ' + MONO;
+    ctx.textBaseline = 'middle';
+    if (!groups || !groups.length) {
+      ctx.fillStyle = '#9ca3af';
+      ctx.textAlign = 'center';
+      ctx.fillText(options.empty || 'Waiting for data', width / 2, height / 2);
+      return;
+    }
+    const pad = { left: 66, right: 14, top: 12, bottom: 34 };
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const totals = groups.map((group) => group.parts.reduce((sum, part) => sum + Number(part.value || 0), 0));
+    const maxValue = Math.max(...totals, 1);
+    const yMax = maxValue * 1.12;
+    const Y = (value) => pad.top + (1 - Number(value) / yMax) * plotH;
+    ctx.strokeStyle = '#eef0f2';
+    ctx.fillStyle = '#6b7280';
+    ctx.textAlign = 'right';
+    for (let index = 0; index <= 4; index += 1) {
+      const fraction = index / 4;
+      const y = pad.top + plotH * fraction;
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(width - pad.right, y);
+      ctx.stroke();
+      ctx.fillText(options.yFormat ? options.yFormat(yMax * (1 - fraction)) : String(yMax * (1 - fraction)),
+        pad.left - 6, y);
+    }
+    ctx.strokeStyle = '#d1d5db';
+    ctx.strokeRect(pad.left, pad.top, plotW, plotH);
+    const slot = plotW / groups.length;
+    const barWidth = Math.min(48, slot * 0.5);
+    groups.forEach((group, index) => {
+      const center = pad.left + slot * index + slot / 2;
+      let bottom = pad.top + plotH;
+      group.parts.forEach((part) => {
+        const value = Number(part.value || 0);
+        if (!value) return;
+        const barHeight = (value / yMax) * plotH;
+        ctx.fillStyle = part.color;
+        ctx.fillRect(center - barWidth / 2, bottom - barHeight, barWidth, barHeight);
+        bottom -= barHeight;
+      });
+      ctx.fillStyle = '#111827';
+      ctx.textAlign = 'center';
+      ctx.fillText(options.valueFormat ? options.valueFormat(totals[index]) : String(totals[index]),
+        center, bottom - 9);
+      ctx.fillStyle = '#6b7280';
+      ctx.fillText(group.label, center, height - 21);
+    });
+    ctx.fillStyle = '#6b7280';
+    if (options.yLabel) {
+      ctx.save();
+      ctx.translate(11, pad.top + plotH / 2);
+      ctx.rotate(-Math.PI / 2);
+      ctx.textAlign = 'center';
+      ctx.fillText(options.yLabel, 0, 0);
+      ctx.restore();
+    }
+  }
+
+  function ratePoints(history) {
+    const rows = (history || []).filter((point) => isNum(point.step) && isNum(point.t));
+    const points = [];
+    const window = 10;
+    for (let index = window; index < rows.length; index += 1) {
+      let clean = true;
+      for (let cursor = index - window + 1; cursor <= index; cursor += 1) {
+        if (rows[cursor].t - rows[cursor - 1].t > 30) {
+          clean = false;
+          break;
+        }
+      }
+      if (!clean) continue;
+      const deltaSteps = Number(rows[index].step) - Number(rows[index - window].step);
+      const deltaTime = Number(rows[index].t) - Number(rows[index - window].t);
+      // A 5-point window smooths the 1-second timestamp quantization; skip windows
+      // that span validation or a checkpoint gap.
+      if (deltaSteps >= 10 && deltaTime > 0) {
+        points.push({ x: rows[index].step, y: deltaSteps / deltaTime });
+      }
+    }
+    return points;
+  }
+
+  function renderCharts(s) {
+    const plan = s.plan || {};
+    const progress = s.progress || {};
+    const history = s.train_history || [];
+    const epochs = s.epochs || [];
+    const best = s.best;
+    const vram = s.vram || {};
+    const now = isNum(vram.now) ? vram.now : Date.now() / 1000;
+
+    const lossPoints = history.filter((point) => isNum(point.loss))
+      .map((point) => ({ x: point.step, y: point.loss }));
+    drawChart($('lossChart'), [{ points: lossPoints, color: BLUE, annotateLast: true }], {
+      xFormat: (value) => fmtInt(value),
+      yFormat: (value) => fmt(value, 2),
+      yLabel: 'loss',
+      xLabel: 'step',
+      verticalLines: epochs.map((epoch) => ({ x: epoch.global_step })),
+      empty: 'Waiting for training steps',
+    });
+    setText('lossCap', lossPoints.length
+      ? 'latest ' + fmt(progress.loss, 4) +
+        (isNum(progress.loss_epoch_mean) ? ' · epoch mean ' + fmt(progress.loss_epoch_mean, 4) : '') +
+        ' · ' + lossPoints.length + ' points'
+      : 'Waiting for training steps');
+
+    const gradPoints = history.filter((point) => isNum(point.grad))
+      .map((point) => ({ x: point.step, y: point.grad }));
+    const grads = gradPoints.map((point) => point.y);
+    drawChart($('gradChart'), [{ points: gradPoints, color: ORANGE, annotateLast: true }], {
+      xFormat: (value) => fmtInt(value),
+      yFormat: (value) => state.gradLog ? fmtSci(value) : fmt(value, 2),
+      yLabel: state.gradLog ? 'grad (log)' : 'grad',
+      xLabel: 'step',
+      logY: state.gradLog,
+      thresholds: [{ value: 1, label: 'clip 1.0', color: RED }],
+      empty: 'Waiting for gradient_norm telemetry',
+    });
+    setText('gradCap', gradPoints.length
+      ? 'latest ' + fmt(progress.gradient_norm, 4) +
+        (grads.length ? ' · max ' + fmt(Math.max(...grads), 3) : '') +
+        (state.gradLog ? ' · log axis' : '')
+      : 'Waiting for gradient_norm telemetry');
+
+    const lrRank = history.filter((point) => isNum(point.lr_rank))
+      .map((point) => ({ x: point.step, y: point.lr_rank }));
+    const lrHead = history.filter((point) => isNum(point.lr_head))
+      .map((point) => ({ x: point.step, y: point.lr_head }));
+    drawChart($('lrChart'), [
+      { points: lrRank, color: BLUE },
+      { points: lrHead, color: ORANGE },
+    ], {
+      xFormat: (value) => fmtInt(value),
+      yFormat: (value) => fmtSci(value),
+      yLabel: 'learning rate',
+      xLabel: 'step',
+      verticalLines: [{ x: plan.warmup_updates }],
+      empty: 'Waiting for learning-rate telemetry',
+    });
+    const lrs = progress.learning_rates || [];
+    setText('lrCap', lrs.length
+      ? 'rank ' + fmtSci(lrs[0]) + ' · head ' + fmtSci(lrs[1])
+      : 'Waiting for learning-rate telemetry');
+
+    const rates = ratePoints(history);
+    const meanRate = rates.length
+      ? rates.reduce((sum, point) => sum + point.y, 0) / rates.length : null;
+    drawChart($('rateChart'), [{ points: rates, color: GREEN, annotateLast: true }], {
+      xFormat: (value) => fmtInt(value),
+      yFormat: (value) => fmt(value, 2),
+      yLabel: 'step/s',
+      xLabel: 'step',
+      thresholds: isNum(meanRate) ? [{ value: meanRate, label: 'mean', color: GRAY }] : [],
+      empty: 'Waiting for enough step events',
+    });
+    setText('rateCap', isNum(meanRate)
+      ? 'avg ' + fmt(meanRate, 2) + ' step/s · ' +
+        fmt(meanRate * (plan.effective_batch_size || 16), 1) +
+        ' samples/s · excl. inter-epoch validation'
+      : 'Waiting for enough step events');
+
+    const samples = (vram.samples || []).filter((sample) => isNum(sample.free) && isNum(sample.t));
+    const vramPoints = samples.map((sample) => ({ x: -(now - sample.t), y: sample.free }));
+    drawChart($('vramChart'), [{ points: vramPoints, color: GREEN, annotateLast: true }], {
+      xFormat: (value) => {
+        const seconds = Math.abs(value);
+        if (seconds < 1) return '0';
+        return seconds < 120 ? Math.round(seconds) + 's' : Math.round(seconds / 60) + 'm';
+      },
+      yFormat: (value) => (value / 1024).toFixed(1) + 'G',
+      yMin: 0,
+      yMax: isNum(vram.total_mib) ? vram.total_mib : undefined,
+      yLabel: 'free MiB',
+      xLabel: 'elapsed',
+      thresholds: [
+        { value: vram.warn_mib || 2560, label: '2,560', color: '#d97706' },
+        { value: vram.critical_mib || 1024, label: '1,024', color: RED },
+      ],
+      empty: vram.error ? 'nvidia-smi unavailable: ' + vram.error : 'Waiting for VRAM samples',
+    });
+    const current = vram.current || {};
+    setText('vramCap', isNum(current.free)
+      ? 'current ' + fmtGiB(current.free) + ' / ' + fmtGiB(vram.total_mib) +
+        ' · monitor min ' + fmtGiB(vram.min_free_mib)
+      : (vram.error ? 'nvidia-smi: ' + vram.error : 'Waiting for VRAM samples'));
+
+    const f1Points = epochs.filter((epoch) => isNum(epoch.macro_f1))
+      .map((epoch) => ({ x: epoch.epoch, y: epoch.macro_f1 }));
+    drawChart($('f1Chart'), [{ points: f1Points, color: BLUE, markers: true }], {
+      xFormat: (value) => 'E' + Math.round(value),
+      yFormat: (value) => fmt(value, 2),
+      yLabel: 'macro-F1',
+      xLabel: 'epoch',
+      xTicks: epochs.map((epoch) => epoch.epoch),
+      bestPoint: best ? { x: best.epoch, y: best.macro_f1, label: 'best E' + best.epoch } : null,
+      thresholds: best ? [{ value: best.macro_f1, color: '#fdba74' }] : [],
+      empty: 'Waiting for epoch 1 validation',
+    });
+    setText('f1Cap', epochs.length
+      ? 'best E' + ((best && best.epoch) ?? '—') + ' ' + fmt(best && best.macro_f1, 4) +
+        ' · threshold ' + fmt(best && best.threshold, 2)
+      : 'Waiting for epoch 1 validation');
+
+    const groups = epochs.map((epoch) => {
+      const total = Number(epoch.elapsed_seconds || 0);
+      const validation = Number(epoch.validation_seconds || 0);
+      return {
+        label: 'E' + epoch.epoch,
+        parts: [
+          { value: Math.max(0, total - validation), color: BLUE },
+          { value: Math.max(0, validation), color: ORANGE },
+        ],
+      };
+    });
+    drawBars($('epochTimeChart'), groups, {
+      yFormat: (value) => fmtDur(value),
+      valueFormat: (value) => fmtDur(value),
+      yLabel: 'seconds',
+      empty: 'Waiting for epoch 1 validation',
+    });
+    const elapsed = epochs.map((epoch) => Number(epoch.elapsed_seconds || 0)).filter(isNum);
+    const validations = epochs.map((epoch) => Number(epoch.validation_seconds || 0)).filter(isNum);
+    setText('epochTimeCap', elapsed.length
+      ? 'avg ' + fmtDur(elapsed.reduce((sum, value) => sum + value, 0) / elapsed.length) +
+        ' · validation ' + fmt(validations.length
+          ? validations.reduce((sum, value) => sum + value, 0) / validations.length : 0, 1) +
+        ' s/epoch'
+      : 'Waiting for epoch 1 validation');
+
+    const tokenPoints = history.filter((point) =>
+      isNum(point.valid_tokens) && isNum(point.padded_tokens) && Number(point.padded_tokens) > 0)
+      .map((point) => ({ x: point.step, y: Number(point.valid_tokens) / Number(point.padded_tokens) }));
+    drawChart($('tokensChart'), [{ points: tokenPoints, color: BLUE }], {
+      xFormat: (value) => fmtInt(value),
+      yFormat: (value) => (Number(value) * 100).toFixed(0) + '%',
+      yMin: 0,
+      yMax: 1,
+      yLabel: 'valid / padded',
+      xLabel: 'step',
+      empty: 'Waiting for token statistics',
+    });
+    const tokenMean = tokenPoints.length
+      ? tokenPoints.reduce((sum, point) => sum + point.y, 0) / tokenPoints.length : null;
+    setText('tokensCap', isNum(tokenMean)
+      ? 'avg ' + (tokenMean * 100).toFixed(1) + '% · ' + tokenPoints.length + ' updates'
+      : 'Waiting for token statistics');
+  }
+
+  // ---------------------------------------------------------------- tables
+  function tableBody(table, rows, colspan, emptyText) {
+    const body = table.querySelector('tbody');
+    body.replaceChildren();
+    if (!rows.length && emptyText) {
+      const row = document.createElement('tr');
+      const cell = document.createElement('td');
+      cell.colSpan = colspan;
+      cell.className = 'empty';
+      cell.textContent = emptyText;
+      row.appendChild(cell);
+      body.appendChild(row);
+      return;
+    }
+    rows.forEach((row) => body.appendChild(row));
+  }
+
+  function cell(text, className) {
+    return el('td', className || '', text);
+  }
+
+  function renderValidation(s) {
+    const metrics = s.metrics;
+    const epochs = s.epochs || [];
+    const best = s.best;
+    const strip = $('metricsStrip');
+    strip.replaceChildren(
+      fact('micro-F1', metrics ? fmt(metrics.micro_f1, 4) : '—', 'sklearn'),
+      fact('PR-AUC', metrics ? fmt(metrics.pr_auc, 4) : '—', 'macro'),
+      fact('Hamming', metrics ? fmt(metrics.hamming_loss, 4) : '—', 'loss'),
+      fact('Subset', metrics ? fmt(metrics.subset_accuracy, 4) : '—', 'accuracy'),
+      fact('Threshold', best ? fmt(best.threshold, 2) : '—', best ? 'E' + best.epoch : '—'),
+    );
+
+    const epochRows = epochs.map((epoch) => {
+      const row = document.createElement('tr');
+      if (best && epoch.epoch === best.epoch) row.className = 'best';
+      row.append(
+        cell('E' + epoch.epoch, 'num'),
+        cell(fmtInt(epoch.global_step), 'num'),
+        cell(fmt(epoch.train_loss, 4), 'num'),
+        cell(fmt(epoch.macro_f1, 4), 'num'),
+        cell(fmt(epoch.threshold, 2), 'num'),
+        cell(fmt(epoch.validation_seconds, 1), 'num'),
+        cell(fmtDur(epoch.elapsed_seconds), 'num'),
+      );
+      return row;
+    });
+    tableBody($('epochTable'), epochRows, 7, 'Waiting for epoch 1 validation');
+
+    const labels = s.label_order || [];
+    const labelRows = [];
+    if (metrics && Array.isArray(metrics.per_label_f1)) {
+      const indexes = metrics.per_label_f1.map((_, index) => index);
+      indexes.sort((a, b) => Number(metrics.per_label_f1[b]) - Number(metrics.per_label_f1[a]));
+      indexes.forEach((index) => {
+        const row = document.createElement('tr');
+        if (index === indexes[0]) row.className = 'best';
+        row.append(
+          cell(labels[index] || 'label ' + index),
+          cell(fmt(metrics.per_label_f1[index], 4), 'num'),
+          cell(fmt((metrics.per_label_precision || [])[index], 4), 'num'),
+          cell(fmt((metrics.per_label_recall || [])[index], 4), 'num'),
+          cell(fmtInt((metrics.per_label_support || [])[index]), 'num'),
+        );
+        labelRows.push(row);
+      });
+    }
+    tableBody($('labelTable'), labelRows, 5,
+      'The latest epoch checkpoint does not include per-label metrics.');
+    setText('valHead', metrics
+      ? 'latest epoch-end metrics · 28 labels · ' + (isNum(s.metrics_step)
+        ? 'step-' + String(Math.round(s.metrics_step)).padStart(8, '0') : '')
+      : 'Waiting for epoch-end metrics');
+  }
+
+  function eventMessage(event) {
+    const phase = event.phase;
+    if (phase === 'CHECKPOINT') return 'Checkpoint saved';
+    if (phase === 'RESUMED') return 'Resumed from checkpoint';
+    if (phase === 'COMPLETE') return 'Run complete';
+    if (phase === 'VRAM_WARNING') return 'VRAM below warning line';
+    if (phase === 'HALTED') return 'Worker halted';
+    if (phase === 'PASS') return 'Preflight passed';
+    if (phase === 'REFERENCE_READY') return 'Reference state saved';
+    if (phase === 'STRESS') return '16x64 stress update';
+    if (phase === 'TAIL_OK') return 'Real tail update';
+    if (phase === 'INPUTS_OK') return 'Inputs verified';
+    if (phase === 'LOAD_MODEL') return 'Loading model';
+    if (phase === 'VERIFY_INPUTS') return 'Verifying inputs';
+    if (phase === 'RESOURCES') return 'Memory guard active';
+    return event.message || '';
+  }
+
+  function eventDetail(event) {
+    const bits = [];
+    if (isNum(event.global_step)) bits.push('step ' + fmtInt(event.global_step));
+    if (isNum(event.loss)) bits.push('loss ' + fmt(event.loss, 4));
+    if (isNum(event.gradient_norm)) bits.push('grad ' + fmt(event.gradient_norm, 3));
+    if (Array.isArray(event.learning_rates)) {
+      bits.push('lr ' + event.learning_rates.map((value) => fmtSci(value)).join(' / '));
+    }
+    if (isNum(event.macro_f1)) bits.push('macro-F1 ' + fmt(event.macro_f1, 4));
+    if (isNum(event.threshold)) bits.push('thr ' + fmt(event.threshold, 2));
+    if (isNum(event.train_loss)) bits.push('train ' + fmt(event.train_loss, 4));
+    if (isNum(event.validation_seconds)) bits.push('val ' + fmt(event.validation_seconds, 1) + 's');
+    if (isNum(event.recent_free_mib)) bits.push('free ' + fmtGiB(event.recent_free_mib));
+    if (isNum(event.min_free_mib)) bits.push('min free ' + fmtGiB(event.min_free_mib));
+    if (isNum(event.reproduced_scores)) bits.push('scores ' + fmtInt(event.reproduced_scores));
+    if (isNum(event.optimizer_step)) bits.push('adam ' + event.optimizer_step);
+    if (event.best && isNum(event.best.macro_f1)) {
+      bits.push('best ' + fmt(event.best.macro_f1, 4) + ' @ E' + event.best.epoch);
+    }
+    if (isNum(event.epochs)) bits.push('epochs ' + event.epochs);
+    if (event.error) bits.push('error ' + event.error);
+    return bits.join(' · ');
+  }
+
+  function renderEvents(s) {
+    const source = Array.isArray(s.notable_events)
+      ? s.notable_events
+      : (s.events || []).filter((event) => !NOTABLE_HIDDEN.has(event.phase));
+    const events = source.slice().reverse();
+    const rows = events.map((event) => {
+      const row = document.createElement('tr');
+      row.append(
+        cell(clock(event.time), 'detail'),
+        el('td', '', ''),
+        cell(eventMessage(event), 'msg'),
+        cell(eventDetail(event), 'detail'),
+      );
+      const phase = document.createElement('span');
+      phase.className = 'phase phase-' + event.phase;
+      phase.textContent = event.phase;
+      row.children[1].appendChild(phase);
+      return row;
+    });
+    tableBody($('eventTable'), rows, 4, 'No notable events yet.');
+    setText('eventsHead', events.length + ' notable events · watchdog ' +
+      ((s.watchdog && s.watchdog.last_event) || '—'));
+
+    const watchdog = s.watchdog || {};
+    const health = s.health || {};
+    const strip = $('wdStrip');
+    strip.replaceChildren(
+      fact('Worker PID', watchdog.worker_pid ?? '—', ''),
+      fact('Auto retries', String(watchdog.retries ?? 0), ''),
+      fact('Phase', health.phase ?? '—', ''),
+      fact('Phase budget', isNum(health.budget) ? fmtDur(health.budget) : '—', ''),
+      fact('Kill in', isNum(health.remaining) ? fmtDur(Math.max(0, health.remaining)) : '—', ''),
+      fact('Last event', isNum(health.age) ? fmtDur(health.age) + ' ago' : '—', ''),
+    );
+
+    const wdRows = (watchdog.events || []).slice().reverse().map((event) => {
+      const detail = [
+        isNum(event.returncode) ? 'rc ' + event.returncode : '',
+        event.reason ? 'reason ' + event.reason : '',
+        isNum(event.free_mib) ? 'free ' + fmtGiB(event.free_mib) : '',
+        event.phase ? 'phase ' + event.phase : '',
+        event.mode ? 'mode ' + event.mode : '',
+        event.pid ? 'pid ' + event.pid : '',
+      ].filter(Boolean).join(' · ');
+      const row = document.createElement('tr');
+      row.append(
+        cell(clock(event.time), 'detail'),
+        cell(event.event || '', 'phase phase-' + String(event.event || '').split('_')[0]),
+        cell(detail, 'detail'),
+      );
+      return row;
+    });
+    tableBody($('wdTable'), wdRows, 3, 'Waiting for watchdog events.');
+  }
+
+  function renderFooter(s) {
+    const run = s.run || {};
+    const disk = s.disk || {};
+    setText('runDir', 'run: ' + (run.dir || '—'));
+    setText('footMeta', 'service ' + (window.location.host || '127.0.0.1') +
+      ' · disk ' + (isNum(disk.free_gib) ? Number(disk.free_gib).toFixed(0) + ' GiB' : '—') +
+      ' · ' + (s.generated_at || ''));
+  }
+
+  function render(s) {
+    state.snap = s;
+    renderHeader(s);
+    renderBanner(s);
+    renderFacts(s);
+    renderCharts(s);
+    renderValidation(s);
+    renderEvents(s);
+    renderFooter(s);
+  }
+
+  async function poll() {
+    if (state.paused) return;
+    try {
+      const response = await fetch('/api/snapshot', { cache: 'no-store' });
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const snapshot = await response.json();
+      if (snapshot.error) throw new Error(snapshot.error);
+      render(snapshot);
+    } catch (error) {
+      showOffline(error);
+    } finally {
+      clearTimeout(state.timer);
+      state.timer = setTimeout(poll, 2000);
+    }
+  }
+
+  $('pauseBtn').addEventListener('click', () => {
+    state.paused = !state.paused;
+    const button = $('pauseBtn');
+    button.textContent = state.paused ? 'Resume refresh' : 'Pause refresh';
+    button.setAttribute('aria-pressed', String(state.paused));
+    if (!state.paused) poll();
+  });
+
+  $('gradLogBtn').addEventListener('click', () => {
+    state.gradLog = !state.gradLog;
+    $('gradLogBtn').setAttribute('aria-pressed', String(state.gradLog));
+    if (state.snap) renderCharts(state.snap);
+  });
+
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (state.snap) renderCharts(state.snap);
+    }, 150);
+  });
+
+  poll();
+})();
+</script>
+</body>
+</html>

@@ -40,7 +40,7 @@
       "validation": "25fcb761bc71fcc85033da3c2b05899feaac80faf06425d283671636c543423d"
     },
     "source_sha256": {
-      "batch_b_s4_formal.py": "eb8ae85e42e7b27c5a9218454a103b26a9f7a25a95aa86828c2f8f6a38f6ed2f",
+      "batch_b_s4_formal.py": "690e417d1936b6a8686a0f8da6206a976ac5586f6b19f396e04ff16012f28e79",
       "batch_b_s4_formal_state.py": "a45fc4e7f0de473d5905ae05f7a7a8e4384de7f871cfe9d4fbec1d61ecb8702f",
       "batch_b_s4_formal_preflight.py": "18415021f678355386b00ca00df2da47bdbf081560e3035067727162178275d1",
       "batch_b_s4_formal_watchdog.py": "61d57d3eeb8d292d1d59d90371975db8656e3ac9843a6803b1ecab8e4471f524",
@@ -105,7 +105,7 @@
   },
   "files": {
     "adapter/README.md": "2208e95d1972f018b5bcaf5c24086b4c3294c09bfd0ba53e1633939b3f3d1b6c",
-    "adapter/adapter_config.json": "2396d6b139a933b0c0d135f2d174a7dd63d200e8e81f77bbb29582d505d72d84",
+    "adapter/adapter_config.json": "fe3d327dafd94b8b75cd80461487b46b14356b3b1fab2e06a2cce9c8474a6c78",
     "adapter/adapter_model.safetensors": "148a158c961bb8b480d84b4b22b2a25719a925f764280d56a116c7ae2d549673",
     "adapter/text_config.json": "b02f6a1d2dd37d22b84ed375376a46c41b092f91f1db15f62c60b95dc6306a8f",
     "metrics_validation.json": "c82657f76f97d755df85d2987dbc06fc266e2e8e1c8e0b3a4fb246786ba1f6a4",
