@@ -13,4 +13,4 @@
 
 独立验收证据在 `artifacts/batch-b-s2/input-audit.json`、`delivery-audit.json` 和 `acceptance-check.json`。训练状态、日志、逐样本分数、恢复与最优检查点在各 Run 目录。正式测试待独立冻结审计，S3 保持独立规划。
 
-[S2 研究报告](../../reports/batch-b-s2/report.md) · [逐标签结果](../../reports/batch-b-s2/label-metrics.json) · [拟冻结清单](../../reports/batch-b-s2/proposed-freeze.json) · [运行手册](../runbooks/batch-b-s2.md)
+[S2 研究报告](../../reports/batch-b-s2/report.md) · [逐标签结果](../../reports/batch-b-s2/label-metrics.json) · [拟冻结清单](../../reports/batch-b-s2/proposed-freeze.json) · [运行手册](../archive/runbooks/batch-b-s2.md)

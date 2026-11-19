@@ -1,9 +1,0 @@
-# 待议与研究局限
-
-| 工作 | 边界 |
-| --- | --- |
-| Batch A 收敛边界 | Vanilla RNN 在 36 轮仍改善。将此作为局限归档，Batch A 训练已收束。 |
-| Batch A 样本和选模局限 | 中文测试样本 369 条。英文低支持标签与全局阈值影响逐类解读，复验为小样本种子设计。 |
-| Batch B S2 | 三种子复验和 B1 预算对照已完成。见 [验收与拟冻结清单](finish-task/batch-b-s2.md)。 |
-| Batch B S3 / S4 | Qwen3.5-4B 的技术预研、三种子实验和正式测试已归档。下一阶段的研究问题、范围与验收方案待讨论。 [S4 评估](../reports/batch-b-s4/formal/final-test.md) |
-| Batch B Encoder 研究局限 | 配对区间刻画固定测试集的样本抽样波动，训练波动基于三个种子。中文测试为 369 条。见 [正式测试报告](../reports/batch-b-final/2605f6766085/report.md)。 |
