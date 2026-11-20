@@ -26,3 +26,5 @@ apps/web/dist/
 .DS_Store
 
 .commandcode
+/.scratch/
+/.worktree/

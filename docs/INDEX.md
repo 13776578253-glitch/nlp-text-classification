@@ -5,7 +5,6 @@
 | 文档 | 职责 |
 | --- | --- |
 | [实验数据盘点与交付索引](experiment-data-inventory.md) | 双数据集全部分布、62 个正式测试 Run 证据路径、前端与报告取数入口 |
-| [项目范围](PROJECT_SPEC.md) | 课程范围、研究问题和批次边界 |
 | [架构](ARCHITECTURE.md) | 目录、模块职责与执行依赖 |
 | [数据契约](contracts/DATASETS.md) | 来源、分区、标签和预处理边界 |
 | [实验矩阵](contracts/EXPERIMENT_MATRIX.md) | Batch A/B 范围、主结果位、消融复用和复验矩阵 |
@@ -21,6 +20,7 @@
 | Batch A 补充实验（S1 / S2） | [S1 验证报告](../reports/batch-a-s1/report.md) · [S2 收敛边界报告](../reports/batch-a-s2/report.md) |
 | Batch B Encoder（12 Run） | [S2 验收](finish-task/batch-b-s2.md) · [正式测试验收](finish-task/batch-b-final.md) · [测试报告](../reports/batch-b-final/2605f6766085/report.md) |
 | Batch B S3 / S4 Qwen（3 Run） | [S3 性能对照](../reports/batch-b-s3/performance/report.md) · [S4 性能报告](../reports/batch-b-s4/performance/report.md) · [S4 完成归档](finish-task/batch-b-s4.md) · [S4 正式测试报告](../reports/batch-b-s4/formal/final-test.md) |
+| 前端与推理应用 | [前端交接说明](finish-task/frontend-freeze.md) · [评测数据快照](../apps/web/src/data/dashboard-data.json) · [导出脚本](../scripts/export_web_data.py) |
 
 ## 历史过程归档（`archive/`）
 

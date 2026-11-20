@@ -349,7 +349,11 @@ def step_rate(train_rows: list[dict], window: int = 10) -> float | None:
     if first_step is None or last_step is None:
         return None
     delta_steps = float(last_step) - float(first_step)
-    delta_time = _event_time(rows[-1]) - _event_time(rows[0])
+    first_time = _event_time(rows[0])
+    last_time = _event_time(rows[-1])
+    if first_time is None or last_time is None:
+        return None
+    delta_time = last_time - first_time
     if delta_steps <= 0 or delta_time <= 0:
         return None
     return delta_steps / delta_time
@@ -406,7 +410,7 @@ def _status(rows: list[dict], watchdog: list[dict], now: float, run_dir: Path) -
         }
     last_wd = watchdog[-1] if watchdog else None
     last_wd_event = last_wd.get("event") if last_wd else None
-    if last_wd_event in {"STOPPING_WORKER", "WORKER_RELEASED"}:
+    if last_wd is not None and last_wd_event in {"STOPPING_WORKER", "WORKER_RELEASED"}:
         return {
             "status": "STOPPING",
             "phase": last_wd.get("phase"),

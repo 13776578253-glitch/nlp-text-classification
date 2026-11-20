@@ -28,11 +28,11 @@
 
 ## Batch A Supplement S1
 
-GoEmotions 六个神经配置使用原入选参数，在统一 24 轮上限与 patience 6 下比较验证表现。Seed 42 对照先复核原 12 轮轨迹和检查点，按固定规则触发 seed 123、2026 复验。见 [协议、结果与复现](../runbooks/batch-a-s1.md)。
+GoEmotions 六个神经配置使用原入选参数，在统一 24 轮上限与 patience 6 下比较验证表现。Seed 42 对照先复核原 12 轮轨迹和检查点，按固定规则触发 seed 123、2026 复验。见 [协议、结果与复现](../archive/runbooks/batch-a-s1.md)。
 
 ## Batch A Supplement S2
 
-从 S1 三种子验证轨迹筛选仍在上升的模型，按 36 轮上限和 patience 6 从完整训练状态续训。S2 用于检查入选模型的收敛边界，模型的统一预算比较见 S1。见 [筛选、续训与复现](../runbooks/batch-a-s2.md)。
+从 S1 三种子验证轨迹筛选仍在上升的模型，按 36 轮上限和 patience 6 从完整训练状态续训。S2 用于检查入选模型的收敛边界，模型的统一预算比较见 S1。见 [筛选、续训与复现](../archive/runbooks/batch-a-s2.md)。
 
 ## Batch B
 
@@ -45,4 +45,4 @@ E4 对应 Batch B。S1 执行四个 Encoder 的完整微调，S2 根据 S1 的�
 | B3 | ModernBERT-large | GoEmotions |
 | B4 | Chinese MacBERT-base | 中文电影评论 |
 
-[Batch B 总览](../plans/batch-b/overview.md) · [S1 实验契约](../plans/batch-b/s1-encoders.md)
+[Batch B 总览](../archive/plans/batch-b/overview.md) · [S1 实验契约](../archive/plans/batch-b/s1-encoders.md)

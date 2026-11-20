@@ -1,49 +1,46 @@
-# EmotionLab 架构
+# EmotionLab 系统架构
 
-## 当前文件树
+## 目录结构
 
 ```text
 apps/
-  api/                         # 现有 GoEmotions E1 本地推理服务
-  web/                         # 原有构建配置，前端源码为空
+  api/                         # FastAPI 在线推理服务（统一加载 Batch A / Encoder 并转发 Qwen Worker）
+  monitor/                     # S4 Qwen 只读训练监控页面
+  web/                         # EmotionLab 三章交互式展示与推理前端（React + TypeScript + Vite）
 configs/
-  datasets/                    # 两种任务各一份数据定义
-  experiment_suites/batch_a.yaml
-  batch_b/                     # B1–B4 配置、资源及 Tokenization 锁
+  datasets/                    # 双数据集定义（goemotions / movie_reviews_zh）
+  experiment_suites/           # Batch A 实验矩阵
+  batch_b/                     # B1–B4 配置、资源及 Tokenization 规范
 data/
-  raw/movie_reviews_zh/        # 本地导入的原始中文数据
-  processed/movie_reviews_zh/  # 本地聚合审计 JSON
+  raw/                         # 本地原始数据与中文 wiki_word2vec_50.bin（.gitignore 屏蔽）
+  processed/                   # 本地清洗后标准分区、训练清单与源审计 JSON（.gitignore 屏蔽）
 docs/
-  contracts/
-  current-task/
-  plans/
+  contracts/                   # 数据、实验、评估与产物契约
+  finish-task/                 # Batch A/B 实验总结与前端交接说明
+  archive/                     # 阶段执行计划与运行手册
+reports/                       # 各阶段正式指标 JSON、Markdown/LaTeX 报告与图表
+scripts/                       # 前端数据导出 export_web_data.py、全量校验与 WSL2 Qwen 脚本
 src/nlp_text_classification/
-  cli.py
-  data/
-    contracts.py               # 统一样本字段
-    audit.py                   # 哈希、数量、类别与重复审计
-    download.py                # GoEmotions 来源获取
-    loaders/                   # 各自解析固定分区
-      goemotions.py
-      movie_reviews_zh.py
-  evaluation/multilabel.py
-  experiments/e1_svm.py
-  training/run.py
+  cli.py                       # 统一 CLI 入口
+  data/                        # 分区加载、源审计与 Transformer 输入构造
+  models/                      # TextCNN、RNN/LSTM/BiLSTM 模型定义
+  training/                    # 通用训练器与 Transformer 训练器
+  experiments/                 # Batch A/B 队列调度、S1–S4 与评估编排
+  evaluation/                  # 多标签指标、Bootstrap 显著性检验与前端数据导出
+  inference/                   # 模型注册表 registry、多架构适配器 adapters 与 Qwen Worker
 tests/
-  unit/
-  integration/
-artifacts/                     # 本地输出
+  unit/                        # 22 项单元测试（数据、训练、导出、推理、监控）
+  integration/                 # 2 项集成测试（断点恢复、E1 冒烟）
+artifacts/                     # 本地模型权重、预测结果与实验记录（.gitignore 屏蔽）
 ```
 
-Python 包和 CLI 继续使用 `nlp_text_classification` 和 `nlp-text-classification`。原 `data.goemotions` 导入路径转发到新 loader。源数据默认用 `data/raw/<dataset_id>/`，历史 GoEmotions 路径可通过 `--data-dir` 指定。API 用 `NLP_TEXT_CLASSIFICATION_DATA` 指定数据路径，当前仍用现有 E1 Run 格式推理。
+Python 包与 CLI 使用 `nlp_text_classification` 与 `nlp-text-classification`。源数据默认读取 `data/raw/<dataset_id>/`，自定义路径可通过 `--data-dir` 或环境变量 `NLP_TEXT_CLASSIFICATION_DATA` 指定。
 
-## 执行依赖
+## 核心链路
 
-- **Stage 0** 的数据审计独立运行。loader 解析固定分区。audit 读取三分区，输出聚合统计、来源文件哈希和清洗前证据。
-- **Stage 1–3** 的配置解析器将 suite 展开成 14 个基础配置。任务适配器将训练与验证转成单 logit 二分类或 28 logit 多标签目标，提供 train-only 的词表及特征。模型模块只接受张量并返回分数。训练器统一管理训练、验证、最优 checkpoint、配置快照和 Run 生命周期。批次队列用相同入口执行基础训练、Optuna Trial、受控补跑及复验。
-- **Stage 4** 的独立审计和冻结校验器检查 14 个主 Run、入选复验和产物指纹。最终评估器单独获得 test 路径，以冻结模型和阈值计算正式结果，禁止覆盖成功输出。
-- **Stage 5** 的汇总器从冻结清单及正式指标生成验收文件与课程报告。汇总器读取现有产物，推理服务只加载可信本地模型。前端在正式测试结束后另行开展。
+1. **数据准备与审计**：`data/loaders/` 解析双数据集标准分区，`data/audit.py` 输出聚合统计、来源文件哈希、排除样本与清洗清单。
+2. **模型训练与调优**：`experiments/` 将实验矩阵展开为执行队列。Batch A 覆盖 E1–E5 并完成 HPO 与多种子复验；Batch B S1/S2 完成 B1–B4 四组预训练 Encoder 微调；Batch B S3/S4 在 WSL2 QLoRA 环境下完成 Qwen3.5-4B 三种子训练。
+3. **统一评测与统计检验**：基于验证集 `Macro-F1` 选定最优配置与阈值后，在独立测试集上一次性计算最终指标、逐类 F1 与逐样本预测，输出至 `reports/`，并由 `evaluation/dashboard_comparisons.py` 执行 100,000 次分层配对 Bootstrap 检验。
+4. **前端展示与在线推理**：`scripts/export_web_data.py` 将各阶段结果聚合成 `apps/web/src/data/dashboard-data.json`；`apps/api/main.py` 通过 `inference/registry.py` 与 `adapters.py` 提供本地多模型实时推理，并将 Qwen 推理请求转发至 WSL2 Worker（`inference/qwen_worker.py`）。
 
-Batch B S1 复用冻结训练分区加载、Run 记录、全局阈值搜索和指标复算。Transformer 输入和训练位于 `data/transformer_inputs.py`、`training/transformer_runner.py`，入口为 `batch-b-s1`。资源与 Tokenization 锁通过后进入 CUDA 冒烟，正式队列按基础和候选顺序串行。 [Batch B S1 运行与验收](runbooks/batch-b-s1.md)
-
-[数据契约](contracts/DATASETS.md) · [评估契约](contracts/EVALUATION.md) · [产物契约](contracts/ARTIFACTS.md)
+[文档索引](INDEX.md) · [实验数据盘点](experiment-data-inventory.md) · [前端与推理交接](finish-task/frontend-freeze.md)
