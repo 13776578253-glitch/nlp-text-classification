@@ -7,10 +7,10 @@
 
 <p align="center">
   <a href="#-项目简介">项目简介</a> ·
+  <a href="#-能力与训练分析">能力与训练</a> ·
   <a href="#-快速开始">快速开始</a> ·
   <a href="#-系统架构">系统架构</a> ·
   <a href="#-实验体系与结果">实验体系与结果</a> ·
-  <a href="#-测试与构建">测试与构建</a> ·
   <a href="#-文档导航">文档导航</a>
 </p>
 
@@ -34,6 +34,48 @@ EmotionLab 围绕**英文细粒度多标签情绪识别**与**中文情感二分
 1. **多模型实时推理**：通过统一后端接口调用传统 SVM、TextCNN、RNN/LSTM/BiLSTM、BERT 系列 Encoder 与 Qwen3.5-4B-Base QLoRA 进行单条文本在线预测与多模型对比。
 2. **能力与统计分析**：展示推理延迟与训练时长的 Pareto 散点图、多维排序排行表、GoEmotions 28 类长尾 F1 分布，以及基于 100,000 次分层配对 Bootstrap（Bonferroni 校正）的架构演进与消融显著性检验。
 3. **训练过程可视化**：呈现双数据集划分与类别分布，以及 51 组模型与随机种子组合的训练/验证收敛轨迹。
+
+## 能力与训练分析
+
+### 模型能力与效率权衡（`/capacity`）
+
+在 Batch Size = 32 的单样本推理延迟（对数坐标）与 Test Macro-F1 二维平面上，两项任务呈现出清晰的架构代际演进与 Pareto 前沿：
+
+- **英文 GoEmotions（11 个模型）**：Pareto 前沿由 `SVM` → `DistilBERT` → `ModernBERT-base` → `ModernBERT-large` 构成，在亚毫秒级延迟（`< 1 ms/sample`）内稳步推高 Test Macro-F1；`Qwen3.5-4B` QLoRA 取得了与 `ModernBERT-large` 相近的高精度，但推理延迟来到 `10–20 ms/sample` 量级；浅层神经模型中 `TextCNN` 与 `BiLSTM` 居中，`Vanilla RNN` 与 `TextCNN-Frozen` 受限于序列建模与固定词向量而明显落后。
+- **中文电影评论（8 个模型）**：Pareto 前沿由 `SVM` → `TextCNN-Tune` → `Chinese MacBERT-base` 构成。`Chinese MacBERT-base` 将 Test Macro-F1 推升至 `0.90+`，大幅领先传统与浅层模型；`TextCNN-Tune` 在微调词向量后优于随机初始化 `TextCNN` 与冻结词向量 `TextCNN-Frozen`。
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/capacity-goemotions-dark.png">
+    <img alt="GoEmotions Inference Latency vs. Test Macro-F1" src="docs/assets/capacity-goemotions-light.png" width="100%">
+  </picture>
+</p>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/capacity-zh-dark.png">
+    <img alt="Chinese Reviews Inference Latency vs. Test Macro-F1" src="docs/assets/capacity-zh-light.png" width="100%">
+  </picture>
+</p>
+
+### 训练收敛与消融对比（`/train`）
+
+前端训练视图按损失函数分组对齐展示各模型逐 Epoch 的 `Validation Macro-F1` 与 `Training Loss`，并标注最佳早停点（空心圆点）：
+
+- **英文预训练模型对比（`BCEWithLogitsLoss`）**：`Qwen3.5-4B` 与 `ModernBERT-base` 均在第 2 个 Epoch 即到达验证峰值（`Qwen3.5-4B` 达 ~`0.54`），此后训练 Loss 继续下降而验证分数回落，体现出大模型微调快速过拟合的特征；`DistilBERT` 收敛更为平缓，在第 5 个 Epoch 达到最优。
+- **中文词向量消融（`CNN` / `CNN-Tune` / `CNN-Frozen`）**：微调预训练词向量（`CNN-Tune`）在第 4 个 Epoch 即取得最高验证 `Macro-F1`（`> 0.83`）与最低训练 Loss；随机初始化 `CNN` 需至第 7 个 Epoch 才追平相近水平；冻结词向量 `CNN-Frozen` 则在第 3 个 Epoch 提前收敛且上限受限。
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/train-goemotions-dark.png">
+    <img alt="GoEmotions Training Curves Comparison" src="docs/assets/train-goemotions-light.png" width="100%">
+  </picture>
+</p>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/train-zh-dark.png">
+    <img alt="Chinese Reviews CNN Ablation Training Curves" src="docs/assets/train-zh-light.png" width="100%">
+  </picture>
+</p>
 
 ## 快速开始
 
