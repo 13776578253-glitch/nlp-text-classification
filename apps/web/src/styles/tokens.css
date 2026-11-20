@@ -1,0 +1,213 @@
+:root {
+  color-scheme: light dark;
+
+  &:has(> head > meta[name="color-scheme"][content="dark"]) {
+    color-scheme: dark;
+  }
+  &:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+  }
+
+  /* Surfaces (Light = Artificial Analysis Crisp Pure White, Dark = OpenAI Editorial Black) */
+  --bg: light-dark(#ffffff, #000000);
+  --surface: light-dark(#ffffff, #0a0a0c);
+  --surface-subtle: light-dark(#f4f6fa, #14161c);
+  --surface-hover: light-dark(#eaeff8, #1d2029);
+  --surface-elevated: light-dark(#ffffff, #14161c);
+  --composer-surface: light-dark(#ffffff, #111318);
+  --dock-bg: light-dark(rgba(255, 255, 255, 0.86), rgba(16, 18, 24, 0.84));
+  --pill-active-bg: light-dark(#ffffff, #272932);
+
+  /* Ambient light */
+  --aura-core: light-dark(rgba(132, 177, 227, 0.115), rgba(73, 126, 180, 0.13));
+  --aura-mid: light-dark(rgba(165, 199, 234, 0.05), rgba(73, 126, 180, 0.045));
+  --aura-edge: light-dark(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0));
+
+  /* Hairlines & Soft Shadow Colors */
+  --line: light-dark(#e5e7eb, rgba(255, 255, 255, 0.11));
+  --line-strong: light-dark(#cbd5e1, rgba(255, 255, 255, 0.22));
+  --composer-ring: light-dark(rgba(15, 23, 42, 0.08), rgba(255, 255, 255, 0.12));
+  --composer-ring-focus: light-dark(rgba(94, 141, 193, 0.44), rgba(150, 191, 239, 0.42));
+  --composer-drop: light-dark(rgba(15, 23, 42, 0.07), rgba(0, 0, 0, 0.72));
+  --composer-glow: light-dark(rgba(103, 151, 203, 0.09), rgba(73, 126, 180, 0.10));
+  --composer-glow-focus: light-dark(rgba(103, 151, 203, 0.14), rgba(73, 126, 180, 0.16));
+  --shadow-card: light-dark(0 1px 2px rgba(17, 24, 39, 0.04), none);
+  --shadow-popover: 0 12px 32px light-dark(rgba(17, 24, 39, 0.11), rgba(0, 0, 0, 0.55));
+  --shadow-pill: light-dark(0 1px 2px rgba(17, 24, 39, 0.08), 0 1px 3px rgba(0, 0, 0, 0.5));
+
+  /* Typography */
+  --text: light-dark(#111827, #f4f4f5);
+  --muted: light-dark(#64748b, #a1a1aa);
+  --faint: light-dark(#94a3b8, #71717a);
+
+  /* Soft blue accents and semantic states */
+  --accent: light-dark(#315b85, #b5d4f7);
+  --accent-cta: light-dark(#dbeafa, #283f59);
+  --accent-cta-hover: light-dark(#c9dff5, #324f6d);
+  --accent-soft: light-dark(#eaf3fd, #1b2b40);
+  --accent-border: light-dark(#c6dbf2, #3c5674);
+  --pos: light-dark(#15803d, #4ade80);
+  --pos-soft: light-dark(#ecfdf3, rgba(74, 222, 128, 0.14));
+  --neg: light-dark(#b91c1c, #f87171);
+  --neg-soft: light-dark(#fef2f2, rgba(248, 113, 113, 0.14));
+  --warn: light-dark(#b45309, #fbbf24);
+  --warn-soft: light-dark(#fef7e6, rgba(251, 191, 36, 0.14));
+
+  /* Pareto & T3 Score Bars & Charts */
+  --pareto-good-bg: light-dark(rgba(34, 197, 94, 0.08), rgba(74, 222, 128, 0.09));
+  --pareto-muted-bg: light-dark(#f9fafb, rgba(255, 255, 255, 0.025));
+  --pareto-frontier: light-dark(#374151, #d4d4d8);
+  --bar-active: light-dark(#86add7, #759fc9);
+  --bar-muted: light-dark(#d1d5db, #303038);
+  --bar-track-bg: light-dark(#eef1f5, #24272e);
+  --chart-grid: light-dark(#f1f5f9, rgba(255, 255, 255, 0.08));
+  --chart-row: light-dark(#f8fafc, rgba(255, 255, 255, 0.035));
+  --chart-border: light-dark(#e5e7eb, rgba(255, 255, 255, 0.16));
+  --chart-zero: light-dark(#6b7280, #a1a1aa);
+  --rare-band: light-dark(#fffbeb, rgba(251, 191, 36, 0.08));
+  --rare-text: light-dark(#b45309, #fbbf24);
+
+  /* Research Series Palette */
+  --series-b3: light-dark(#1d4ed8, #60a5fa);
+  --series-qwen: light-dark(#d97706, #fbbf24);
+  --series-b2: light-dark(#0f766e, #2dd4bf);
+  --series-b1: light-dark(#15803d, #4ade80);
+  --series-e1: light-dark(#4b5563, #a1a1aa);
+  --series-e2: light-dark(#a16207, #f59e0b);
+  --series-e5: light-dark(#7c3aed, #a78bfa);
+  --series-e3: light-dark(#0284c7, #38bdf8);
+  --series-e5f: light-dark(#be123c, #fb7185);
+  --series-e3r: light-dark(#6b7280, #71717a);
+  --series-e3l: light-dark(#64748b, #94a3b8);
+
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei",
+    "Hiragino Sans GB", sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+
+  --radius-card: 16px;
+  --radius-pill: 999px;
+}
+
+@supports not (color: light-dark(#fff, #000)) {
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-subtle: #f4f6fa;
+    --surface-hover: #eaeff8;
+    --surface-elevated: #ffffff;
+    --composer-surface: #ffffff;
+    --dock-bg: rgba(255, 255, 255, 0.86);
+    --pill-active-bg: #ffffff;
+    --aura-core: rgba(132, 177, 227, 0.115);
+    --aura-mid: rgba(165, 199, 234, 0.05);
+    --aura-edge: rgba(255, 255, 255, 0);
+    --line: #e5e7eb;
+    --line-strong: #cbd5e1;
+    --composer-ring: rgba(15, 23, 42, 0.08);
+    --composer-ring-focus: rgba(94, 141, 193, 0.44);
+    --composer-drop: rgba(15, 23, 42, 0.07);
+    --composer-glow: rgba(103, 151, 203, 0.09);
+    --composer-glow-focus: rgba(103, 151, 203, 0.14);
+    --shadow-card: 0 1px 2px rgba(17, 24, 39, 0.04);
+    --shadow-popover: 0 14px 36px rgba(17, 24, 39, 0.11);
+    --shadow-pill: 0 1px 2px rgba(17, 24, 39, 0.08);
+    --text: #111827;
+    --muted: #64748b;
+    --faint: #94a3b8;
+    --accent: #315b85;
+    --accent-cta: #dbeafa;
+    --accent-cta-hover: #c9dff5;
+    --accent-soft: #eaf3fd;
+    --accent-border: #c6dbf2;
+    --pos: #15803d;
+    --pos-soft: #ecfdf3;
+    --neg: #b91c1c;
+    --neg-soft: #fef2f2;
+    --warn: #b45309;
+    --warn-soft: #fef7e6;
+    --pareto-good-bg: rgba(34, 197, 94, 0.08);
+    --pareto-muted-bg: #f9fafb;
+    --pareto-frontier: #374151;
+    --bar-active: #86add7;
+    --bar-muted: #d1d5db;
+    --bar-track-bg: #eef1f5;
+    --chart-grid: #f1f5f9;
+    --chart-row: #f8fafc;
+    --chart-border: #e5e7eb;
+    --chart-zero: #6b7280;
+    --rare-band: #fffbeb;
+    --rare-text: #b45309;
+    --series-b3: #1d4ed8;
+    --series-qwen: #d97706;
+    --series-b2: #0f766e;
+    --series-b1: #15803d;
+    --series-e1: #4b5563;
+    --series-e2: #a16207;
+    --series-e5: #7c3aed;
+    --series-e3: #0284c7;
+    --series-e5f: #be123c;
+    --series-e3r: #6b7280;
+    --series-e3l: #64748b;
+  }
+
+  :root:has(> head > meta[name="color-scheme"][content="dark"]) {
+    --bg: #000000;
+    --surface: #0a0a0c;
+    --surface-subtle: #14161c;
+    --surface-hover: #1d2029;
+    --surface-elevated: #14161c;
+    --composer-surface: #111318;
+    --dock-bg: rgba(16, 18, 24, 0.84);
+    --pill-active-bg: #272932;
+    --aura-core: rgba(73, 126, 180, 0.13);
+    --aura-mid: rgba(73, 126, 180, 0.045);
+    --aura-edge: rgba(0, 0, 0, 0);
+    --line: rgba(255, 255, 255, 0.11);
+    --line-strong: rgba(255, 255, 255, 0.22);
+    --composer-ring: rgba(255, 255, 255, 0.12);
+    --composer-ring-focus: rgba(150, 191, 239, 0.42);
+    --composer-drop: rgba(0, 0, 0, 0.72);
+    --composer-glow: rgba(73, 126, 180, 0.10);
+    --composer-glow-focus: rgba(73, 126, 180, 0.16);
+    --shadow-card: none;
+    --shadow-popover: 0 18px 48px rgba(0, 0, 0, 0.74);
+    --shadow-pill: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --text: #f4f4f5;
+    --muted: #a1a1aa;
+    --faint: #71717a;
+    --accent: #b5d4f7;
+    --accent-cta: #283f59;
+    --accent-cta-hover: #324f6d;
+    --accent-soft: #1b2b40;
+    --accent-border: #3c5674;
+    --pos: #4ade80;
+    --pos-soft: rgba(74, 222, 128, 0.14);
+    --neg: #f87171;
+    --neg-soft: rgba(248, 113, 113, 0.14);
+    --warn: #fbbf24;
+    --warn-soft: rgba(251, 191, 36, 0.14);
+    --pareto-good-bg: rgba(74, 222, 128, 0.09);
+    --pareto-muted-bg: rgba(255, 255, 255, 0.025);
+    --pareto-frontier: #d4d4d8;
+    --bar-active: #759fc9;
+    --bar-muted: #303038;
+    --bar-track-bg: #24272e;
+    --chart-grid: rgba(255, 255, 255, 0.08);
+    --chart-row: rgba(255, 255, 255, 0.035);
+    --chart-border: rgba(255, 255, 255, 0.16);
+    --chart-zero: #a1a1aa;
+    --rare-band: rgba(251, 191, 36, 0.08);
+    --rare-text: #fbbf24;
+    --series-b3: #60a5fa;
+    --series-qwen: #fbbf24;
+    --series-b2: #2dd4bf;
+    --series-b1: #4ade80;
+    --series-e1: #a1a1aa;
+    --series-e2: #f59e0b;
+    --series-e5: #a78bfa;
+    --series-e3: #38bdf8;
+    --series-e5f: #fb7185;
+    --series-e3r: #71717a;
+    --series-e3l: #94a3b8;
+  }
+}

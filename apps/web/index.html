@@ -3,8 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f6f7f5" />
-    <title>nlp-text-classification</title>
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      try {
+        var savedTheme = localStorage.getItem('emotionlab-theme');
+        if (savedTheme === 'dark' || savedTheme === 'light') {
+          document.querySelector('meta[name="color-scheme"]').content = savedTheme;
+          document.querySelector('meta[name="theme-color"]').content =
+            savedTheme === 'dark' ? '#000000' : '#ffffff';
+        }
+      } catch (e) {}
+    </script>
+    <title>EmotionLab · 多代文本分类实时对比与评测</title>
   </head>
-  <body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
